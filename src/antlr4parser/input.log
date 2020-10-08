@@ -1,0 +1,33 @@
+﻿For_[evacuation corridor/aRprop]_[Emergency lighting/obj]_'s _[minimum illumination at floor level/prop]_, _[shall not be less than/cmp]_[5.0 lx/Rprop]
+
+For_[roof/obj]_[insulation material/prop]_[using/cmp]_[B1 or B2 level/aRprop]_, the _[protection layer/prop]_[shall use/cmp]_[noncombustible material/Rprop]_, and the _[protection layer/prop]_[thickness/prop]_[shall not be less than/cmp]_[10mm/Rprop]
+
+[采用/cmp]_[B1、B2级/aRprop]_[保温材料/prop]_的_[屋面/obj]_保温，_[应采用/cmp]_[不燃材料/Rprop]_作_[保护层/prop]_，_[保护层/prop]_的_[厚度/prop]_[不应小于/cmp]_[10mm/Rprop]
+For_[roof/obj]_[using/cmp]_[B1 or B2 level/aRprop]_[insulation material/prop]_, the _[protection layer/prop]_[shall use/cmp]_[non-combustible material/Rprop]_, and the _[thickness/prop]_ of the _[protection layer/prop]_[shall not be less than/cmp]_[10mm/Rprop]
+
+[贯穿孔口/obj]_的_[防火封堵/prop]_应符合下列规定：1当贯穿孔口 _[直径/prop]_[不大于/cmp]_[150mm/aRprop]_时，应采用_[无机堵料|有机堵料|防火密封胶|防火泡沫|防火塞/Rprop]
+[error/prop]_a_[LE/cmp]_[8mm/Rprop]
+
+send#prop air#aRprop firable#aRprop PIPE#obj GUANCHUAN#prop QIANGTI#aRprop fengdu#prop D#prop LE#cmp 32mm#aRprop jianxi#prop LE#cmp 25mm#aRprop duliao#Rprop
+
+fengdu#prop D#prop LE#cmp 32mm#aRprop jianxi#prop LE#cmp 25mm#aRprop duliao#Rprop
+
+kongkou#obj fengdu#prop D#prop LE#cmp 150mm#aRprop duliao#Rprop
+
+p#prop >#cmp r#Rprop a#prop =#cmp 2#Rprop loc#cmp dir#Rprop
+
+house#sobj floor#obj empty_floor#aRprop floor#obj >=#cmp B1#Rprop material#prop
+
+wall#obj thick#prop >=#cmp 100mm#Rprop non-fire#Rprop height#prop >=#cmp 250mm#Rprop
+防火隔断墙#obj 厚度#prop 不小于#cmp 100mm#Rprop 不燃烧体#Rprop 高#prop 不小于#cmp 250mm#Rprop
+
+p1#prop p2#prop p3#prop =#cmp r3#Rprop r2#Rprop p2.1#prop =#cmp r2.1#Rprop            p1.1#prop r1.1#Rprop
+p1#prop p2#prop p3#prop =#cmp r3#Rprop r2#Rprop p2.1#prop =#cmp r2.1#Rprop r1#aRprop p1.1#prop r1.1#Rprop
+
+width#prop >=#cmp 4m#Rprop height#prop >=#cmp 4.5m#Rprop R#prop car#Robj R'#Rprop
+厚度#prop 不小于#cmp 100mm#Rprop 不燃烧体#Rprop 高#prop 不小于#cmp 250mm#Rprop
+
+消防车道#obj 路面宽度#prop 不应小于#cmp 4m#Rprop 净空高度#prop 不应小于#cmp 4.5m#Rprop 转弯半径#prop 消防车#Robj 转弯半径#Rprop
+
+=====
+ambiguity: p p r r r: (p (p r) r) r OR (p (p r r) r)
