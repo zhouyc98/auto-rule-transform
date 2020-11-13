@@ -1,11 +1,13 @@
 -Evaluation Tags
-##correct 	RCTree correct. 
-##wrong 	RCTree is wrong while label is correct.
-##relabel 	label is wrong, need split, etc.
+##correct 	RCTree is correct. 
+##wrong 	RCTree is wrong while the label is correct.
+##relabel 	label is wrong.
 
 -Notes
 Seq means sequence, i.e., sentence
 Label format: _[word/tag]_
+Each result is separated by 90*'-'
+The #xxxxxxx in the first line of each result is the id of the sentence
 Type is the default prop
 Simple sentence pattern: #\].*\n.*\|-.*\nGen
 
