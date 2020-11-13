@@ -1,28 +1,28 @@
 -Evaluation Tags
-##correct: 	RCTree correct. 
-##wrong: 	RCTree is wrong while label is correct.
-##relabel: 	label is wrong, need split, etc.
+##correct 	RCTree correct. 
+##wrong 	RCTree is wrong while label is correct.
+##relabel 	label is wrong, need split, etc.
 
 -Notes
 Seq means sequence, i.e., sentence
+Label format: _[word/tag]_
 Type is the default prop
-Simple sentence: #\].*\n.*\|-.*\nGen.*\n###?[^c]
+Simple sentence pattern: #\].*\n.*\|-.*\nGen
+
+-RCTree Syntax
+the '->' in the first line goes from sobj to obj 
+the number of '-' after '|' indicates the hierarchy level of properties
+the '?' after '-' means this line represents applicability
+all 'cmp' elements are simplified to symbols. 
+[#]		RCTree root node
+[xxx]	RCTree element
+|-?		Prop & Applicability
+|-		Prop & Requirement
 
 -Stats
-All=614, Correct=575(0.9365), Wrong=39(0.0635)
-
-		complex
-rate	0.6336
-c1  	0.9023*
-c1-non	0.9956*
-complex=389, simple=225
-
-Tag-all
-   sobj  obj  prop  cmp  Rprop  aRprop  Robj  aRobj  TOTAL
-0   209  847  1091  916    866     281   139     11   4360
-Tag-complex
-   sobj  obj  prop  cmp  Rprop  aRprop  Robj  aRobj  TOTAL
-0   109  518   859  691    640     281    75     11   3184
+All	 	614, correct=575(0.9365), Wrong=39(0.0635)
+Complex	389, correct=0.902
+Simple	225, correct=0.996
 
 ------------------------------------------------------------------------------------------
 [1]#6f6b5f0
