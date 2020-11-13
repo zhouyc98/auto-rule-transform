@@ -312,18 +312,19 @@ def report_model(history_path=None, val_history=None, log_all_preds=False):
     """if given val_history, all other params are ignored"""
     log('\n=== Report ===')
     if val_history is None:
-        global epoch, show_progressbar
+        global epoch, show_progressbar, model_fullname
         epoch = -1  # means newly loaded model
         load_last_best(model)
         val_history = evaluate()
+        model_fullname = 'BertZh*'
 
     val_loss = val_history.avg_loss()
     val_p, val_r, val_f1 = val_history.avg_prf1_weight()
-    log("Valid report (binary-classification): loss={:.3f}, f1={:.3f}, precision={:.3f}, recall={:.3f}"
-        .format(val_loss, val_f1, val_p, val_r))
+    report_table = val_history.avg_prf1_all(output_dict=False, label_tags=corpus.tags)
 
-    log("\nValid report (multi-classification): ")
-    log(val_history.avg_prf1_all(output_dict=False, label_tags=corpus.tags))
+    log(f'[{model_fullname} -f1w {val_f1:.3f} -ep {epoch:02d}]')
+    log(f"\nValid report:\n{report_table}")
+    # log(f"\nValid report (binary-classification): loss={val_loss:.3f},")
 
     if log_all_preds:
         # clear log
@@ -365,8 +366,11 @@ def log(msg, end='\n'):
 
 def get_args():
     parser = argparse.ArgumentParser(description='NLP NER Project')
+
+    # Default value
     _bs = 2 if 'Windows' in platform.platform() else 32
     _cuda = '1' if socket.gethostname() == 'dell-PowerEdge-T640' else '0'
+    _fp16 = 1 if socket.gethostname() == 'dell-PowerEdge-T640' else 0
 
     parser.add_argument('-e', '--epochs', type=int, default=15, help='upper epoch limit')
     parser.add_argument('-b', '--batch_size', type=int, default=_bs, help='batch size')
@@ -378,8 +382,9 @@ def get_args():
     parser.add_argument('--report', action='store_true', help='report model and exit')
     parser.add_argument('-v', '--verbose', type=int, default=2, help='verbose level, > 0 means True')
     parser.add_argument('-r', '--resume', action='store_true')
-    parser.add_argument('--fp16', action='store_true', help="whether to use 16-bit float")
-    # about fp16: https://zhpmatrix.github.io/2019/07/01/model-mix-precision-acceleration/
+    # parser.add_argument('--bert_name', type=str, default='bert-base-chinese', help="pretrained_model_name_or_path")
+    parser.add_argument('--fp16', type=int, default=_fp16, help="whether to use 16-bit float, use 0/1 for false/true")
+    # About fp16: https://zhpmatrix.github.io/2019/07/01/model-mix-precision-acceleration/
     args_ = parser.parse_args()
 
     return args_
@@ -403,7 +408,7 @@ if __name__ == '__main__':
     train_data_loader, val_data_loader, corpus = get_data_loader('../data/xiaofang', batch_size, sql)
 
     model: nn.Module
-    model = BertZhTokenClassifier_(n_label, p_drop=0.1)  # bert_name='hfl/chinese-bert-wwm'
+    model = BertZhTokenClassifier_(n_label, p_drop=0.1)  # bert_name=args.bert_name
     model.to(device)
     if args.resume:
         load_last_best(model)
