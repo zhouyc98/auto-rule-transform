@@ -54,4 +54,3 @@ If you want to perform interactively rule transformation, run:
 python3 rulecheck.py -i
 # then, input the id of the sentence (see data/xiaofang/sentence_all.json), it will read the sentence and show the parsing result immediately
   ```
-
