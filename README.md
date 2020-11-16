@@ -9,19 +9,19 @@ Experimental results in processing building codes show that our method can recog
 
 
 ## Data Information
-In data/xiaofang/[sentences_all.json](data/xiaofang/sentences_all.json), it contains all sentences with labels developed in this research.  
+In data/xiaofang/[sentences_all.json](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/data/xiaofang/sentences_all.json), it contains all sentences with labels developed in this research.  
 
-In src/logs/[rulecheck-eval-v50.log](src/logs/rulecheck-eval-v50.log), it shows the parsing result of these sentences in a text-based format.  
+In src/logs/[rulecheck-eval-v50.log](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/rulecheck-eval-v50.log), it shows the parsing result of these sentences in a text-based format.  
 
 The figure below shows a example result from the rulecheck-eval-v50.log (id=b70b609), and it is also translated to English and provided by the graph-based format. Note that the log file shows the result in Chinese by the text-based format, which is equivalent to the graph-based format.  
-![](src/logs/b70b609.jpg)
+![](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/b70b609.jpg)
 
 
 ## Setup & Usage
 - Clone or download the repo  
   ```
   git clone https://github.com/Zhou-Yucheng/auto-rule-transform.git
-  cd auto-rule-transform/src
+  cd auto-rule-transform
   ```
 - Install the requirements (note: if you want to train the model using 16bit-float acceleration, install the [apex](https://github.com/NVIDIA/apex) package manually)
   ```
@@ -30,24 +30,27 @@ The figure below shows a example result from the rulecheck-eval-v50.log (id=b70b
 
 ### Semantic labeling
 Run train.py, and then you will get the trained model in src/models and the log file in src/logs/train.log
+  ```bash
+cd src
+python3 train.py
   ```
-  python3 train.py
-  ```
-The best model trained in this research is BertZh-f777029c.pth, which can be downloaded from [Google Drive](https://drive.google.com/file/d/1hwm9h0Z-ocNijgLmbBltmarFe3CAmAbt/view?usp=sharing) or [百度网盘](https://pan.baidu.com/s/1iq1_13DHfZZrH6Z5TBrg0Q)(提取码8hys).   
+The best model trained in this research is BertZh-f777029c.pth, which can be downloaded from [Google Drive](https://drive.google.com/file/d/1hwm9h0Z-ocNijgLmbBltmarFe3CAmAbt/view?usp=sharing) or [百度网盘](https://pan.baidu.com/s/1iq1_13DHfZZrH6Z5TBrg0Q) (提取码 8hys).   
 If you want to report the performance of it, put it in src/models/ and run:
+
   ```
-  cp models/BertZh-f777029c.pth models/_BertZh0_best.pth
-  python3 train.py --report 
-  # it will automatically report the model named _BertZh0_best.pth
+cp models/BertZh-f777029c.pth models/_BertZh0_best.pth
+python3 train.py --report 
+# it will automatically report the model named _BertZh0_best.pth
   ```
 
 ### Parsing
 Run rulecheck.py, and then you will get a new rulecheck.log & rulecheck-eval-v51.log in src/logs/  
   ```
-  python3 rulecheck.py
+cd src
+python3 rulecheck.py
   ```
 If you want to perform interactively rule transformation, run:
   ```
-  python3 rulecheck.py -i
-  # then, input the id of the sentence (see data/xiaofang/sentence_all.json), it will read the sentence and show the parsing result immediately
+python3 rulecheck.py -i
+# then, input the id of the sentence (see data/xiaofang/sentence_all.json), it will read the sentence and show the parsing result immediately
   ```
