@@ -30,7 +30,7 @@ The figure below shows a example result from the rulecheck-eval-v50.log (id=b70b
 
 ### Semantic labeling
 Run train.py, and then you will get the trained model in src/models and the log file in src/logs/train.log
-  ```bash
+  ```
 cd src
 python3 train.py
   ```
