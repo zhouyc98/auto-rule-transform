@@ -315,7 +315,7 @@ def get_test_data_loader(data_dir, batch_size, max_sql=125):
 
 
 # ========================================================================================= Process
-def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动规则审查\规范数据\Xiaofang'):
+def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\Automated Rule Checking\Xiaofang'):
     docs = []
     doc_sep = '\n\n#=====\n\n'
 
@@ -337,7 +337,7 @@ def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自
     # n_train, n_val = int(n * 0.8), int(n * 0.1)
     # docs_dict = {'train': docs[:n_train], 'val': docs[n_train:n_train + n_val], 'test': docs[n_train + n_val:]}
     # for t, docs_1 in docs_dict.items():
-    with open(os.path.join(data_dir, 'processed/Xiaofang.txt'), 'w', encoding='utf8') as f:
+    with open(os.path.join(data_dir, 'processed/xiaofang.txt'), 'w', encoding='utf8') as f:
         for doc in docs:
             f.write(doc_sep)
             f.write(doc)
@@ -390,11 +390,11 @@ def json_to_doc(doc_js):
     return doc
 
 
-def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动规则审查\Xiaofang\processed'):
+def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\Automated Rule Checking\Xiaofang\processed'):
     doc = open(os.path.join(data_dir, 'xiaofang.txt'), 'r', encoding='utf8').read()
     doc = doc.replace('\n#=====\n', '。\n').replace('\n\n', '。\n').replace('\n', ' ')
     sents = re.split('[。？！]', doc)
-    sents = [d.strip() for d in sents if d.strip()]
+    sents = [s.strip()+'\n' for s in sents if s.strip()]
     with open(os.path.join(data_dir, 'sentences.txt'), 'w', encoding='utf8') as f:
         f.writelines(sents)
 
@@ -852,7 +852,7 @@ def _measure_sentence_distribution():
                 return _get_doc_index(seq1[5:])
 
     doc_sep = '\n\n#=====\n\n'
-    with open(r'C:\Users\Zhou Yucheng\硕士\Researches\自动规则审查\Xiaofang\processed\xiaofang.txt', 'r',
+    with open(r'C:\Users\Zhou Yucheng\硕士\Researches\Automated Rule Checking\Xiaofang\processed\xiaofang.txt', 'r',
               encoding='utf8') as fp:
         docs = fp.read().split(doc_sep)
     for i, doc in enumerate(docs):
