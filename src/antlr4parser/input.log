@@ -1,6 +1,7 @@
 ﻿For_[evacuation corridor/aRprop]_[Emergency lighting/obj]_'s _[minimum illumination at floor level/prop]_, _[shall not be less than/cmp]_[5.0 lx/Rprop]
 
 For_[roof/obj]_[insulation material/prop]_[using/cmp]_[B1 or B2 level/aRprop]_, the _[protection layer/prop]_[shall use/cmp]_[noncombustible material/Rprop]_, and the _[protection layer/prop]_[thickness/prop]_[shall not be less than/cmp]_[10mm/Rprop]
+[屋面/obj]_[保温材料/prop]_[采用/cmp]_[B1、B2级/aRprop]_的_，_[保护层/prop]_[应采用/cmp]_[不燃材料/Rprop]_，_[保护层/prop]_的_[厚度/prop]_[不应小于/cmp]_[10mm/Rprop]
 
 [采用/cmp]_[B1、B2级/aRprop]_[保温材料/prop]_的_[屋面/obj]_保温，_[应采用/cmp]_[不燃材料/Rprop]_作_[保护层/prop]_，_[保护层/prop]_的_[厚度/prop]_[不应小于/cmp]_[10mm/Rprop]
 For_[roof/obj]_[using/cmp]_[B1 or B2 level/aRprop]_[insulation material/prop]_, the _[protection layer/prop]_[shall use/cmp]_[non-combustible material/Rprop]_, and the _[thickness/prop]_ of the _[protection layer/prop]_[shall not be less than/cmp]_[10mm/Rprop]
