@@ -2,9 +2,11 @@
 
 import argparse
 import shutil
+from torch import true_divide
 import torch.nn as nn
 import random
 import csv
+import pathlib
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from tqdm import tqdm
@@ -94,6 +96,9 @@ def clear_prediction_logs(is_test=False):
             return '-test' in fn_.lower()
         else:
             return '-train' in fn_.lower() or '-val' in fn_.lower()
+
+    pathlib.Path('./logs/predictions').mkdir(exist_ok=True)
+    pathlib.Path('./logs/predictions/bak').mkdir(exist_ok=True)
 
     log_dir = './logs/predictions/'
     log_bak_dir = log_dir + 'bak/'
@@ -440,6 +445,9 @@ if __name__ == '__main__':
     s = 's' if args.lr_schedule else ''
     model_fullname = f"BertZh -bs {batch_size:02d} -lr{s} {lr}".replace('e-0', 'e-')
     dt_now = datetime.now().strftime('%m%d-%H%M')
+    pathlib.Path('./logs/csv').mkdir(parents=True, exist_ok=True)
+    pathlib.Path('./logs/runs').mkdir(exist_ok=True)
+    pathlib.Path('./models').mkdir(exist_ok=True)
     fwriter = open(f'./logs/csv/{model_fullname} ({dt_now}).csv', 'a+')
     swriter = SummaryWriter(log_dir=f'./logs/runs/{model_fullname} ({dt_now}) {socket.gethostname()}')
     print(f'\n(Initializing time: {time.time() - start_time:.1f}s)')
