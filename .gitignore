@@ -6,13 +6,14 @@ bak*/
 csv/
 predictions/
 runs/
+models/
+
 *Notes.log
 *.xlsx
-rulecheck-eval-selected.log
-
 *.pt
 *.pth
 *.lnk
+rulecheck-eval-selected.log
 
 
 # Byte-compiled / optimized / DLL files

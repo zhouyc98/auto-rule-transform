@@ -2,7 +2,6 @@
 
 import argparse
 import shutil
-from torch import true_divide
 import torch.nn as nn
 import random
 import csv
@@ -11,8 +10,8 @@ import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from tqdm import tqdm
 from glob import glob
+from torch.cuda.amp import autocast, GradScaler
 from torch.utils.tensorboard import SummaryWriter
-from apex import amp
 from data import *
 from utils import *
 from models import *
@@ -220,9 +219,10 @@ def evaluate(log_preds=''):
             # inputs: token_ids, labels: tag_ids
             inputs, att_mask, labels = inputs.to(device), att_mask.to(device), labels.to(device).view(-1)
 
-            outputs = model(inputs, att_mask)  # shape: [bs, sql, n_tags]
-            outputs = outputs.view(-1, outputs.shape[-1])  # [bs*sql, n_tags]
-            loss = criterion(outputs, labels)
+            with autocast(enabled=args.fp16):
+                outputs = model(inputs, att_mask)  # shape: [bs, sql, n_tags]
+                outputs = outputs.view(-1, outputs.shape[-1])  # [bs*sql, n_tags]
+                loss = criterion(outputs, labels)
             _, predictions = torch.max(outputs, 1)  # return (value, index)
 
             history.append(loss, predictions, labels, ignore_label=-1)
@@ -245,18 +245,15 @@ def train():
         inputs, att_mask, labels = inputs.to(device), att_mask.to(device), labels.to(device).view(-1)
 
         optimizer.zero_grad()
-        outputs = model(inputs, att_mask)  # shape: [bs, sql, n_tags]
-        outputs = outputs.view(-1, outputs.shape[-1])  # [bs*sql, n_tags]
-        loss = criterion(outputs, labels)
+        with autocast(enabled=args.fp16):
+            outputs = model(inputs, att_mask)  # shape: [bs, sql, n_tags]
+            outputs = outputs.view(-1, outputs.shape[-1])  # [bs*sql, n_tags]
+            loss = criterion(outputs, labels)
         _, predictions = torch.max(outputs, 1)
 
-        if args.fp16:
-            with amp.scale_loss(loss, optimizer) as scaled_loss:
-                scaled_loss.backward()
-        else:
-            loss.backward()
-
-        optimizer.step()
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
 
         history.append(loss, predictions, labels, ignore_label=-1)
         # log_predictions(inputs, labels, predictions, 'train')
@@ -372,26 +369,26 @@ def log(msg, end='\n'):
 def get_args():
     parser = argparse.ArgumentParser(description='NLP NER Project')
 
-    # Default value
-    _bs = 2 if 'Windows' in platform.platform() else 32
+    # === set default args
+    _bs = 4 if 'Windows' in platform.platform() else 32
     _cuda = '1' if socket.gethostname() == 'dell-PowerEdge-T640' else '0'
-    _fp16 = 1 if socket.gethostname() == 'dell-PowerEdge-T640' else 0
+    _fp16 = 1 if socket.gethostname() in ('dell-PowerEdge-T640', 'Hsh406-zyc') else 0
 
-    parser.add_argument('-e', '--epochs', type=int, default=15, help='upper epoch limit')
+    parser.add_argument('-e', '--epochs', type=int, default=15, help='number of training epochs')
     parser.add_argument('-b', '--batch_size', type=int, default=_bs, help='batch size')
     parser.add_argument('-l', '--lr', type=float, default=3e-5, help='learning rate')
-    parser.add_argument('-s', '--lr_schedule', action='store_true', help='set True to use lr scheduler')
+    parser.add_argument('-s', '--lr_schedule', action='store_true', help='use lr scheduler')
     parser.add_argument('-g', '--loss_gamma', type=float, default=0.0, help='focal loss gamma')
     parser.add_argument('--cuda', type=str, default=_cuda, help='cuda visible device id')
     parser.add_argument('--sql', type=int, default=125, help='sequence length')
     parser.add_argument('--report', action='store_true', help='report model and exit')
-    parser.add_argument('-v', '--verbose', type=int, default=2, help='verbose level, > 0 means True')
-    parser.add_argument('-r', '--resume', action='store_true')
-    # parser.add_argument('--bert_name', type=str, default='bert-base-chinese', help="pretrained_model_name_or_path")
-    parser.add_argument('--fp16', type=int, default=_fp16, help="whether to use 16-bit float, use 0/1 for false/true")
-    # About fp16: https://zhpmatrix.github.io/2019/07/01/model-mix-precision-acceleration/
-    args_ = parser.parse_args()
+    parser.add_argument('-v', '--verbose', type=int, default=2, help='verbose level, >0 means True')
+    parser.add_argument('-r', '--resume', action='store_true', help='resume training')
+    parser.add_argument('--fp16', type=int, default=1, help="FP16 acceleration, use 0/1 for false/true")
+    # Requires pytorch>=1.6 to use fp 16 acceleration (https://pytorch.org/docs/stable/notes/amp_examples.html)
 
+    args_ = parser.parse_args()
+    args_.fp16 = bool(args_.fp16)
     return args_
 
 
@@ -435,9 +432,7 @@ if __name__ == '__main__':
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 10, 0.1) if args.lr_schedule else None
     # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.epochs, 1e-7) if args.lr_schedule else None
     criterion = cross_entropy_loss_non_pad
-    if args.fp16:
-        # ref: https://blog.csdn.net/mrjkzhangma/article/details/100704397
-        model, optimizer = amp.initialize(model, optimizer, opt_level="O1")
+    scaler = GradScaler()
     if args.report:
         report_model(log_all_preds=True)
         exit()

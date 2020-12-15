@@ -13,7 +13,7 @@ class BertZhTokenClassifier_(nn.Module):
         super().__init__()
         self.n_labels = n_labels
 
-        self.bert = BertModel.from_pretrained(bert_name, local_files_only=True)
+        self.bert = BertModel.from_pretrained(bert_name, local_files_only=False)
         self.dropout = nn.Dropout(p_drop)
         in_features = 1024 if 'large' in bert_name else 768
         self.classifier = nn.Linear(in_features, self.n_labels)  # bert-base's hidden size=768/1024
