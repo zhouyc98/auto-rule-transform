@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from model.train import *
+from train import *
 
 
 def test():
@@ -22,9 +22,9 @@ if __name__ == '__main__':
     args = get_args()
     # device = torch.device('cpu' if 'Windows' in platform.platform() else 'cuda:0')
     device = torch.device('cuda:0')
-    batch_size = args.bs
+    batch_size = args.batch_size
     sql = args.sql
-    n_label = 23
+    n_label = 17
     full_finetuning = True
     show_progressbar = False
     log(f'\n-[{datetime.now().isoformat()}]==================== \n-Args {str(args)[9:]}')
@@ -32,13 +32,9 @@ if __name__ == '__main__':
     test_data_loader, corpus = get_test_data_loader(r'../data/xiaofang', batch_size, sql)
 
     model: nn.Module
-    model = BertZhTokenClassifier_(n_label, p_drop=0.1, full_finetuning=full_finetuning)
+    model = BertZhTokenClassifier_(n_label, p_drop=0.1)
     model.to(device)
-    model.load_state_dict(torch.load('./models/_BertZh_best.pth'))
-
-    if args.fp16:
-        # ref: https://blog.csdn.net/mrjkzhangma/article/details/100704397
-        model, optimizer = amp.initialize(model, optimizer, opt_level="O1")
+    model.load_state_dict(torch.load('./models/_BertZh0_best.pth'))  # todo cuda, amp
 
     log(f'===== Inference =====')
     start_time = time.time()

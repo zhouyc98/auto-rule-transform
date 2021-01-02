@@ -315,7 +315,7 @@ def get_test_data_loader(data_dir, batch_size, max_sql=125):
 
 
 # ========================================================================================= Process
-def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\Automated Rule Checking\Xiaofang'):
+def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Xiaofang'):
     docs = []
     doc_sep = '\n\n#=====\n\n'
 
@@ -390,7 +390,7 @@ def json_to_doc(doc_js):
     return doc
 
 
-def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\Automated Rule Checking\Xiaofang\processed'):
+def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Xiaofang\processed'):
     doc = open(os.path.join(data_dir, 'xiaofang.txt'), 'r', encoding='utf8').read()
     doc = doc.replace('\n#=====\n', '。\n').replace('\n\n', '。\n').replace('\n', ' ')
     sents = re.split('[。？！]', doc)
@@ -852,7 +852,7 @@ def _measure_sentence_distribution():
                 return _get_doc_index(seq1[5:])
 
     doc_sep = '\n\n#=====\n\n'
-    with open(r'C:\Users\Zhou Yucheng\硕士\Researches\Automated Rule Checking\Xiaofang\processed\xiaofang.txt', 'r',
+    with open(r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Xiaofang\processed\xiaofang.txt', 'r',
               encoding='utf8') as fp:
         docs = fp.read().split(doc_sep)
     for i, doc in enumerate(docs):

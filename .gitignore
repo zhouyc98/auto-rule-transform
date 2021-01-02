@@ -2,6 +2,7 @@
 .vscode/
 
 data/msra/
+data/xiaofang/test
 bak*/
 csv/
 predictions/
