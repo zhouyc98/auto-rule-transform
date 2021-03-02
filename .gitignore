@@ -9,13 +9,18 @@ predictions/
 runs/
 models/
 
-*Notes.log
-*.xlsx
+src/logs/
+!src/logs/rulecheck-eval.log
+
+src/antlr4parser/
+!src/antlr4parser/*.py
+!src/antlr4parser/*.ps1
+!src/antlr4parser/*.g4
+
+*notes*.*
 *.pt
 *.pth
 *.lnk
-rulecheck-eval-selected.log
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -945,43 +945,18 @@ class RCTree:
         self.full_label.remove(self.del_delayed_props)
 
     def _generate_by_antlr4(self):
-        def _add_props_by_antlr4_parsing(loop=1):
-            for i in range(loop):
-                tree = self.antlr4_parse()
-                if not tree:
-                    return
+        tree = self.antlr4_parse()
+        if not tree:
+            return
 
-                visitor = RCTreeVisitor()
-                visitor.visit(tree)
-                self.full_label.remove(visitor.all_wts)
-                for p_node in visitor.sprop_nodes:
-                    self.obj_node.add_child(p_node)
+        visitor = RCTreeVisitor()
+        visitor.visit(tree)
+        self.full_label.remove(visitor.all_wts)
+        for p_node in visitor.sprop_nodes:
+            self.obj_node.add_child(p_node)
 
-                if self.is_gen_complete():
-                    return
-
-        # ===== First loop
-        _add_props_by_antlr4_parsing(loop=2)
-
-        return
-
-        # # ===== Next loop
-        # def _swap_tags_if_one(tag1, tag2, reserve_order=True):
-        #     if self.full_label.count_tag(tag1) == self.full_label.count_tag(tag2) == 1:
-        #         i1 = self.full_label.tag_idxs_words(tag1)[0][0]
-        #         i2 = self.full_label.tag_idxs_words(tag2)[0][0]
-        #
-        #         # reserve_order means sway only when i1>i2, that is, make tag1 prior to tag2
-        #         if not reserve_order or i1 > i2:
-        #             self.full_label.switch(i1, i2)
-        #
-        # _swap_tags_if_one('prop', 'Rprop')
-        # _swap_tags_if_one('prop', 'aRprop')
-        #
-        # _add_props_by_antlr4_parsing(loop=1)
-        # if self.is_gen_complete(): return
-        #
-        # log(f'Cannot parse all. Full_label: {self.full_label}')
+        # if self.is_gen_complete():
+        #     return
 
     def __str__(self, indent='\t\t'):
         """
@@ -1402,9 +1377,8 @@ def get_current_eval_log(log_dir='./logs'):
 
     fns = [fn for fn in os.listdir(log_dir) if re.match(r'rulecheck-eval-v\d+(\.\d+)?\.log$', fn)]
     if len(fns) > 1:
-        x = input(
-            f'Find multiple log files. If continued, <{fns[0]}> will be read and others may be overwritten ([y]/n)')
-        if not (x == '' or x == 'y'):
+        x = input(f'Proceed? Only {fns[0]} will be left and others may be overwritten (y/[n])')
+        if x.lower() != 'y':
             exit()
 
     fn = fns[0]

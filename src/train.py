@@ -369,7 +369,7 @@ def log(msg, end='\n'):
 def get_args():
     parser = argparse.ArgumentParser(description='NLP NER Project')
 
-    # === set default args
+    # === default args
     _bs = 4 if 'Windows' in platform.platform() else 32
     _cuda = '1' if socket.gethostname() == 'dell-PowerEdge-T640' else '0'
     _fp16 = 1 if socket.gethostname() in ('dell-PowerEdge-T640', 'Hsh406-zyc') else 0
@@ -397,14 +397,14 @@ if __name__ == '__main__':
     start_time = time.time()
     args = get_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.cuda
-    device = torch.device(f'cuda')  # CUDA error: an illegal memory access was encountered
+    device = torch.device(f'cuda')
     n_epoch = args.epochs
     batch_size = args.batch_size
     sql = args.sql
     lr = args.lr
     n_label = 17
     grad_norm_clip = 2
-    full_finetuning = True  # must be true
+    full_finetuning = True  # must be true, left for compatibility
     show_progressbar = False
     log(f'\n-[{datetime.now().isoformat()}]==================== \n-Args {str(args)[9:]}')
     train_data_loader, val_data_loader, corpus = get_data_loader('../data/xiaofang', batch_size, sql)
@@ -462,7 +462,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         if epoch > 1:  # at least finished the first epoch
             print('\n=== KeyboardInterrupt, training early stop at epoch: {}/{}\n'.format(epoch, n_epoch))
-            epoch = n_epoch
+            n_epoch = epoch
             log_and_save()
         else:
             print('\n=== KeyboardInterrupt, exit\n')
