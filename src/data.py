@@ -1,4 +1,5 @@
-# coding=utf-8
+#!/usr/bin/python3.7
+#coding=utf-8
 
 import os
 import sys
@@ -7,12 +8,10 @@ import re
 import pickle
 import torch
 import platform
-import socket
-import hashlib
 import numpy as np
 from torch.utils import data
 from sklearn.utils import shuffle
-from sklearn.model_selection import StratifiedKFold
+# from sklearn.model_selection import StratifiedKFold
 from utils import *
 
 

@@ -17,6 +17,9 @@ src/antlr4parser/*
 !src/antlr4parser/*.ps1
 !src/antlr4parser/*.g4
 
+models
+*.bak
+run*.sh
 *notes*.*
 *.pt
 *.pth

@@ -1,6 +1,9 @@
-# coding: utf-8
+#!/usr/bin/python3.7
+#coding=utf-8
 
 import argparse
+import platform
+import socket
 import shutil
 import torch.nn as nn
 import random
@@ -14,7 +17,7 @@ from torch.cuda.amp import autocast, GradScaler
 from torch.utils.tensorboard import SummaryWriter
 from data import *
 from utils import *
-from models import *
+from model import *
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = "2"  # print less verbose log
 SEED = 2020
@@ -195,8 +198,6 @@ def cross_entropy_loss_non_pad_focal(outputs, labels, gamma=2):
     :return: single value
     """
 
-    # gamma=args.loss_gamma
-
     outputs = outputs.view(-1, outputs.shape[-1])  # [bs*sql, n_tags]
     outputs = F.softmax(outputs, dim=1)
     pts = outputs[range(outputs.shape[0]), labels]
@@ -283,8 +284,8 @@ def log_and_save():
         best_val_history = val_history
         best_epoch = epoch
         os.replace(f'./models/_BertZh{args.cuda}.pth', f'./models/_BertZh{args.cuda}_best.pth')
-        torch.save(model.state_dict(), f'./models/{model_fullname} -f1w {val_f1:.3f} -ep {epoch:02d}.pth')
-        for path in sorted(glob(f'./models/{model_fullname} -f1w*.pth'))[:-1]:
+        torch.save(model.state_dict(), f'./models/{model_fullname}-f1w{val_f1:.3f}-ep{epoch:02d}.pth')
+        for path in sorted(glob(f'./models/{model_fullname}-f1w*.pth'))[:-1]:
             os.remove(path)
 
     # ===Writer
@@ -324,7 +325,7 @@ def report_model(history_path=None, val_history=None, log_all_preds=False):
     val_p, val_r, val_f1 = val_history.avg_prf1_weight()
     report_table = val_history.avg_prf1_all(output_dict=False, label_tags=corpus.tags)
 
-    log(f'[{model_fullname} -f1w {val_f1:.3f} -ep {epoch:02d}]')
+    log(f'[{model_fullname}-f1w{val_f1:.3f}-ep{epoch:02d}]')
     log(f"\nValid report:\n{report_table}")
     # log(f"\nValid report (binary-classification): loss={val_loss:.3f},")
 
@@ -356,12 +357,11 @@ def load_last_best(model_):
 
 
 def log(msg, end='\n'):
-    # import-friendly (True for import)
-    is_print = args.verbose >= 1 if 'args' in globals() else True
+    c = args.cuda if 'args' in globals() else '' # import-friendly
+    c = '' if c == '0' else c
 
-    if is_print:
-        print(msg, end=end)
-    with open(f'./logs/train.log', 'a+') as f_:
+    print(msg, end=end)
+    with open(f'./logs/train{c}.log', 'a+') as f_:
         f_.write(msg)
         f_.write(end)
 
@@ -372,18 +372,16 @@ def get_args():
     # === default args
     _bs = 4 if 'Windows' in platform.platform() else 32
     _cuda = '1' if socket.gethostname() == 'dell-PowerEdge-T640' else '0'
-    _fp16 = 1 if socket.gethostname() in ('dell-PowerEdge-T640', 'Hsh406-zyc') else 0
 
     parser.add_argument('-e', '--epochs', type=int, default=15, help='number of training epochs')
     parser.add_argument('-b', '--batch_size', type=int, default=_bs, help='batch size')
     parser.add_argument('-l', '--lr', type=float, default=3e-5, help='learning rate')
-    parser.add_argument('-s', '--lr_schedule', action='store_true', help='use lr scheduler')
-    parser.add_argument('-g', '--loss_gamma', type=float, default=0.0, help='focal loss gamma')
-    parser.add_argument('--cuda', type=str, default=_cuda, help='cuda visible device id')
-    parser.add_argument('--sql', type=int, default=125, help='sequence length')
-    parser.add_argument('--report', action='store_true', help='report model and exit')
+    parser.add_argument('-s', '--step', type=int, default=0, help='lr schedule step, set 0 to disable')
+    parser.add_argument('-c', '--cuda', type=str, default=_cuda, help='cuda visible device id')
     parser.add_argument('-v', '--verbose', type=int, default=2, help='verbose level, >0 means True')
     parser.add_argument('-r', '--resume', action='store_true', help='resume training')
+    parser.add_argument('--sql', type=int, default=125, help='sequence length')
+    parser.add_argument('--report', action='store_true', help='report model and exit')
     parser.add_argument('--fp16', type=int, default=1, help="FP16 acceleration, use 0/1 for false/true")
     # Requires pytorch>=1.6 to use fp 16 acceleration (https://pytorch.org/docs/stable/notes/amp_examples.html)
 
@@ -429,22 +427,24 @@ if __name__ == '__main__':
         param_optimizer = list(model.classifier.named_parameters())
         optimizer_grouped_parameters = [{'params': [p for n, p in param_optimizer]}]
     optimizer = torch.optim.AdamW(optimizer_grouped_parameters, lr=lr)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 10, 0.1) if args.lr_schedule else None
-    # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.epochs, 1e-7) if args.lr_schedule else None
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.step, 0.1) if args.step else None
+    # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.epochs, 1e-7) if args.step else None
     criterion = cross_entropy_loss_non_pad
     scaler = GradScaler()
     if args.report:
         report_model(log_all_preds=True)
         exit()
 
-    s = 's' if args.lr_schedule else ''
-    model_fullname = f"BertZh -bs {batch_size:02d} -lr{s} {lr}".replace('e-0', 'e-')
+    s = 's' if args.step else ''
+    model_fullname = f"BertZh-bs{batch_size:02d}-lr{s}{lr}".replace('e-0', 'e-')
     dt_now = datetime.now().strftime('%m%d-%H%M')
     pathlib.Path('./logs/csv').mkdir(parents=True, exist_ok=True)
     pathlib.Path('./logs/runs').mkdir(exist_ok=True)
     pathlib.Path('./models').mkdir(exist_ok=True)
-    fwriter = open(f'./logs/csv/{model_fullname} ({dt_now}).csv', 'a+')
-    swriter = SummaryWriter(log_dir=f'./logs/runs/{model_fullname} ({dt_now}) {socket.gethostname()}')
+    log_dir = f'./logs/runs/{dt_now} {model_fullname}'
+    assert not os.path.exists(log_dir), f"runs folder '{log_dir}' already exists"
+    swriter = SummaryWriter(log_dir=log_dir)
+    fwriter = open(f'./logs/csv/{dt_now} {model_fullname}.csv', 'a+')
     print(f'\n(Initializing time: {time.time() - start_time:.1f}s)')
 
     log(f'[{model_fullname}]')
@@ -453,10 +453,10 @@ if __name__ == '__main__':
     best_val_loss, best_val_history, best_epoch = 1e6, None, -1
     try:
         for epoch in range(1, n_epoch + 1):
-            log(f"\n=== Epoch: {epoch}/{n_epoch}\t(lr: {optimizer.param_groups[0]['lr']})")
+            log(f"\n=== Epoch: {epoch}/{n_epoch} (lr: {optimizer.param_groups[0]['lr']})")
             train_history = train()
             val_history = evaluate()
-            if args.lr_schedule:
+            if args.step:
                 scheduler.step()
             log_and_save()
     except KeyboardInterrupt:
@@ -469,3 +469,5 @@ if __name__ == '__main__':
 
     log(f'\n(Time cost: {get_elapsed_time(start_time)})')
     report_model(val_history=best_val_history)
+    #TODO confusion matrix
+    

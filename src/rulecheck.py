@@ -1,4 +1,5 @@
-# coding=utf-8
+#!/usr/bin/python3.7
+#coding=utf-8
 
 import sys
 import argparse
@@ -6,7 +7,6 @@ import nltk
 import re
 import hashlib
 import logging
-import subprocess
 import pyperclip
 import pandas as pd
 from collections import OrderedDict
