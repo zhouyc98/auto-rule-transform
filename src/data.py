@@ -461,6 +461,7 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
     labels = [d['label'] for d in dicts]  # label_iit
     slabels = [d['slabel'] for d in dicts]
 
+    assert all('[' not in seq and ']' not in seq for seq in seqs), "!A seq contains '[' or ']'"
     assert len(seq_ids) == len(set(seq_ids)), '!Hash collision occurs'
 
     # ============================================================ Update
@@ -469,14 +470,6 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
         seq, label, slabel = seqs[i], labels[i], slabels[i]
         from rulecheck import TAGS
         assert all(t1 in TAGS for _, _, t1 in label), f'!Invalid tag in seq #{seq_ids[i]}: {label}'
-
-        # check slabel format
-        pattern = r'\[.+?/[A-Za-z]+?\]'
-        slabel_left = re.sub(pattern, '#', '_' + slabel.replace('#', '*') + '_')
-        for i0 in range(1, len(slabel_left) - 1):
-            if slabel_left[i0] == '#':
-                assert slabel_left[i0 - 1] == '_' and slabel_left[i0 + 1] == '_', \
-                    f"slabel format (_[word/tag]_) check failed, in seq #{seq_ids[i]}"
 
         # update by slabel
         slabel_0 = label_iit_to_slabel(label, seq)
@@ -488,37 +481,6 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
             dicts[i]['label'] = label_1
             update = True
 
-        # # strip space
-        # flabel_wt = label_iit_to_wt(label, seq)  # auto get full_label_iit
-        # stripped = False
-        # for j, (w, t) in enumerate(flabel_wt):
-        #     if t != 'O' and (w[0] == ' ' or w[-1] == ' '):
-        #         print(f'\tStrip [{w}/{t}] in seq #{seq_ids[i]}...')
-        #         if w[0] == ' ' and j >= 1 and flabel_wt[j - 1][1] == 'O':
-        #             w1, t1 = flabel_wt[j - 1]
-        #             flabel_wt[j - 1] = (w1 + ' ', t1)
-        #             flabel_wt[j] = (w[1:], t)
-        #             print('\t\tDone.')
-        #             update = True
-        #             stripped = True
-        #
-        #         if w[-1] == ' ' and j < len(flabel_wt) - 1 and flabel_wt[j + 1][1] == 'O':
-        #             w1, t1 = flabel_wt[j + 1]
-        #             flabel_wt[j + 1] = (' ' + w1, t1)
-        #             flabel_wt[j] = (w[1:], t)
-        #             print('\t\tDone.')
-        #             update = True
-        #             stripped = True
-        #
-        # if stripped:
-        #     label = label_wt_to_iit(flabel_wt, seq)
-        #     slabel = label_wt_to_slabel(flabel_wt)
-        #     assert label_iit_to_slabel(label, seq) == label_wt_to_slabel(flabel_wt)
-        #     assert slabel_to_label_wt(slabel) == flabel_wt
-        #     # print(f'\tUpdate label & slabel of seq #{seq_ids[i]} by strip.')
-        #     dicts[i]['label'] = label
-        #     dicts[i]['slabel'] = slabel
-
     # hash update
     for d in dicts:
         tid = md5hash(d['text'])
@@ -527,7 +489,7 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
             d['text_id'] = tid
             update = True
 
-    # # ========== Tag change
+    # # ========== Tag change: remove propx
     # print('########## Tag change')
     # update = True
     #
@@ -588,7 +550,7 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
         os.mkdir(pathjoin(data_dir, 'val'))
 
     for x in ('val', 'train'):
-        for i in range(len(dict_seqs[x])):  # remove space, strip non-label TODO: is that right?
+        for i in range(len(dict_seqs[x])):  # remove space, strip non-label; is that right?
             dict_seqs[x][i] = list(dict_seqs[x][i])
             dict_seqs[x][i], dict_labels[x][i] = clean_seq_label(dict_seqs[x][i], dict_labels[x][i])
 
@@ -754,16 +716,15 @@ def label_wt_to_iit(flabel_wt, seq_=None, to_full_label=False):
 def label_iit_to_slabel(label_iit, seq):
     """ input label is label_iit [(i,j,tag),..]
     slabel: combine seq and label together, e.g
-            [不直度/obj]_和_[失圆度/obj]_的_[允许偏差/prop]_[不应大于/cmp]_[8mm/Rprop]
+            [不直度/obj]和[失圆度/obj]的[允许偏差/prop][不应大于/cmp][8mm/Rprop]
     """
     label_wt = label_iit_to_wt(label_iit, seq)
     return label_wt_to_slabel(label_wt)
 
 
 def label_wt_to_slabel(label_wt):
-    """slabel: combine seq and label together, e.g
-            [不直度/obj]_和_[失圆度/obj]_的_[允许偏差/prop]_[不应大于/cmp]_[8mm/Rprop]
-    """
+    """ slabel: '[不直度/obj]和[失圆度/obj]的[允许偏差/prop][不应大于/cmp][8mm/Rprop]' """
+
     seq = []
     for word, tag in label_wt:
         if tag != 'O':
@@ -771,12 +732,13 @@ def label_wt_to_slabel(label_wt):
         else:
             seq.append(word)
 
-    seq = '_'.join(seq)
+    seq = ''.join(seq)
     return seq
 
 
 def slabel_to_label_wt(slabel: str, to_full_label=True):
-    """slabel: [贯穿孔口/obj]的[防火封堵/prop]应[直径/prop][不大于/cmp] """
+    """ slabel: '[贯穿孔口/obj]的[防火封堵/prop]应[直径/prop][不大于/cmp]'
+        to_full_label: contains [word/O] """
 
     label_wt = []
 
@@ -786,7 +748,7 @@ def slabel_to_label_wt(slabel: str, to_full_label=True):
         i, j = match.span()
         if i > 0:
             if to_full_label:
-                s = slabel[:i].strip('_')
+                s = slabel[:i]
                 if s:
                     label_wt.append((s, 'O'))
             slabel = slabel[i:]
@@ -803,7 +765,6 @@ def slabel_to_label_wt(slabel: str, to_full_label=True):
         match = re.search(pattern, slabel)
 
     if slabel and to_full_label:
-        slabel = slabel.strip('_')
         if slabel:
             label_wt.append((slabel, 'O'))
 
@@ -909,7 +870,7 @@ seq:            str of a sequence (sentence)
 label_iit:      [(i,j,tag), (i,j,tag),...]
 label_bio:      ['O',...,'B-obj','I-obj',...]
 label_wt:       [(word,tag),(word,tag),(word,tag),..]
-slabel:         str of seq & label (combined): '[word/tag]_[word/tag]_xxx_[word/tag]...'
+slabel:         str of seq & label (combined): '[word/tag][word/tag]xxx[word/tag]...'
 
 full_label_:    contains the whole seq, e.g, in label_iit, j(k)=i(k+1)
 
