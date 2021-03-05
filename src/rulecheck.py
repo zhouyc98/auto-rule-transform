@@ -1475,14 +1475,13 @@ def update_eval_log(log_dir='./logs', ignore_hash_changes=False):
                 f.write(SEP)
 
     # ==================== Hash check
-    # subprocess.Popen(['powershell', f"md5sum './logs/rulecheck-eval-v*.log'"])
     with open(f'{log_dir}/rulecheck-eval-v{f0_v}.log', 'r', encoding='utf8') as f:
-        print(f'\n[Hash] v{f0_v}:', hashlib.md5(f.read().encode('utf8')).hexdigest())
+        print(f'\nmd5 hash v{f0_v}:', hashlib.md5(f.read().encode('utf8')).hexdigest())
     with open(f'{log_dir}/rulecheck-eval-v{f0_v + 1}.log', 'r', encoding='utf8') as f:
-        print(f'[Hash] v{f0_v + 1}:', hashlib.md5(f.read().encode('utf8')).hexdigest())
+        print(f'md5 hash v{f0_v + 1}:', hashlib.md5(f.read().encode('utf8')).hexdigest())
 
     # ==================== Measure & Print
-    print('\n--')
+    print('\n-Stat')
     df = {'has_app': [], 'rec_pr': [], 'n_props': [], '2_props': [], 'correct': []}
     ids = []
     for h, d in ef1.ddict.items():
@@ -1498,46 +1497,41 @@ def update_eval_log(log_dir='./logs', ignore_hash_changes=False):
 
     n = len(df['correct'])
     nc = sum(df['correct'])
-    print(f"All={n}, Correct={nc}({nc / n:.4f}), Wrong={n - nc}({(n - nc) / n:.4f})\n")
+    print(f"All={n}, Correct={nc}({nc / n:.4f}), Wrong={n - nc}({(n - nc) / n:.4f})")
 
-    print('\t\thas_app\t2_props\trec_pr\tall')
-    c_a = sum(df['has_app'] * df['correct']) / sum(df['has_app'])  # rate of correct-app
-    c_2 = sum(df['2_props'] * df['correct']) / sum(df['2_props'])
-    c_r = sum(df['rec_pr'] * df['correct']) / sum(df['rec_pr'])
-
-    c_na = sum((1 - df['has_app']) * df['correct']) / sum(1 - df['has_app'])
-    c_n2 = sum((1 - df['2_props']) * df['correct']) / sum(1 - df['2_props'])
-    c_nr = sum((1 - df['rec_pr']) * df['correct']) / sum(1 - df['rec_pr'])
-
-    a2r = df['has_app'] * df['2_props'] * df['rec_pr']
-    c_a2r = sum(df['has_app'] * df['2_props'] * df['rec_pr'] * df['correct']) / sum(a2r)
-    c_na2r = sum((1 - df['has_app'] * df['2_props'] * df['rec_pr']) * df['correct']) / sum(1 - a2r)
-
-    print(
-        f"rate\t{sum(df['has_app']) / n:.4f}\t{sum(df['2_props']) / n:.4f}\t{sum(df['rec_pr']) / n:.4f}\t{sum(a2r) / len(a2r):.4f}")
-    print(f"c1  \t{c_a:.4f}\t{c_2:.4f}\t{c_r:.4f}\t{c_a2r:.4f}")
-    print(f"c1-non\t{c_na:.4f}\t{c_n2:.4f}\t{c_nr:.4f}\t{c_na2r:.4f}")
-    print(f"complex={sum(df['2_props'])}, simple={n - sum(df['2_props'])}\n")
+    # print('\t\thas_app\t2_props\trec_pr\tall')
+    # c_a = sum(df['has_app'] * df['correct']) / sum(df['has_app'])  # rate of correct-app
+    # c_2 = sum(df['2_props'] * df['correct']) / sum(df['2_props'])
+    # c_r = sum(df['rec_pr'] * df['correct']) / sum(df['rec_pr'])
+    #
+    # c_na = sum((1 - df['has_app']) * df['correct']) / sum(1 - df['has_app'])
+    # c_n2 = sum((1 - df['2_props']) * df['correct']) / sum(1 - df['2_props'])
+    # c_nr = sum((1 - df['rec_pr']) * df['correct']) / sum(1 - df['rec_pr'])
+    #
+    # a2r = df['has_app'] * df['2_props'] * df['rec_pr']
+    # c_a2r = sum(df['has_app'] * df['2_props'] * df['rec_pr'] * df['correct']) / sum(a2r)
+    # c_na2r = sum((1 - df['has_app'] * df['2_props'] * df['rec_pr']) * df['correct']) / sum(1 - a2r)
+    #
+    # print(
+    #     f"rate\t{sum(df['has_app']) / n:.4f}\t{sum(df['2_props']) / n:.4f}\t{sum(df['rec_pr']) / n:.4f}\t{sum(a2r) / len(a2r):.4f}")
+    # print(f"c1  \t{c_a:.4f}\t{c_2:.4f}\t{c_r:.4f}\t{c_a2r:.4f}")
+    # print(f"c1-non\t{c_na:.4f}\t{c_n2:.4f}\t{c_nr:.4f}\t{c_na2r:.4f}")
+    print(f"Complex={sum(df['2_props'])}, Simple={n - sum(df['2_props'])}\n")
 
     d_tags = OrderedDict.fromkeys(sorted(TAGS, key=lambda t: 'sobj obj prop cmp Rprop aRprop Robj aRobj'.index(t)), 0)
-    df_tag_n = pd.DataFrame(d_tags, index=[0])
-    df_tag_n_simp = pd.DataFrame(d_tags, index=[0])
-    df_tag_n_comp = pd.DataFrame(d_tags, index=[0])
+    df_tag = pd.DataFrame(d_tags, index=['Simple', 'Complex', 'All'])
     for h, d in ef1.ddict.items():
         for t in TAGS:
             nt = d['label'].count(f'/{t}]')
-            df_tag_n[t] += nt
+            df_tag[t]['All'] += nt
             if df.loc[h, '2_props']:
-                df_tag_n_comp[t] += nt
+                df_tag[t]['Complex'] += nt
             else:
-                df_tag_n_simp[t] += nt
-
-    df_tag_n['TOTAL'] = df_tag_n.iloc[0, :].sum()
-    df_tag_n_simp['TOTAL'] = df_tag_n_simp.iloc[0, :].sum()
-    df_tag_n_comp['TOTAL'] = df_tag_n_comp.iloc[0, :].sum()
-    print(f'Tag-all\n{df_tag_n}')
-    # print(f'Tag-simple\n{df_tag_n_simp}')
-    print(f'Tag-complex\n{df_tag_n_comp}')
+                df_tag[t]['Simple'] += nt
+    df_tag['TOTAL'] = 0
+    for ind in df_tag.index:
+        df_tag['TOTAL'][ind] = df_tag.loc[ind].sum()
+    print(df_tag)
 
     return df, ef1
 

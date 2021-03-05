@@ -9,10 +9,10 @@ predictions/
 runs/
 models/
 
-src/logs/
+src/logs/*
 !src/logs/rulecheck-eval.log
 
-src/antlr4parser/
+src/antlr4parser/*
 !src/antlr4parser/*.py
 !src/antlr4parser/*.ps1
 !src/antlr4parser/*.g4
