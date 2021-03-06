@@ -1,5 +1,5 @@
 #!/usr/bin/python3.7
-#coding=utf-8
+# coding=utf-8
 
 import sys
 import argparse
@@ -640,6 +640,7 @@ class RCTree:
             _switch_full_label_s(i + len(lwts) - 3 - j, i + len(lwts) - 2)
 
         # TODO p1 p2 p3 xxx R, match p2-R not p1-R
+        # TODO p1 C R 的 p2 -> p2 p1 C R
         # ### px p r p
         # for i, ((w0, t0), (w1, t1), (w2, t2), (w3, t3)) in _enum_full_label(4, reverse=True):
         #     if t0 == 'prop' and t1 == 'cmp' and t2.endswith('Rprop') and t3 == 'prop':
@@ -968,21 +969,17 @@ class RCTree:
             ← →
         """
 
-        tree = indent + str(self.root)
-        if not self.root.has_child():
-            return tree
-
         # ========== Obj (consider first child only)
         assert self.root.n_child() == 1
         node = self.root.child_nodes[0]
+        tree = indent + str(node)  # str(self.root)
         while node is not self.obj_node:
-            tree += f"->{str(node)}"
             assert node.n_child() == 1
             node = node.child_nodes[0]
-        tree += f"->{str(self.obj_node)}"
+            tree += f"->{str(node)}"
 
+        assert self.obj_node.req is None  # ignore obj's req now
         if not self.obj_node.has_child():
-            # ignore obj's Robj now
             return tree
 
         # ========== Obj tree
@@ -1415,7 +1412,7 @@ def update_eval_log(log_dir='./logs', ignore_hash_changes=False):
         # d0, d1 with same seq
         d0 = ef0.ddict[seq_id1]
         d1['idx'] = d0['idx']
-        # d1['idx'] = idx0s.index(d0['idx']) + 1  # compact index
+        d1['idx'] = idx0s.index(d0['idx']) + 1  # compact index
 
         eval0, eval1 = d0['eval'], ''
         if ignore_hash_changes:
@@ -1516,22 +1513,26 @@ def update_eval_log(log_dir='./logs', ignore_hash_changes=False):
     #     f"rate\t{sum(df['has_app']) / n:.4f}\t{sum(df['2_props']) / n:.4f}\t{sum(df['rec_pr']) / n:.4f}\t{sum(a2r) / len(a2r):.4f}")
     # print(f"c1  \t{c_a:.4f}\t{c_2:.4f}\t{c_r:.4f}\t{c_a2r:.4f}")
     # print(f"c1-non\t{c_na:.4f}\t{c_n2:.4f}\t{c_nr:.4f}\t{c_na2r:.4f}")
-    print(f"Complex={sum(df['2_props'])}, Simple={n - sum(df['2_props'])}\n")
+    print(f"Complex={sum(df['2_props'])}")
+    print(f"Simple={n - sum(df['2_props'])}")
 
-    d_tags = OrderedDict.fromkeys(sorted(TAGS, key=lambda t: 'sobj obj prop cmp Rprop aRprop Robj aRobj'.index(t)), 0)
-    df_tag = pd.DataFrame(d_tags, index=['Simple', 'Complex', 'All'])
-    for h, d in ef1.ddict.items():
-        for t in TAGS:
-            nt = d['label'].count(f'/{t}]')
-            df_tag[t]['All'] += nt
-            if df.loc[h, '2_props']:
-                df_tag[t]['Complex'] += nt
-            else:
-                df_tag[t]['Simple'] += nt
-    df_tag['TOTAL'] = 0
-    for ind in df_tag.index:
-        df_tag['TOTAL'][ind] = df_tag.loc[ind].sum()
-    print(df_tag)
+    show_df_tag = False
+    if show_df_tag:
+        d_tags = OrderedDict.fromkeys(sorted(TAGS, key=lambda t: 'sobj prop cmp Rprop aRprop Robj aRobj'.index(t)), 0)
+        df_tag = pd.DataFrame(d_tags, index=['Simple', 'Complex', 'All'])
+        for h, d in ef1.ddict.items():
+            for t in TAGS:
+                nt = d['label'].count(f'/{t}]')
+                df_tag[t]['All'] += nt
+                if df.loc[h, '2_props']:
+                    df_tag[t]['Complex'] += nt
+                else:
+                    df_tag[t]['Simple'] += nt
+        df_tag['TOTAL'] = 0
+        for ind in df_tag.index:
+            df_tag['TOTAL'][ind] = df_tag.loc[ind].sum()
+        print('')
+        print(df_tag)
 
     return df, ef1
 
