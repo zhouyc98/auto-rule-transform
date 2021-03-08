@@ -467,7 +467,7 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
     update = False
     for i in range(len(seqs)):
         seq, label, slabel = seqs[i], labels[i], slabels[i]
-        from rulecheck import TAGS
+        from ruleparse import TAGS
         assert all(t1 in TAGS for _, _, t1 in label), f'!Invalid tag in seq #{seq_ids[i]}: {label}'
 
         # update by slabel
@@ -686,7 +686,7 @@ def label_iit_to_wt(label_iit, seq, to_full_label=True):
     return flabel_wt
 
 
-def label_wt_to_iit(flabel_wt, seq_=None, to_full_label=False):
+def label_wt_to_iit(flabel_wt, seq_=None, to_full_label=True):
     ws, ts = list(zip(*flabel_wt))
     seq = ''.join(ws)
     if seq_:
@@ -770,7 +770,7 @@ def slabel_to_label_wt(slabel: str, to_full_label=True):
     return label_wt
 
 
-def slabel_to_seq_label_iit(slabel: str, to_full_label=False):
+def slabel_to_seq_label_iit(slabel: str, to_full_label=True):
     flabel_wt = slabel_to_label_wt(slabel, True)
     label_iit, seq = label_wt_to_iit(flabel_wt, to_full_label=to_full_label)
 

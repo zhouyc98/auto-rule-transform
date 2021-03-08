@@ -10,12 +10,13 @@ runs/
 models/
 
 src/logs/*
-!src/logs/rulecheck-eval.log
+!src/logs/ruleparse-eval.log
 
 src/antlr4parser/*
 !src/antlr4parser/*.py
 !src/antlr4parser/*.ps1
 !src/antlr4parser/*.g4
+!src/antlr4parser/*.log
 
 models
 *.bak
@@ -24,6 +25,7 @@ run*.sh
 *.pt
 *.pth
 *.lnk
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -82,7 +84,6 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal

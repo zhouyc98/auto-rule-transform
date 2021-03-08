@@ -6,7 +6,6 @@ import argparse
 import nltk
 import re
 import hashlib
-import logging
 import pyperclip
 import pandas as pd
 from collections import OrderedDict
@@ -34,24 +33,22 @@ CMP_DICT = OrderedDict([('≤', '小于等于 小于或等于 不大于 不高�
 DEONTIC_WORDS = ('应当', '应该', '应按', '应能', '尚应', '应', '必须', '尽量', '要', '宜', '得')  # '得' 通常在 '不得' 中使用
 
 
-def get_cmp_str(cmp_):
-    cmp_value = cmp_.values if isinstance(cmp_, RCNode) else cmp_
-
-    if not cmp_value:  # None or ''
+def get_cmp_str(cmp_w):
+    if not cmp_w:  # None or ''
         return DEFAULT_TAG_VALUES['cmp']
 
     for dw in DEONTIC_WORDS:
-        cmp_value = cmp_value.replace(dw, '')
+        cmp_w = cmp_w.replace(dw, '')
 
     # simplify cmp_value, if can
-    if cmp_value == '':
+    if cmp_w == '':
         return '='
 
-    for key, values in CMP_DICT.items():
-        if cmp_value in values:
+    for key, word in CMP_DICT.items():
+        if cmp_w in word:
             return key
 
-    return cmp_value
+    return cmp_w
 
 
 def classes_same(ws: list):
@@ -653,7 +650,7 @@ class RCTree:
                 self.full_label.rename(i, f'{w}-{i}', t)
         self.slabel_2i = str(self.full_label)  # slabel_2 with order indicator
 
-        print(f'[INFO] LabelX:\t{self.full_label}')
+        print(f'[Debug] LabelX:\t{self.full_label}')
 
     def post_process(self):
         self.obj_node: RCNode
@@ -704,14 +701,14 @@ class RCTree:
             for p in nodes:
                 _rm_oder_indicator(p.child_nodes)
                 if p:
-                    p.values = p.values[:p.values.rindex('-')]
+                    p.word = p.word[:p.word.rindex('-')]
                 if p.req:
                     if p.req[0]:
-                        p.req[0].values = p.req[0].values[:p.req[0].values.rindex('-')]
+                        p.req[0].word = p.req[0].word[:p.req[0].word.rindex('-')]
                     if p.req[1]:
-                        p.req[1].values = p.req[1].values[:p.req[1].values.rindex('-')]
+                        p.req[1].word = p.req[1].word[:p.req[1].word.rindex('-')]
                     if p.req[2]:
-                        p.req[2].values = p.req[2].values[:p.req[2].values.rindex('-')]
+                        p.req[2].word = p.req[2].word[:p.req[2].word.rindex('-')]
 
         _rm_oder_indicator(self.obj_node.child_nodes)
 
@@ -735,13 +732,14 @@ class RCTree:
             pi1 = props[i - 1]
             if pi is None or pi1 is None:
                 continue
-            is_prr = bool(pi1.values and pi1.req and not pi.values and pi.req)
+            is_prr = bool(pi1.word and pi1.req and not pi.word and pi.req)
+            is_pxp = bool(pi1.word and pi1.child_nodes and pi.word)
             is_same_req = pi.is_app_req() == pi1.is_app_req()
             if is_prr and is_same_req:
-                li1 = self.full_label.index((pi1.values, pi1.tag))  # last prop
+                li1 = self.full_label.index((pi1.word, pi1.tag))  # last prop
                 if li1 < 0 or li1 > len(self.full_label) - 3:
                     continue
-                req = [(r.values, r.tag) for r in pi.req if r]
+                req = [(r.word, r.tag) for r in pi.req if r]
                 full_label_1 = self.full_label[li1 + 1:]
                 # li = the first valid index of req
                 if len(req) <= 2:
@@ -756,20 +754,20 @@ class RCTree:
                 is_next = (0 <= li1 < li < len(self.full_label)) and all(
                     t != 'prop' for w, t in self.full_label[li1 + 1:li])
                 if is_next and _is_union_word(self.full_label[li - 1][0]):
-                    pi.values = pi1.values
+                    pi.word = pi1.word
                     if not pi.req[0]:  # cmp
-                        pi.req[0].values = pi1.req[0].values
-                    print(f"[DEBUG] Match p-r tag for {str(pi1)} in {self.full_label[li1:li + 1]}")
-
-            elif pi1.values and pi1.child_nodes and pi.values == '其' and pi.child_nodes and is_same_req:
-                print(f'[DEBUG] Match last prop1 {pi}')  # #works only for one TODO: review
-                pi1.child_nodes += pi.child_nodes
-                props[i] = None
-
-            elif pi1.values and pi1.child_nodes and all(pi.values == n.values for n in pi1.child_nodes):
-                print(f'[DEBUG] Match last prop2 {pi}')  # #works only for one
-                pi1.child_nodes.append(pi)
-                props[i] = None
+                        pi.req[0].word = pi1.req[0].word
+                    print(f"[DEBUG] match p-r tag for {str(pi1)} in {self.full_label[li1:li + 1]}")
+            elif is_pxp:
+                if pi.word == '其' and pi.child_nodes and is_same_req:
+                    print(f'[DEBUG] match last prop-1 {pi}')
+                    pi.word = pi1.word
+                    # pi1.child_nodes += pi.child_nodes # 2 propx
+                    # props[i] = None
+                elif all(pi.word == cn.word for cn in pi1.child_nodes):
+                    print(f'[DEBUG] match last prop-2 {pi}')
+                    pi1.child_nodes.append(pi)
+                    props[i] = None
 
         for i in range(len(props) - 1, -1, -1):
             if props[i] is None:
@@ -779,21 +777,22 @@ class RCTree:
         def _rm_duplicated_child_prop(props_):
             for i_, prop_ in enumerate(props_):
                 _rm_duplicated_child_prop(prop_.child_nodes)
-                if prop_.n_child() == 1 and prop_.values == prop_.child_nodes[0].values and prop_.tag == \
+                if prop_.n_child() == 1 and prop_.word == prop_.child_nodes[0].word and prop_.tag == \
                         prop_.child_nodes[0].tag:
                     props_[i_] = prop_.child_nodes[0]
 
         _rm_duplicated_child_prop(props)
 
         # ========== Match aRprop-obj (anchor)
-        if isinstance(self.obj_node.values, list):
+        if ', ' in self.obj_node.word:
+            words = self.obj_node.word.split(', ')
             anchored = False
             slabel = str(self.full_label)
-            iobjs = [slabel.index(f'[{v}/obj]') for v in self.obj_node.values]
+            iobjs = [slabel.index(f'[{w}/obj]') for w in words]
             for prop in props:
-                if prop.is_app_req() and not isinstance(prop.values, list):
-                    vp = prop.values if prop.values is not None else ''
-                    ip = re.search(f'{vp}.*?{prop.req[1].values}/aRprop', slabel).span()[1]
+                if prop.is_app_req() and not isinstance(prop.word, list):
+                    wp = prop.word if prop.word is not None else ''
+                    ip = re.search(f'{wp}.*?{prop.req[1].word}/aRprop', slabel).span()[1]
                     for k, io in enumerate(iobjs):
                         if ip < io:
                             prop.anchor = f'&{k}' if ('时，' in slabel[ip:io]) else f'&{k + 1}'
@@ -803,8 +802,9 @@ class RCTree:
                         prop.anchor = f'&{len(iobjs)}'
                         anchored = True
             if anchored:
-                for i, v in enumerate(self.obj_node.values):
-                    self.obj_node.values[i] += f'&{i + 1}'
+                for i, w in enumerate(words):
+                    words[i] += f'&{i + 1}'
+                    self.obj_node.word = ', '.join(words)
 
         self.full_label = full_label_bak
 
@@ -827,26 +827,34 @@ class RCTree:
 
         return result
 
-    def antlr4_parse(self):
-        input_stream = InputStream(str(self.full_label))
-        lexer = RuleCheckTreeLexer(input_stream)
-        tokens = CommonTokenStream(lexer)
-        parser = RuleCheckTreeParser(tokens)
-        parser._listeners = [RCTreeErrorListener()]
-        # parser.addErrorListener(RCTreeErrorListener())
-        tree = parser.rctree()
+    def cfg_parse(self):
+        def _antlr4_parse():
+            input_stream = InputStream(str(self.full_label))
+            lexer = RuleCheckTreeLexer(input_stream)
+            tokens = CommonTokenStream(lexer)
+            parser = RuleCheckTreeParser(tokens)
+            parser._listeners = [RCTreeErrorListener()]
+            # parser.addErrorListener(RCTreeErrorListener())
+            tree = parser.rctree()
+            # log(tree.toStringTree(recog=parser))
+            return tree
 
-        # log(tree.toStringTree(recog=parser))
-        return tree
+        self.full_label.remove_tag('O')
+        tree = _antlr4_parse()
+        if not tree:
+            return
+        visitor = RCTreeVisitor()
+        visitor.visit(tree)
+        self.full_label.remove(visitor.all_wts)
+        for p_node in visitor.sprop_nodes:
+            self.obj_node.add_child(p_node)
 
-    def is_gen_complete(self):
-        """whether consumes all available word-tags"""
-        return self.full_label.contains_tags(('O', 'obj'), only=True)
+    def parse(self):
+        """ Parse RCTree based on CFG and regex """
 
-    def generate(self):
-        log_msg = f'[{total_count + 1}]#{self.seq_id}\n'
-        log_msg += f'Seq:\t{self.seq}\n'
-        log_msg += f'Label:\t{self.slabel}\n'
+        log(f'[{total_count + 1}]#{self.seq_id}')
+        log(f'Seq:\t{self.seq}')
+        log(f'Label:\t{self.slabel}')
 
         # ======================================== Pre-process & Obj
         self.pre_process1()
@@ -876,111 +884,20 @@ class RCTree:
             self.add_curr_child(self.obj_node)
 
         self.pre_process2()
-        # ======================================== Parsing generate
+        # ======================================== Parsing
         try:
-            self._generate_by_antlr4()
+            self.cfg_parse()
         except ParserError as ex:
-            log_msg = str(ex) + '\n' + log_msg
+            log(str(ex))
 
         self.post_process()
         # ======================================== Finish
-        is_comp = self.is_gen_complete()
+        is_comp = self.full_label.contains_tags(('O', 'obj'), only=True)
 
-        log_msg += f"RCTree:\t#{self.hashtag()}\n{self}\n"
-        log_msg += 'Gen complete.\n' if is_comp else f'Gen not complete: {self.full_label}\n'
-        log_msg += '-' * 90
-        log(log_msg, print_log=True)  # print all, print_log=not is_comp
-
-        return is_comp, log_msg
-
-    def _generate_by_regex(self):
-        def _add_props(labelwts_list):
-            """ label_wts_list: [LabelWordTags, LabelWordTags,...], typically from self.regex_parse() """
-            if not isinstance(labelwts_list, list):
-                labelwts_list = [labelwts_list]
-
-            for label_wts in labelwts_list:
-                label_wts.pop_by_tag('obj')  # leave obj (if any)
-
-                has_propx = any('propx' in t for w, t in label_wts.word_tags)
-                wt = label_wts.pop_by_tag('prop', remove=has_propx)  # del prop (remove=False) when not has_propx
-                prop_node = RCNode(wt[0], wt[1])  # if wt=(None, Tag), then RCNode use the default value
-                if has_propx and wt[0] is not None:
-                    self.del_delayed_props.append(wt)  # should delete prop delayed
-
-                if has_propx:
-                    wtx = label_wts.pop_by_tag('propx', remove=False)  # del propx
-                    propx_node = RCNode(wtx[0], wtx[1])
-                    propx_node.set_req_by_wts(label_wts.word_tags)
-                    prop_node.add_child(propx_node)
-                else:
-                    prop_node.set_req_by_wts(label_wts.word_tags)
-
-                self.obj_node.add_child(prop_node)
-                self.full_label.remove(label_wts)
-
-        def _add_props_by_regex_parsing(grammars, loop=False):
-            if isinstance(grammars, list):
-                for g in grammars:
-                    _add_props_by_regex_parsing(g, loop)
-                return
-
-            result_last = None
-            while True:
-                result = self.regex_parse(grammars)
-                if result:
-                    _add_props(result)
-
-                if not loop or not result or result == result_last:
-                    break
-
-                result_last = result
-
-        self.del_delayed_props = []
-        # for those who do not have <O> (parse just once)
-        grammars_first = \
-            ['P: {<prop><propx><cmp>?<a?Rpropx>}',
-             'P: {<prop><cmp>?<a?Rprop>}',
-             'P: {<aRprop><obj>}',
-             'P: {<obj><aRprop>}',
-             ]
-        _add_props_by_regex_parsing(grammars_first)
-
-        # self.full_label.remove_tag('O')
-        # for propx
-        grammar = r"""
-        P: {<prop><cmp|O>*<propx><O>*<a?Rpropx>}
-        P: {<prop><cmp|O>*<a?Rpropx><O>*<propx>}
-        P: {<prop><O>*<propx><cmp|O>*<a?Rpropx>}
-        P: {<prop><O>*<propx>?<cmp|O>*<a?Rpropx>}
-        """
-        _add_props_by_regex_parsing(grammar, loop=True)
-        if self.full_label.contains_tags(['Rpropx', 'aRpropx']):
-            log(f'!Failed to parse /propx grammar: {self.full_label}')
-
-        # for prop
-        grammar = r"""
-        P: {<prop><cmp><Robj>?<O>*<a?Rprop>}
-        P: {<prop><cmp|O>*<Robj>?<O>*<a?Rprop>}
-        P: {<prop><cmp|O>*<Robj|O>*<a?Rprop>}
-        """
-        _add_props_by_regex_parsing(grammar, loop=True)
-        if self.full_label.contains_tags(['Rpropx', 'aRpropx']):
-            log(f'!Failed to parse /prop grammar: {self.full_label}')
-
-        self.full_label.remove(self.del_delayed_props)
-
-    def _generate_by_antlr4(self):
-        self.full_label.remove_tag('O')
-        tree = self.antlr4_parse()
-        if not tree:
-            return
-
-        visitor = RCTreeVisitor()
-        visitor.visit(tree)
-        self.full_label.remove(visitor.all_wts)
-        for p_node in visitor.sprop_nodes:
-            self.obj_node.add_child(p_node)
+        log(f"RCTree:\t#{self.hashtag()}\n{self}")
+        log('Parsing complete' if is_comp else f'Parsing incomplete: {self.full_label}')
+        log('-' * 90)
+        return is_comp
 
     def hashtag(self):
         return md5hash(str(self))
@@ -1017,20 +934,18 @@ class RCTree:
 
 
 class RCNode:
-    """The basic element in Rule Check,
-    it can be an object/instance/property, or a union/intersection of them """
+    """The basic element in RCTree, it can be an object/property, or a union/intersection of them """
 
-    def __init__(self, values, tag):
-        """value: word(str) or list of word(str)"""
-        if isinstance(values, list) or isinstance(values, tuple):
-            values = [v for i, v in enumerate(values) if v not in values[:i]]  # remove duplications
-            for i in range(len(values) - 1, 0, -1):  # remove duplications
-                if values[i - 1].endswith(values[i]) and '|' not in values[i - 1]:
-                    del values[i]
-            if len(values) == 1:
-                values = values[0]
+    def __init__(self, word, tag):
+        if isinstance(word, list) or isinstance(word, tuple):
+            word = [w for i, w in enumerate(word) if w not in word[:i]]  # remove duplications
+            for i in range(len(word) - 1, 0, -1):  # remove duplications
+                if word[i - 1].endswith(word[i]) and '|' not in word[i - 1]:
+                    del word[i]
+            if isinstance(word, list) or isinstance(word, tuple):
+                word = ', '.join(word)
 
-        self.values = values
+        self.word = word
         self.tag = tag
 
         self.child_nodes = []
@@ -1081,7 +996,7 @@ class RCNode:
 
         # Double check
         for w, t in wts:
-            assert t in (ct, rt, srt, 'O') or (w, t) == (self.values, self.tag)
+            assert t in (ct, rt, srt, 'O') or (w, t) == (self.word, self.tag)
 
         cv, rv, srv = DEFAULT_TAG_VALUES[ct], None, None
         for v, t in wts:  # value, tag
@@ -1115,31 +1030,19 @@ class RCNode:
         return md5hash(all_str)
 
     def __str__(self, optimize=True, show_tag=False, show_req=False):
-        values = self.values
+        word = self.word
 
         if optimize:
-            default_value = DEFAULT_TAG_VALUES[self.tag] if self.tag in DEFAULT_TAG_VALUES else '?'
-            if not values:
-                values = default_value
-            elif isinstance(values, list) and None in values:
-                for i in range(len(values)):
-                    if values[i] is None:
-                        values[i] = default_value
-
+            if not word:
+                word = DEFAULT_TAG_VALUES[self.tag] if self.tag in DEFAULT_TAG_VALUES else '?'
             if self.tag == 'cmp':
-                return get_cmp_str(values)
-
-            if self.tag == 'prop' and self.values is None:
-                if self.req and str(self.req[0]).startswith('has'):
-                    values = 'Props'
-
+                return get_cmp_str(word)
+            if self.tag == 'prop' and self.word is None and self.req and str(self.req[0]).startswith('has'):
+                word = 'Props'
             # TODO default_cmp_value 高于: 位置 大于, etc
 
-        if isinstance(values, list) or isinstance(values, tuple):
-            values = ', '.join(self.values)
-
         t = f'/{self.tag}' if show_tag else ''
-        str_ = f'[{values}{self.anchor}{t}]'
+        str_ = f'[{word}{self.anchor}{t}]'
 
         if show_req:
             if self.req:
@@ -1157,7 +1060,7 @@ class RCNode:
         return str_
 
     def __bool__(self):
-        return bool(self.values)
+        return bool(self.word)
 
 
 def model_data_loader():
@@ -1295,7 +1198,7 @@ class EvalLogFile:
             RCTree	 #f08b2eb
                 [#]->[天馈系统]
                     check:	[驻波比] ≤ [2]
-            Gen complete.
+            Parsing complete.
             (optional line)##correct
         :return:
         """
@@ -1311,7 +1214,7 @@ class EvalLogFile:
         # ==========
         lines = [l for l in msg.split('\n') if l.strip()]
         for i in range(len(lines) - 1, -1, -1):
-            if lines[i].startswith('Gen complete') or lines[i].startswith('Gen not complete'):
+            if lines[i].startswith('Parsing complete') or lines[i].startswith('Parsing incomplete'):
                 del lines[i]
             elif lines[i].startswith('!SyntaxError'):
                 del lines[i]
@@ -1358,10 +1261,7 @@ class EvalLogFile:
 
 
 def get_current_eval_log(log_dir='./logs'):
-    f0_txt = None
-    f0_v = None
-
-    fns = [fn for fn in os.listdir(log_dir) if re.match(r'rulecheck-eval-v\d+(\.\d+)?\.log$', fn)]
+    fns = [fn for fn in os.listdir(log_dir) if re.match(r'ruleparse-eval-v\d+(\.\d+)?\.log$', fn)]
     if len(fns) > 1:
         fns.sort()
         x = input(f"Proceed? {', '.join(fns[1:])} may be overwritten (y/[n])")
@@ -1383,7 +1283,7 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     if ignore_rct_hash:
         print('*NOTE: ignore rct hash changes')
 
-    with open(f'./logs/rulecheck.log', 'r') as f:
+    with open(f'./logs/ruleparse.log', 'r') as f:
         f1_txt = f.read()
 
     f0_v, f0_txt = get_current_eval_log(log_dir)
@@ -1444,7 +1344,7 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     print(f'Added seqs (n={len(h_add)}): {h_add}')
 
     # ==================== Write
-    with open(f'{log_dir}/rulecheck-eval-v{f0_v + 1}.log', 'w', encoding='utf8') as f:
+    with open(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log', 'w', encoding='utf8') as f:
         SEP = ef0.SEP
         f.write(ef0.msgs[0])
         f.write(SEP)
@@ -1462,10 +1362,12 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
                 f.write(SEP)
 
     # ==================== Hash check
-    with open(f'{log_dir}/rulecheck-eval-v{f0_v}.log', 'r', encoding='utf8') as f:
-        print(f'\nmd5 hash v{f0_v}:', hashlib.md5(f.read().encode('utf8')).hexdigest())
-    with open(f'{log_dir}/rulecheck-eval-v{f0_v + 1}.log', 'r', encoding='utf8') as f:
-        print(f'md5 hash v{f0_v + 1}:', hashlib.md5(f.read().encode('utf8')).hexdigest())
+    with open(f'{log_dir}/ruleparse-eval-v{f0_v}.log', 'r', encoding='utf8') as f:
+        md5_f0 = hashlib.md5(f.read().encode('utf8')).hexdigest()
+        print(f'\nmd5 hash v{f0_v}:', md5_f0)
+    with open(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log', 'r', encoding='utf8') as f:
+        md5_f1 = hashlib.md5(f.read().encode('utf8')).hexdigest()
+        print(f'md5 hash v{f0_v + 1}:', md5_f1)
 
     # ==================== Measure & Print
     print('\n-Stat')
@@ -1506,8 +1408,7 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     print(f"Complex={sum(df['2_props'])}")
     print(f"Simple={n - sum(df['2_props'])}")
 
-    show_df_tag = False
-    if show_df_tag:
+    if md5_f0 != md5_f1:  # show_df_tag
         d_tags = OrderedDict.fromkeys(sorted(TAGS, key=lambda t: 'sobj prop cmp Rprop aRprop Robj aRobj'.index(t)), 0)
         df_tag = pd.DataFrame(d_tags, index=['Simple', 'Complex', 'All'])
         for h, d in ef1.ddict.items():
@@ -1527,44 +1428,37 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     return df, ef1
 
 
-def _interactive_rct_gen():
+def interactive_rct_parse():
     while True:
         try:
-            seq_id = input('Input seq/text id:').strip()
-            if '#' in seq_id:
-                seq_id = seq_id[seq_id.index('#') + 1:]
-            if ':' in seq_id:
-                seq_id = seq_id[seq_id.index(':') + 1:]
-            if ']' in seq_id:
-                seq_id = seq_id[seq_id.index(']') + 1:]
-            print('-' * 40)
-
-            seqs, labels, dicts_ = init_data_by_json(return_only=True)  # update
-            dd = {}
-            for d_ in dicts_:
-                dd.update({d_['text_id']: {'seq': d_['text'], 'label': d_['label']}})
-
-            seq, label = dd[seq_id]['seq'], dd[seq_id]['label']
+            seq = input('Input a sentence or its id:').strip('# ')
+            if '[' in seq:
+                seq, label = slabel_to_seq_label_iit(seq)
+            elif len(seq) == 7:
+                seq_id = seq
+                dd = {}
+                *_, dicts = init_data_by_json(return_only=True)  # update
+                for d in dicts:
+                    dd.update({d['text_id']: {'seq': d['text'], 'label': d['label']}})
+                seq, label = dd[seq_id]['seq'], dd[seq_id]['label']
+            else:
+                raise KeyError
 
             log('-' * 90)
             rct = RCTree(seq, label)
-            flag, log_msg = rct.generate()
-
-            log_msg = log_msg[log_msg.index('#'):]  # strip [idx]
-            pyperclip.copy(log_msg)
-            print('(Copied to clipboard)\n\n')
-        except KeyboardInterrupt as ex:
-            print('\n*** KeyboardInterrupt, Exit ***')
-            break
+            rct.parse()
         except KeyError as ex:
-            print('\n*** Invalid seq id, please retry ***')
+            print('Invalid input')
             continue
+        except (KeyboardInterrupt, EOFError) as ex:
+            print(f'\n[Exit] {ex}')
+            break
 
 
 def get_args():
-    parser = argparse.ArgumentParser('RuleCheckTransform Project')
-    parser.add_argument('-i', '--interactive', action='store_true')
-    parser.add_argument('-u', '--update_only', action='store_true')
+    parser = argparse.ArgumentParser('ARC Rule Parser')
+    parser.add_argument('-i', '--interactive', action='store_true', help='interactive rct parse')
+    parser.add_argument('-u', '--update_only', action='store_true', help='update eval log file only')
     args_ = parser.parse_args()
 
     return args_
@@ -1578,23 +1472,22 @@ if __name__ == '__main__':
         update_eval_log()
         sys.exit()
 
-    logger = Logger(file_name='rulecheck.log', init_mode='w+')
+    logger = Logger(file_name='ruleparse.log', init_mode='w+')
     log = logger.log
     if args.interactive:
-        log('=== Interactive RCT Gen ===')
-        _interactive_rct_gen()
+        log('=== Interactive RCTree Parsing (Ctrl-C to exit) ===')
+        interactive_rct_parse()
         exit()
 
-    log('=== RCTree Generation Start ===')
+    log('=== RCTree Parsing Start ===')
     log('-' * 90)
     for seq, label in json_data_loader():
         rct = RCTree(seq, label)
-        flag, _ = rct.generate()
+        is_comp = rct.parse()
         total_count += 1
-        complete_count += 1 if flag else 0
+        complete_count += 1 if is_comp else 0
 
-    log('=== RCTree Generation Finished ===')
-    log(f'Complete: {complete_count}/{total_count}={complete_count / total_count:.4f}')
+    log(f'\nComplete: {complete_count}/{total_count}={complete_count / total_count:.4f}')
     log(f'Time cost: {get_elapsed_time(start_time)}')
 
     update_eval_log()

@@ -7,7 +7,7 @@ Auto Rule Transform: Automated rule transformation for automated rule checking.
 
 In data/xiaofang/[sentences_all.json](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/data/xiaofang/sentences_all.json), it contains all sentences with labels developed in this research.  
 
-In src/logs/[rulecheck-eval-v50.log](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/rulecheck-eval-v50.log), it shows the parsing result of these sentences in a text-based format.  
+In src/logs/[ruleparse-eval.log](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/ruleparse-eval.log), it shows the parsing result of these sentences in a text-based format.  
 
 ## Setup & Usage
 
@@ -46,14 +46,14 @@ python3 train.py --report
 
 ### Parsing
 
-Run rulecheck.py, and then you will get a new rulecheck.log & rulecheck-eval-v51.log in src/logs/  
+Run ruleparse.py, and then you will get a new ruleparse.log & ruleparse-eval.log in src/logs/  
   ```
 cd src
-python3 rulecheck.py
+python3 ruleparse.py
   ```
 
 If you want to perform interactively rule transformation, run:
   ```
-python3 rulecheck.py -i
+python3 ruleparse.py -i
 # then, input the id of the sentence (see data/xiaofang/sentence_all.json), it will read the sentence and show the parsing result immediately
   ```
