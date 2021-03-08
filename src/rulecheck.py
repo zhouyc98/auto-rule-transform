@@ -141,7 +141,6 @@ class LabelWordTags:
 
         if isinstance(wt, LabelWordTags):
             n = len(wt)
-            # assert n >= 2, 'len should >=2, otherwise index may not correct'
             for i in range(len(self) - n + 1):
                 if wt == self[i:i + n]:
                     return i
@@ -237,20 +236,11 @@ class LabelWordTags:
             if self.word_tags[i][1] == tag:
                 del self.word_tags[i]
 
-    def remove_o_word(self, word='', word_len=None):
-        """remove meaningless words, if its tag='O'
-            if word_len is provided, del word less than word_len, and word should be empty"""
-        assert bool(word) ^ bool(word_len)  # XOR
-
+    def remove_o_word(self, word=''):
+        """ remove meaningless words, if its tag='O' """
         for i in range(len(self.word_tags) - 1, -1, -1):
-            if self.word_tags[i][1] == 'O':
-                if word_len is None:
-                    flag = self.word_tags[i][0] == word
-                else:
-                    flag = len(self.word_tags[i][0]) <= word_len
-
-                if flag:
-                    del self.word_tags[i]
+            if self.word_tags[i] == (word, 'O'):
+                del self.word_tags[i]
 
     def hashtag(self):
         seq_ = []
@@ -380,7 +370,6 @@ class RCTree:
         # self.strip_seq_label()
         self.full_label = self.get_full_label()  # flabel_wt: LabelWordTags
         self.slabel = str(self.full_label)
-        self.labelx = None  # self.full_label after pre_process
 
     def strip_seq_label(self):
         self.label_iit.sort(key=lambda t: t[0])
@@ -405,7 +394,7 @@ class RCTree:
         self.curr_node = node
 
     def pre_process1(self):
-        # ================================================================================ Bool merge (union)
+        # ======================================== Bool merge (union)
         def _is_union(i_, w_):
             union_words1 = {'、', '或'}
             union_words2 = {'且', '和', '及', '以及'}
@@ -454,17 +443,17 @@ class RCTree:
 
         for tag1 in TAGS - {'cmp'}:
             result3 = self.regex_parse(f'X: {{<{tag1}><OR><{tag1}><OR><{tag1}><OR><{tag1}>}}')
-            [self.full_label.bool_merge(wts) for wts in result3]
+            [self.full_label.bool_merge(lwts) for lwts in result3]
             result2 = self.regex_parse(f'X: {{<{tag1}><OR><{tag1}><OR><{tag1}>}}')
-            [self.full_label.bool_merge(wts) for wts in result2]
+            [self.full_label.bool_merge(lwts) for lwts in result2]
             result1 = self.regex_parse(f'X: {{<{tag1}><OR><{tag1}>}}')
-            [self.full_label.bool_merge(wts) for wts in result1]
+            [self.full_label.bool_merge(lwts) for lwts in result1]
 
         for i, (w, t) in enumerate(self.full_label):
             if t == 'OR':
                 self.full_label.rename(i, tag='O')
 
-        # ============================================================ Eliminate meaningless words and duplicated O-tag
+        # ======================================== Eliminate meaningless words and duplicated O-tag
         for i in range(len(self.full_label) - 1, -1, -1):  # strip space
             w, t = self.full_label[i]
             w = w.strip()
@@ -515,7 +504,7 @@ class RCTree:
                 self.full_label.switch(i_, i_ + 1)
             print(self.full_label[i1_ - 1:i2_ + 1])
 
-        # ================================================================================ Sub-seq switch
+        # ======================================== Sub-seq switch
         # 1) A 应符合下列规定： B 时 C -> B A C
         def _sub_seq_switch(i, j):
             if i < j < len(self.full_label) - 1:
@@ -550,7 +539,7 @@ class RCTree:
                 _switch_full_label_s(i, i + len(lwts) - 2)
                 _switch_full_label_s(i + 1, i + len(lwts) - 2)
 
-        # ================================================================================ Has prop
+        # ======================================== Has prop
         # 1.1) has p O -> has Rp p O
         for lwts in self.regex_parse('X: {<cmp><prop><O>}'):
             if _is_cmp_has(*lwts[0]):
@@ -594,7 +583,7 @@ class RCTree:
                     self.full_label.remove(i)
                 print(f'[DEBUG] (has prop) p-r switch and insert Rprop in {self.full_label[i:i + 3]}')
 
-        # ================================================================================ Prop-Rprop (p-r) switch
+        # ======================================== Prop-Rprop (p-r) switch
         for w1 in ('作', '作为', '进行', '处'):
             self.full_label.remove_o_word(w1)
 
@@ -614,7 +603,7 @@ class RCTree:
                 self.full_label.insert(i + 3, (lwts[0][0], 'Rprop'))
 
         # ========== C r p
-        # 1.1) C r p (Note: 1.x cannot use self.regex_parse, because it may return over-lapping word-tag, cannot update)
+        # 1.1) C r p (Note: 1.x cannot use self.regex_parse because it may return over-lapping word-tags)
         for i, ((w0, t0), (w1, t1), (w2, t2)) in _enum_full_label(3, reverse=True):
             if _is_cmps(w0, t0) and t1.endswith('Rprop') and t2 == 'prop':
                 _switch_full_label_s(i, i + 2)
@@ -646,7 +635,7 @@ class RCTree:
         #     if t0 == 'prop' and t1 == 'cmp' and t2.endswith('Rprop') and t3 == 'prop':
         #         _switch_full_label_s(i, i + 3)
 
-        # ================================================================================ Match prop
+        # ======================================== Match prop
         while self.regex_parse('X: {<prop><cmp><Robj>?<Rprop><O><cmp><Rprop>}', return_idx=True):
             i, lwts = self.regex_parse('X: {<prop><cmp><Robj>?<Rprop><O><cmp><Rprop>}', return_idx=True)[0]
             n = len(lwts)
@@ -656,32 +645,90 @@ class RCTree:
             else:
                 break
 
-        print(f'[INFO] LabelX:\t{self.full_label}\n')
-        self.labelx = self.full_label.copy()
-        self.full_label.remove_tag('O')
+        # ======================================== Add order indicator in self full_label and slabel ([word-i/tag])
+        self.slabel_2 = str(self.full_label)  # slabel after preprocess2
+        for i in range(len(self.full_label)):
+            w, t = self.full_label[i]
+            if t not in ('sobj', 'obj', 'O'):
+                self.full_label.rename(i, f'{w}-{i}', t)
+        self.slabel_2i = str(self.full_label)  # slabel_2 with order indicator
+
+        print(f'[INFO] LabelX:\t{self.full_label}')
 
     def post_process(self):
+        self.obj_node: RCNode
+        if not self.obj_node:
+            return
+
+        # ========== Sort props
+        def _n_str(prop: RCNode):
+            # if '|' in s: s = s.split('|')[0]
+            return prop.__str__(optimize=False)[:-1]
+
+        def _sort_child_nodes(node: RCNode):
+            for cn in node.child_nodes:
+                _sort_child_nodes(cn)
+
+            idx_props = []
+            for i, p in enumerate(node.child_nodes):
+                ind = self.slabel_2i.find(_n_str(p))
+                if p.req:
+                    ind = self.slabel_2i.find(_n_str(p.req[1]))
+                assert ind >= 0
+                idx_props.append((not p.has_app_seq(), ind, i, p))
+            idx_props.sort()
+            node.child_nodes = [p for *_, p in idx_props]
+
+        _sort_child_nodes(self.obj_node)
+
+        # ========== Add bool indicator (OR*)
+        for i, p in enumerate(self.obj_node.child_nodes):
+            if i == 0:
+                continue
+            p1 = self.obj_node.child_nodes[i - 1]
+            if p.req and p1.req and (p.is_app_req() == p1.is_app_req()):
+                p1i = max(self.slabel_2i.find(_n_str(n)) for n in (p1, p1.req[1], p1.req[2]) if n)
+                pis = [self.slabel_2i.find(_n_str(n)) for n in (p, p.req[1], p.req[2]) if n]
+                if not pis or all(i < 0 for i in pis):
+                    continue
+                pi = min(i for i in pis if i >= 0)
+                if 0 <= p1i < pi:
+                    s = self.slabel_2i[p1i:pi]
+                    s = s[s.find(']') + 1:]
+                    if s and s[0] == '或':
+                        p.or_combine = True
+                        print(f'[DEBUG] OR combine: {p1}, {p}')
+
+        # ========== Remove order indicator in nodes
+        def _rm_oder_indicator(nodes):
+            for p in nodes:
+                _rm_oder_indicator(p.child_nodes)
+                if p:
+                    p.values = p.values[:p.values.rindex('-')]
+                if p.req:
+                    if p.req[0]:
+                        p.req[0].values = p.req[0].values[:p.req[0].values.rindex('-')]
+                    if p.req[1]:
+                        p.req[1].values = p.req[1].values[:p.req[1].values.rindex('-')]
+                    if p.req[2]:
+                        p.req[2].values = p.req[2].values[:p.req[2].values.rindex('-')]
+
+        _rm_oder_indicator(self.obj_node.child_nodes)
+
+        # ==========
+        props: List[RCNode] = self.obj_node.child_nodes
+        full_label_bak = self.full_label.copy()
+        self.full_label = self.get_full_label()
+        self.pre_process1()  # update self.full_label
+
+        # ========== Default prop, p-r match, match last prop
         def _is_union_word(w_: str):
             for dw in DEONTIC_WORDS:
                 w_ = w_.replace(dw, '')
             # do not use ('且', '并'): [熔点/prop]_[不小于/cmp]_[1000℃/aRprop]_且_[无/cmp]_[绝热层/aRprop]_的...
-            return any(w_.endswith(x) for x in {'，并', '，且', '，并且', '，即'})
+            patterns = {'，并$', '，且$', '，并且$', '，即$', '^或'}
+            return any(re.search(p, w_) for p in patterns)
 
-        self.obj_node: RCNode
-        if not self.obj_node:
-            return
-        props: List[RCNode] = self.obj_node.child_nodes
-        full_label_x_ = self.full_label.copy()
-        self.full_label = self.get_full_label()
-        self.pre_process1()
-
-        # # ===== Sort by index in full label, then by value-tag. Bad idea, because default value
-        # pis = [self.full_label.index((p.values, p.tag), -2) for p in props]
-        # pstrs = [p.tree_str('-', False, True) for p in props]
-        # props = [p for pi, ps, p in sorted(zip(pis, pstrs, props))]
-        # self.obj_node.child_nodes = props
-
-        # ===== Default prop, p-r match, match last prop
         for i in range(1, len(props)):  # use ascending order
             # p R 并/且|其 R
             pi = props[i]
@@ -690,35 +737,32 @@ class RCTree:
                 continue
             is_prr = bool(pi1.values and pi1.req and not pi.values and pi.req)
             is_same_req = pi.is_app_req() == pi1.is_app_req()
-            if self.seq_id == 'c0ff675':
-                x = 1
             if is_prr and is_same_req:
                 li1 = self.full_label.index((pi1.values, pi1.tag))  # last prop
                 if li1 < 0 or li1 > len(self.full_label) - 3:
                     continue
-                req = [(r.values, r.tag) for r in pi.req if r]  # if r.values
+                req = [(r.values, r.tag) for r in pi.req if r]
                 full_label_1 = self.full_label[li1 + 1:]
+                # li = the first valid index of req
                 if len(req) <= 2:
-                    li = li1 + 1 + full_label_1.index(req)
+                    li = full_label_1.index(req)
+                    if li < 0:
+                        li = full_label_1.index(req[::-1])
                 else:
-                    # li = the first valid index of req
-                    lis = [li1 + 1 + li_ for li_ in (full_label_1.index(req),
-                                                     full_label_1.index([req[0], req[2], req[1]]),
-                                                     full_label_1.index(req[:2]))
-                           if li_ >= 0]
-                    if not lis:
-                        continue
-                    li = lis[0]
-
-                # lis = [li1 + 1 + self.full_label[li1 + 1:].index((r.values, r.tag)) for r in pi.req if r] # bad idea
+                    lis = [li for li in (full_label_1.index(r_) for r_ in (req, [req[0], req[2], req[1]], req[:2]))
+                           if li >= 0]
+                    li = lis[0] if lis else -1
+                li += li1 + 1
                 is_next = (0 <= li1 < li < len(self.full_label)) and all(
                     t != 'prop' for w, t in self.full_label[li1 + 1:li])
                 if is_next and _is_union_word(self.full_label[li - 1][0]):
                     pi.values = pi1.values
+                    if not pi.req[0]:  # cmp
+                        pi.req[0].values = pi1.req[0].values
                     print(f"[DEBUG] Match p-r tag for {str(pi1)} in {self.full_label[li1:li + 1]}")
 
             elif pi1.values and pi1.child_nodes and pi.values == '其' and pi.child_nodes and is_same_req:
-                print(f'[DEBUG] Match last prop1 {pi}')  # #works only for one
+                print(f'[DEBUG] Match last prop1 {pi}')  # #works only for one TODO: review
                 pi1.child_nodes += pi.child_nodes
                 props[i] = None
 
@@ -731,7 +775,7 @@ class RCTree:
             if props[i] is None:
                 del props[i]
 
-        # ===== Remove duplicated prop (recursive)
+        # ========== Remove duplicated nesting prop-propx, match prop
         def _rm_duplicated_child_prop(props_):
             for i_, prop_ in enumerate(props_):
                 _rm_duplicated_child_prop(prop_.child_nodes)
@@ -741,7 +785,7 @@ class RCTree:
 
         _rm_duplicated_child_prop(props)
 
-        # ===== Match aRprop-obj (anchor)
+        # ========== Match aRprop-obj (anchor)
         if isinstance(self.obj_node.values, list):
             anchored = False
             slabel = str(self.full_label)
@@ -762,8 +806,7 @@ class RCTree:
                 for i, v in enumerate(self.obj_node.values):
                     self.obj_node.values[i] += f'&{i + 1}'
 
-        # ===== Restore self.full_label
-        self.full_label = full_label_x_
+        self.full_label = full_label_bak
 
     def regex_parse(self, grammar, full_label=None, return_idx=False):
         """
@@ -803,9 +846,9 @@ class RCTree:
     def generate(self):
         log_msg = f'[{total_count + 1}]#{self.seq_id}\n'
         log_msg += f'Seq:\t{self.seq}\n'
-        log_msg += f'Label:\t{self.slabel}\n'  # slabel
+        log_msg += f'Label:\t{self.slabel}\n'
 
-        # ================================================================================ Pre-process & Obj
+        # ======================================== Pre-process & Obj
         self.pre_process1()
 
         if 'sobj' in self.full_label.tags:
@@ -833,35 +876,17 @@ class RCTree:
             self.add_curr_child(self.obj_node)
 
         self.pre_process2()
-
-        # ================================================================================ Parsing generate
+        # ======================================== Parsing generate
         try:
             self._generate_by_antlr4()
         except ParserError as ex:
             log_msg = str(ex) + '\n' + log_msg
 
         self.post_process()
-        # ================================================================================ Finish
+        # ======================================== Finish
         is_comp = self.is_gen_complete()
 
-        # # === Simple/Complex sentence
-        # labelx = str(self.labelx)
-        # n_propl = labelx.count('/prop]')
-        # n_Rpropl = labelx.count('/Rprop]')
-        # n_aRpropl = labelx.count('/aRprop]')
-        # n_cmp = labelx.count('/cmp]')
-        # rcts = [x for x in str(self).split('\n') if x]
-        # is_2_props = len(rcts) - 1 > 1
-        # self.is_simple = not is_2_props
-        # if self.is_simple:
-        #     print('***Simple', n_propl, n_Rpropl + n_aRpropl, n_cmp)
-        #     assert n_propl == 1 and n_Rpropl + n_aRpropl == 1 and n_cmp == 1, self.seq
-        # else:
-        #     print('***Complex', n_propl, n_Rpropl + n_aRpropl)
-        #     assert n_propl > 1 or n_Rpropl + n_aRpropl > 1 or n_cmp > 1, self.seq
-        # return
-
-        log_msg += f"RCTree:\t#{self.root.hashtag()}\n{self}\n"
+        log_msg += f"RCTree:\t#{self.hashtag()}\n{self}\n"
         log_msg += 'Gen complete.\n' if is_comp else f'Gen not complete: {self.full_label}\n'
         log_msg += '-' * 90
         log(log_msg, print_log=True)  # print all, print_log=not is_comp
@@ -946,6 +971,7 @@ class RCTree:
         self.full_label.remove(self.del_delayed_props)
 
     def _generate_by_antlr4(self):
+        self.full_label.remove_tag('O')
         tree = self.antlr4_parse()
         if not tree:
             return
@@ -956,17 +982,16 @@ class RCTree:
         for p_node in visitor.sprop_nodes:
             self.obj_node.add_child(p_node)
 
-        # if self.is_gen_complete():
-        #     return
+    def hashtag(self):
+        return md5hash(str(self))
 
     def __str__(self, indent='\t\t'):
         """
-        # -> [sobj] -> [obj]
+        [sobj] -> [obj]
             if:     [prop] = [Rprop]
             check:  [prop] = [Rprop]
                     [prop] = [Rprop]<-[Robj]
                     [prop]->[prop] = [Robj]<-[Rprop]
-            ← →
         """
 
         # ========== Obj (consider first child only)
@@ -982,40 +1007,11 @@ class RCTree:
         if not self.obj_node.has_child():
             return tree
 
-        # ========== Obj tree
         obj_tree = self.obj_node.tree_str()
-        lines = obj_tree.split('\n')[1:]
+        obj_lines = obj_tree.split('\n')[1:]
 
-        # ===== Sort
-        for i in range(len(lines) - 1, 0, -1):
-            if lines[i].startswith('|--'):  # propx+
-                lines[i - 1] += '\n' + indent + lines[i]
-                del lines[i]
-
-        idx_lines = []
-        for li, l in enumerate(lines):
-            is_check = not ('-?' in l)
-            l1 = l[:l.index('\n')] if '\n' in l else l
-            p = l1[l1.index('['):l1.index(']')] + '/'
-            rp = l1[l1.rindex('['):l1.rindex(']')] + '/'
-            if '|' in p:
-                p = p[:p.index('|')] + '/'
-            if '|' in rp:
-                rp = rp[:rp.index('|')] + '/'
-            pi = self.slabel.find(p)
-            rpi = self.slabel.find(rp)
-            if pi < 0:
-                pi = len(self.slabel)
-            if rpi < 0:
-                rpi = len(self.slabel)
-            ppi = min(pi, rpi)
-            idx_lines.append((is_check, ppi, li, l))
-        idx_lines.sort()
-        lines = [l for *_, l in idx_lines]
-        # =====
-
-        lines = [indent + l for l in lines]
-        obj_tree = '\n'.join(lines)
+        obj_lines = [indent + l for l in obj_lines]
+        obj_tree = '\n'.join(obj_lines)
 
         return tree + '\n' + obj_tree
 
@@ -1037,9 +1033,11 @@ class RCNode:
         self.values = values
         self.tag = tag
 
-        self.anchor = ''  # anchor to a specific obj, when there are multiple objs
         self.child_nodes = []
         self.req = None  # a tuple of (cmp_node, req_node, sreq_node=None)
+
+        self.anchor = ''  # anchor to a specific obj, when there are multiple objs
+        self.or_combine = False  # bool condition, default (False) is AND
 
     def is_app_req(self):
         if self.req:
@@ -1099,27 +1097,22 @@ class RCNode:
         srn = RCNode(srv, srt) if srv is not None else None
         self.set_req((cn, rn, srn))
 
-    def hashtag(self):
-        all_str = self.tree_str(indent='-', optimize=False)
-        return md5hash(all_str)
-
     def tree_str(self, indent='-', optimize=True, show_tag=False):
-        all_str = self.__str__(optimize, show_tag, True)
+        t_str = self.__str__(optimize, show_tag, True)
 
         if self.has_child():
-            cn_all_strs = []
-            for cn in self.child_nodes:
-                cn_all_strs.append(cn.tree_str(indent + indent[0], optimize))
+            # cns = sorted(self.child_nodes, key=lambda cn: not cn.has_app_seq()) # have been sorted by post_process
+            sep_and = f'\n|{indent}'
+            sep_or = sep_and[:-1] + '+'
+            cn_t_strs = [(sep_or if cn.or_combine else sep_and, cn.tree_str(indent + '-', optimize))
+                         for cn in self.child_nodes]
+            t_str += ''.join(s for ss in cn_t_strs for s in ss)
 
-            if self.n_child() >= 2:
-                cns_strs = list(zip([not cn.has_app_seq() for cn in self.child_nodes], cn_all_strs))
-                cns_strs.sort()
-                cn_all_strs = [s for cn, s in cns_strs]
+        return t_str
 
-            sep = f'\n|{indent}'
-            all_str += sep + sep.join(cn_all_strs)
-
-        return all_str
+    def hashtag(self):
+        all_str = self.tree_str(optimize=False)
+        return md5hash(all_str)
 
     def __str__(self, optimize=True, show_tag=False, show_req=False):
         values = self.values
@@ -1145,10 +1138,8 @@ class RCNode:
         if isinstance(values, list) or isinstance(values, tuple):
             values = ', '.join(self.values)
 
-        str_ = f'[{values}{self.anchor}]'
-
-        if show_tag:
-            str_ += f'#{self.tag}'
+        t = f'/{self.tag}' if show_tag else ''
+        str_ = f'[{values}{self.anchor}{t}]'
 
         if show_req:
             if self.req:
@@ -1156,9 +1147,7 @@ class RCNode:
                 req_str_ = f"{self.req[0].__str__(optimize)} {self.req[1].__str__(optimize)}"
                 if self.req[2] is not None:
                     req_str_ += f"<-{self.req[2].__str__(optimize)}"
-
                 str_ = f"{str_} {req_str_}"
-
                 # ? means if
                 prefix = '?' if self.is_app_req() else ''
                 str_ = prefix + str_
@@ -1374,7 +1363,8 @@ def get_current_eval_log(log_dir='./logs'):
 
     fns = [fn for fn in os.listdir(log_dir) if re.match(r'rulecheck-eval-v\d+(\.\d+)?\.log$', fn)]
     if len(fns) > 1:
-        x = input(f'Proceed? Only {fns[0]} will be left and others may be overwritten (y/[n])')
+        fns.sort()
+        x = input(f"Proceed? {', '.join(fns[1:])} may be overwritten (y/[n])")
         if x.lower() != 'y':
             exit()
 
@@ -1387,11 +1377,11 @@ def get_current_eval_log(log_dir='./logs'):
     return f0_v, f0_txt
 
 
-def update_eval_log(log_dir='./logs', ignore_hash_changes=False):
-    """ignore_hash_changes: just copy eval by matched seq_id """
+def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
+    """ignore_rct_hash: just copy eval by matched seq_id """
     print('\n=== Process eval log file ===')
-    if ignore_hash_changes:
-        print('*NOTE: ignore hash changes')
+    if ignore_rct_hash:
+        print('*NOTE: ignore rct hash changes')
 
     with open(f'./logs/rulecheck.log', 'r') as f:
         f1_txt = f.read()
@@ -1415,7 +1405,7 @@ def update_eval_log(log_dir='./logs', ignore_hash_changes=False):
         d1['idx'] = idx0s.index(d0['idx']) + 1  # compact index
 
         eval0, eval1 = d0['eval'], ''
-        if ignore_hash_changes:
+        if ignore_rct_hash:
             eval1 = eval0
             if d1['rct_id'] != d0['rct_id']:
                 rct_change = True
@@ -1494,7 +1484,7 @@ def update_eval_log(log_dir='./logs', ignore_hash_changes=False):
 
     n = len(df['correct'])
     nc = sum(df['correct'])
-    print(f"All={n}, Correct={nc}({nc / n:.4f}), Wrong={n - nc}({(n - nc) / n:.4f})")
+    print(f"All={n}, correct={nc}({nc / n:.4f}), wrong={n - nc}({(n - nc) / n:.4f})")
 
     # print('\t\thas_app\t2_props\trec_pr\tall')
     # c_a = sum(df['has_app'] * df['correct']) / sum(df['has_app'])  # rate of correct-app

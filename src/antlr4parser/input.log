@@ -1,0 +1,13 @@
+﻿For[evacuation corridor/aRprop][Emergency lighting/obj]'s [minimum illumination at floor level/prop], [shall not be less than/cmp][5.0 lx/Rprop]
+
+For[roof/obj][insulation material/prop][using/cmp][B1 or B2 level/aRprop], the [protection layer/prop][shall use/cmp][noncombustible material/Rprop], and the [protection layer/prop][thickness/prop][shall not be less than/cmp][10mm/Rprop]
+[屋面/obj][保温材料/prop][采用/cmp][B1、B2级/aRprop]的，[保护层/prop][应采用/cmp][不燃材料/Rprop]，[保护层/prop]的[厚度/prop][不应小于/cmp][10mm/Rprop]
+
+[采用/cmp][B1、B2级/aRprop][保温材料/prop]的[屋面/obj]保温，[应采用/cmp][不燃材料/Rprop]作[保护层/prop]，[保护层/prop]的[厚度/prop][不应小于/cmp][10mm/Rprop]
+For[roof/obj][using/cmp][B1 or B2 level/aRprop][insulation material/prop], the [protection layer/prop][shall use/cmp][non-combustible material/Rprop], and the [thickness/prop] of the [protection layer/prop][shall not be less than/cmp][10mm/Rprop]
+
+[贯穿孔口/obj]的[防火封堵/prop]应符合下列规定：1当贯穿孔口 [直径/prop][不大于/cmp][150mm/aRprop]时，应采用[无机堵料|有机堵料|防火密封胶|防火泡沫|防火塞/Rprop]
+[error/prop]a[LE/cmp][8mm/Rprop]
+
+--
+ambiguity: p p r r r: (p (p r) r) r OR (p (p r r) r)
