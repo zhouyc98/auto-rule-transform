@@ -1,14 +1,3 @@
-# Auto Rule Transform
-
-Auto Rule Transform: Automated rule transformation for automated rule checking.  
-
-
-## Data Information
-
-In data/xiaofang/[sentences_all.json](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/data/xiaofang/sentences_all.json), it contains all sentences with labels developed in this research.  
-
-In src/logs/[ruleparse-eval.log](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/ruleparse-eval.log), it shows the parsing result of these sentences in a text-based format.  
-
 ## Setup & Usage
 
 - Clone or download the repo  

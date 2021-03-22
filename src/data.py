@@ -1,5 +1,5 @@
 #!/usr/bin/python3.7
-#coding=utf-8
+# coding=utf-8
 
 import os
 import sys
@@ -82,7 +82,7 @@ class Corpus:
 
         sen_token_ids = torch.tensor(_sen_tokens['input_ids'], dtype=torch.long)
         sen_att_mask = torch.tensor(_sen_tokens['attention_mask'], dtype=torch.float)
-        # self.tokenizer.convert_ids_to_tokens(sen_token_ids[0]) # DEBUG
+        # self.tokenizer.convert_ids_to_tokens(sen_token_ids[0])
         CLS_token_id = self.tokenizer.convert_tokens_to_ids(['[CLS]'])[0]  # 101
 
         sen_tag_ids = -1 * torch.ones_like(sen_token_ids, dtype=torch.long)  # -1 for tag padding (non-labeled)
@@ -314,7 +314,7 @@ def get_test_data_loader(data_dir, batch_size, max_sql=125):
 
 
 # ========================================================================================= Process
-def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Xiaofang'):
+def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Data\xiaofang'):
     docs = []
     doc_sep = '\n\n#=====\n\n'
 
@@ -389,11 +389,11 @@ def json_to_doc(doc_js):
     return doc
 
 
-def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Xiaofang\processed'):
+def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Data\xiaofang\processed'):
     doc = open(os.path.join(data_dir, 'xiaofang.txt'), 'r', encoding='utf8').read()
     doc = doc.replace('\n#=====\n', '。\n').replace('\n\n', '。\n').replace('\n', ' ')
     sents = re.split('[。？！]', doc)
-    sents = [s.strip()+'\n' for s in sents if s.strip()]
+    sents = [s.strip() + '\n' for s in sents if s.strip()]
     with open(os.path.join(data_dir, 'sentences.txt'), 'w', encoding='utf8') as f:
         f.writelines(sents)
 
@@ -417,19 +417,31 @@ def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自�
             f.write('\n'.join(sents[i * n_line:(i + 1) * n_line]))
 
 
-def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_state=1):
-    """根据Doccano生成的标注json文件，在train/val两个文件夹下生成sentences.txt, tags.txt"""
+def init_data_by_json(data_dir='../data/xiaofang/', early_return=False, random_state=1):
+    """ 根据Doccano生成的标注json文件，在train/val两个文件夹下生成sentences.txt, tags.txt
+        early_return: 不修改train/ val/文件夹内容，read & update json文件后直接return """
 
-    def write_lines(path_, lines, add_space=False, add_enter=True):
+    def _write_lines(path_, lines, add_space=False, add_enter=True):
         with open(path_, 'w', encoding='utf8') as f:
             for line in lines:
                 f.write(' '.join(line) if add_space else line)
                 if add_enter:
                     f.write('\n')
 
+    def _json_pretty_dump(dicts, path):
+        with open(path, 'w', encoding='utf8') as fp:
+            # json.dump(dicts, fp, ensure_ascii=False)
+            jstr = json.dumps(dicts, ensure_ascii=False)
+            replaces = [('}, ', '\n},\n'), ('[{', '[\n{'), ('}]', '\n}\n]'), ('", "', '",\n"'), ('], "', '],\n"'),
+                        ('{"', '{\n"'), ('"text', '    "text'), ('"label', '    "label'), ('"slabel', '    "slabel')]
+            for r1, r2 in replaces:
+                jstr = jstr.replace(r1, r2)
+            fp.write(jstr)
+
     # ============================================================ Read & parse json
     pathjoin = os.path.join
-    # # [jsonl merge to one]
+
+    # # ========== jsonl merge to one
     # seqs, labels = [], []
     # for fn in os.listdir(pathjoin(data_dir, 'bak-jsons')):
     #     if '.json' in fn and 'all.json' not in fn:
@@ -445,9 +457,9 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
     # dicts = []
     # for seq, label in zip(seqs, labels):
     #     label.sort(key=lambda t: t[0])
-    #     dicts.append({'text_id': md5hash(seq), 'text': seq, 'label': label, 'slabel': label_iit_to_slabel(label, seq)})
+    #     dicts.append({'text_id': str_hash(seq), 'text': seq, 'label': label, 'slabel': label_iit_to_slabel(label, seq)})
     # with open(os.path.join(data_dir, 'sentences_all.json'), 'w', encoding='utf8') as fp:
-    #     json.dump(dicts, fp, ensure_ascii=False, indent=4)
+    #     json.dump(dicts, fp, ensure_ascii=False, indent=4) # need prettify
     # exit()
 
     fn = 'sentences_all.json'
@@ -461,57 +473,38 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
     slabels = [d['slabel'] for d in dicts]
 
     assert all('[' not in seq and ']' not in seq for seq in seqs), "!A seq contains '[' or ']'"
-    assert len(seq_ids) == len(set(seq_ids)), '!Hash collision occurs'
+    seq_hashs = [str_hash(s) for s in seqs]
+    seq_ids_set, seq_hashs_set = set(seq_ids), set(seq_hashs)
+    assert len(seq_ids) == len(seq_ids_set) == len(seq_hashs) == len(seq_hashs_set), '!Hash collision occurs'
 
     # ============================================================ Update
-    update = False
+    need_update = False
     for i in range(len(seqs)):
         seq, label, slabel = seqs[i], labels[i], slabels[i]
         from ruleparse import TAGS
         assert all(t1 in TAGS for _, _, t1 in label), f'!Invalid tag in seq #{seq_ids[i]}: {label}'
 
         # update by slabel
-        slabel_0 = label_iit_to_slabel(label, seq)
-        if slabel_0 != slabel:
-            print(f'\tUpdate label of seq #{seq_ids[i]} by slabel.')
-            seq_1, label_1 = slabel_to_seq_label_iit(slabel)
-            assert seq_1 == seq
-            # dicts[i]['text'] = seq_1
+        seq_1, label_1 = slabel_to_seq_label_iit(slabel, to_full_label=False)
+        label_1 = [list(l1) for l1 in label_1]  # [[], [], ...]
+        assert seq_1 == seq  # test
+        if seq_1 != seq or label_1 != label:
+            s = 'seq ' if seq_1 != seq else ''
+            s += 'label' if label_1 != label else ''
+            print(f'\tUpdate seq #{seq_ids[i]} by slabel:', s)
+            dicts[i]['text'] = seq_1
             dicts[i]['label'] = label_1
-            update = True
+            need_update = True
 
     # hash update
     for d in dicts:
-        tid = md5hash(d['text'])
+        tid = str_hash(d['text'])
         if tid != d['text_id']:
             print(f"Text_id (hash) update: #{d['text_id']} -> #{tid}")
             d['text_id'] = tid
-            update = True
+            need_update = True
 
-    # # ========== Tag change: remove propx
-    # print('########## Tag change')
-    # update = True
-    #
-    # for i in range(len(seqs)):
-    #     seq, label, slabel = seqs[i], labels[i], slabels[i]
-    #     # label: [[9, 11, 'sobj'], [15, 18, 'obj'], [18, 22, 'prop'], [22, 26, 'cmp'], [26, 29, 'Rprop']]
-    #
-    #     tag_change = False
-    #     for i0, (i1, j1, t) in enumerate(label):
-    #         if t[-1] == 'x':
-    #             label[i0][2] = t[:-1]
-    #             tag_change = True
-    #
-    #     if tag_change:
-    #         slabel = label_iit_to_slabel(label, seq)
-    #         assert slabel_to_seq_label_iit(slabel) == (seq, [(i, j, t) for i, j, t in label])
-    #
-    #         print(f'\tUpdate seq #{seq_ids[i]}.')
-    #         dicts[i]['label'] = label
-    #         dicts[i]['slabel'] = slabel
-    # print('########## End tag change')
-
-    if update:
+    if need_update:
         seq_ids = [d['text_id'] for d in dicts]
         seqs = [d['text'] for d in dicts]
         labels = [d['label'] for d in dicts]
@@ -519,16 +512,12 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
 
         sent_path = pathjoin(data_dir, 'sentences_all.json')
         sent_bak_path = pathjoin(data_dir, 'sentences_all.json.bak')
-        if os.path.exists(sent_bak_path):
-            os.remove(sent_bak_path)
-        os.rename(sent_path, sent_bak_path)
-
-        with open(sent_path, 'w', encoding='utf8') as fp:
-            json.dump(dicts, fp, ensure_ascii=False, indent=4)
+        os.replace(sent_path, sent_bak_path)
+        _json_pretty_dump(dicts, sent_path)
         print('Update & backup json files successfully.')
 
     # ========== Return
-    if return_only:
+    if early_return:
         return seqs, labels, dicts
 
     # ============================================================  Train/val split
@@ -553,16 +542,16 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
             dict_seqs[x][i] = list(dict_seqs[x][i])
             dict_seqs[x][i], dict_labels[x][i] = clean_seq_label(dict_seqs[x][i], dict_labels[x][i])
 
-        write_lines(pathjoin(data_dir, x, 'sentences.txt'), dict_seqs[x], add_space=True)
-        write_lines(pathjoin(data_dir, x, 'tags.txt'), dict_labels[x], add_space=True)
+        _write_lines(pathjoin(data_dir, x, 'sentences.txt'), dict_seqs[x], add_space=True)
+        _write_lines(pathjoin(data_dir, x, 'tags.txt'), dict_labels[x], add_space=True)
 
-        with open(pathjoin(data_dir, x, 'sentences&tags.txt'), 'w', encoding='utf8') as f:
+        with open(pathjoin(data_dir, x, '_sentences_tags.txt'), 'w', encoding='utf8') as f:
             for seq, label in zip(dict_seqs[x], dict_labels[x]):
-                f.write(f"{'    '.join(seq)}\n{' '.join(label)}\n\n")
-                # assert len(seq) == len(label)
-                # for i in range(len(seq)):
-                #     f.write(f'{seq[i]}\t{label[i]}\n')
-                # f.write('\n\n')
+                # f.write(f"{'    '.join(seq)}\n{' '.join(label)}\n\n")
+                assert len(seq) == len(label)
+                for i in range(len(seq)):
+                    f.write(f'{seq[i]}/{label[i]} ')
+                f.write('\n')
 
     # ========== Tags
     all_tags = []
@@ -577,10 +566,18 @@ def init_data_by_json(data_dir='../data/xiaofang/', return_only=False, random_st
         tags_last = [t.strip() for t in tags_last if t.strip()]
     if tags != tags_last:
         print('! Tag changes')
-        write_lines(data_dir + 'tags.txt', tags, add_space=False)
+        _write_lines(data_dir + 'tags.txt', tags, add_space=False)
 
     print(f'Process successfully, {len(seqs)} sentences in total, {n}/{len(seqs) - n} in train/val.')
     return seqs, labels, dicts
+
+
+def get_data_by_text(data_dir='../data/xiaofang/'):
+    """ 根据sentences_all.txt返回seq, labels, 根据sentences_all.txt中每一行都是slabel """
+    with open(data_dir + 'sentences.txt', 'r', encoding='utf8') as fp:
+        slabels = fp.readlines()
+    seqs, labels = zip(*[slabel_to_seq_label_iit(sl.strip('\n')) for sl in slabels])
+    return seqs, labels
 
 
 def clean_seq_label(seq: list, label: list):
@@ -812,7 +809,7 @@ def _measure_sentence_distribution():
                 return _get_doc_index(seq1[5:])
 
     doc_sep = '\n\n#=====\n\n'
-    with open(r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Xiaofang\processed\xiaofang.txt', 'r',
+    with open(r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Data\xiaofang\processed\xiaofang.txt', 'r',
               encoding='utf8') as fp:
         docs = fp.read().split(doc_sep)
     for i, doc in enumerate(docs):
@@ -820,7 +817,7 @@ def _measure_sentence_distribution():
         d = d.replace('0 . ', '0.')
         docs[i] = d
 
-    seqs, labels, dicts = init_data_by_json(return_only=True)
+    seqs, labels, dicts = init_data_by_json(early_return=True)
 
     print('Calculate doc index...')
     idxs = [_get_doc_index(seq) for seq in seqs]
@@ -871,22 +868,5 @@ label_bio:      ['O',...,'B-obj','I-obj',...]
 label_wt:       [(word,tag),(word,tag),(word,tag),..]
 slabel:         str of seq & label (combined): '[word/tag][word/tag]xxx[word/tag]...'
 
-full_label_:    contains the whole seq, e.g, in label_iit, j(k)=i(k+1)
-
--Random state
-42	2	4.4	2.20
-43	2	4.4	2.20
-5	3	7.2	2.40
-23	3	7.2	2.40
-49	3	7.2	2.40
-52	3	7.2	2.40
-59	3	7.2	2.40
-61	3	7.2	2.40
-65	3	7.2	2.40
-71	3	7.2	2.40
-91	3	7.2	2.40
-92	3	7.2	2.40
-99	3	7.2	2.40
-1	2	4.9	2.45
-39	2	4.9	2.45
+full_label_:    contains the whole seq including O words, e.g, in label_iit, j(k)=i(k+1)
 """

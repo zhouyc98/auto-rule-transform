@@ -1,5 +1,5 @@
 #!/usr/bin/python3.7
-#coding=utf-8
+# coding=utf-8
 
 import os
 import time
@@ -197,13 +197,13 @@ class Logger:
                 f.write('\n')
             f.write('[{}]\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 
-    def log(self, msg, end='\n', level=1, print_log=None, use_warning=False):
+    def log(self, msg, end='\n', level=1, print_log=None, warning=False):
         """
         :param msg:
         :param end:
         :param level:       higher (importance) level, more likely to be print
         :param print_log:   None means auto, set True/False to control print
-        :param use_warning: use warning instead of print
+        :param warning:     use warning instead of print
         """
         if print_log is not None:
             if print_log:  # True
@@ -212,7 +212,7 @@ class Logger:
                 level = self.print_log_level - 10
 
         if level >= self.print_log_level:  # print
-            if use_warning:
+            if warning:
                 # warnings.formatwarning = custom_formatwarning
                 # warnings.warn(msg)
                 logging.warning(msg)
@@ -237,22 +237,11 @@ def get_elapsed_time(start_time):
     return str_
 
 
-def custom_formatwarning(msg, *args, **kwargs):
-    """
-    ignore everything except the message
-    https://stackoverflow.com/questions/2187269/print-only-the-message-on-warnings
+def str_hash(x, length=7):
+    if not isinstance(x, str):
+        x = str(x)
 
-    Usage:
-        warnings.formatwarning = custom_formatwarning
-        warnings.warn('the message')
-    """
-    return str(msg) + '\n'
-
-
-def md5hash(x: str, length=7):
-    assert isinstance(x, str)
-
-    hash_str = hashlib.md5(x.encode('utf8')).hexdigest()
+    hash_str = hashlib.sha1(x.encode('utf8')).hexdigest()
     if length is None or length <= 0:
         return hash_str
     else:
