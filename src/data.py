@@ -417,7 +417,7 @@ def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自�
             f.write('\n'.join(sents[i * n_line:(i + 1) * n_line]))
 
 
-def init_data_by_json(data_dir='../data/xiaofang/', early_return=False, random_state=1):
+def init_data_by_json(data_dir='../data/xiaofang/', early_return=False, random_state=29):
     """ 根据Doccano生成的标注json文件，在train/val两个文件夹下生成sentences.txt, tags.txt
         early_return: 不修改train/ val/文件夹内容，read & update json文件后直接return """
 
@@ -576,7 +576,7 @@ def get_data_by_text(data_dir='../data/xiaofang/'):
     """ 根据sentences_all.txt返回seq, labels, 根据sentences_all.txt中每一行都是slabel """
     with open(data_dir + 'sentences.txt', 'r', encoding='utf8') as fp:
         slabels = fp.readlines()
-    seqs, labels = zip(*[slabel_to_seq_label_iit(sl.strip('\n')) for sl in slabels])
+    seqs, labels = zip(*[slabel_to_seq_label_iit(sl.strip('\n')) for sl in slabels if sl.strip()])
     return seqs, labels
 
 
@@ -841,14 +841,15 @@ def _test_random_state():
         if r_min == 0 or str(r_max) == 'inf':
             continue
         r_mm = r_max / r_min
-        m = f"{rs}: {r_min}, {r_max}, {r_mm}\n"
+        m = f"{rs}\t{r_min} \t{r_max} \t{r_mm:.3f}\n"
         msgs += m
 
+    print('random states have non-inf ratios:')
     print(msgs)
 
 
 if __name__ == '__main__':
-    # _measure_sentence_distribution() # 44, 10/9
+    # _measure_sentence_distribution()  # 44 docs
     # _test_random_state()
     # sys.exit()
 
@@ -858,7 +859,7 @@ if __name__ == '__main__':
         print('\nChecking result ...')
         corpus = Corpus('../data/xiaofang', 125)
         check, tags_df = corpus.check_tags_stratify(print_result=True)
-        assert check, 'change random_state in: seqs, labels = shuffle(seqs, labels, random_state=3000)'
+        assert check, 'check failed, consider change random_state in init_data_by_json'
 
 """
 -Sequence and label

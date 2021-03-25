@@ -18,33 +18,35 @@ from data import *
 
 TAGS = {'sobj', 'obj', 'prop', 'cmp', 'Robj', 'Rprop', 'aRobj', 'aRprop'}
 DEFAULT_TAG_VALUES = {'prop': 'Type', 'cmp': '='}
-DEONTIC_WORDS = ('应当', '应该', '应按', '应能', '尚应', '应', '必须', '尽量', '要', '宜', '得')
-CMP_DICT = OrderedDict([('≤', '小于等于 小于或等于 不大于 不高于 不多于 不超过'.split()),
-                        ('≥', '大于等于 大于或等于 不小于 不低于 不少于'.split()),
-                        ('>', '大于 超过 高于'.split()),
-                        ('<', '小于 低于'.split()),
-                        ('≠', '不等于 避免 不采用 无法采用 非'.split()),
-                        ('=', '等于 为 采用 用 按照 按 符合 执行'.split()),
-                        ('has no', '不有 不设置 不设 不具备 无'.split()),
-                        ('has', '有 具有 含有 留有 设 设置 设有 增设 铺设 搭设 安装 具备'.split()),
-                        ('not in', '不在'.split()),
-                        ('in', '在'.split()),
+DEONTIC_WORDS = ('应当', '应该', '应按', '应能', '尚应', '应', '必须', '尽量', '要', '宜', '得', 'shall')
+CMP_DICT = OrderedDict([('≤', '小于或?等于|不(大于|高于|多于|超过)|(not be|no) greater than'),
+                        ('≥', '大于或?等于|不(小于|低于|少于)|(not be|no) less than'),
+                        ('>', '大于|超过|高于|greater than'),
+                        ('<', '小于|低于|less than'),
+                        ('≠', '不等于|避免|不采用|无法采用|非|(not be|no) equals?'),
+                        ('=', '等于|为|采?用|按照?|符合|执行|equals?'),
+                        ('has no', '不(有|设置?|具备)|无'),
+                        ('has', '(具|含|留)?有|设(置|有)?|(增|铺|搭)设|安装|具备'),
+                        ('not in', '不在'),
+                        ('in', '在'),
                         ])
 
 
 def get_cmp_str(cmp_w):
+    """ cmp_str: cmp key, cmp_w: cmp word/value """
     if not cmp_w:  # None or ''
         return DEFAULT_TAG_VALUES['cmp']
 
     for dw in DEONTIC_WORDS:
         cmp_w = cmp_w.replace(dw, '')
+    cmp_w = cmp_w.strip()
 
     # simplify cmp_value, if can
     if cmp_w == '':
         return '='
 
-    for key, word in CMP_DICT.items():
-        if cmp_w in word:
+    for key, pattern in CMP_DICT.items():
+        if re.fullmatch(pattern, cmp_w, re.IGNORECASE):
             return key
 
     return cmp_w
@@ -1065,75 +1067,89 @@ class RCNode:
 
 
 class RevitRuleGenerator:
-    Class_Param_Name_Dict_CN = {'OST_Doors': {'class': '门$'},
-                                'OST_Stairs': {'class': '楼梯$', 'param': {'最小梯段宽度': '^宽度$'}},
-                                'OST_Windows': {'class': '窗$'},
-                                'OST_Walls': {'class': '墙$'}}
-    Class_Param_Name_Dict_EN = {'OST_Doors': {'class': 'Doors?$'},
-                                'OST_Stairs': {'class': 'Stairs?$', 'param': {'Minimum run width': '^Width$'}},
-                                'OST_Windows': {'class': 'Windows?$'},
-                                'OST_Walls': {'class': 'Walls?$'}}
+    Class_Param_Names = (('OST_Doors', 'Doors?$', '门$', {}),
+                         ('OST_Stairs', 'Stairs?$', '楼梯$', {'^宽度$': '最小梯段宽度', '^Width$': 'Minimum Run Width'}),
+                         ('OST_Windows', 'Windows?$', '窗$|^窗', {}),
+                         ('OST_Walls', 'Walls?$', '墙$', {'Type': '结构材质'})
+                         )
+    Param_Names = {'混凝土$': 'Concrete', '^热阻$': '热阻(R)', '^thermal resistance$': 'Thermal Resistance (R)'}
     Cmp_Condition = {'=': 'Equal', '<': 'LessThan', '>': 'GreaterThan', '≤': 'LessOrEqual', '≥': 'GreaterOrEqual',
                      '≠': 'NotEqual', 'has': 'Contains', 'has no': 'DoesNotContain'}
     Root = ET.Element('MCSettings', attrib={'AllowRequired': 'False', 'Name': 'Test-Zyc', 'Author': 'Zyc'})
     Heading = ET.SubElement(Root, 'Heading', attrib={'HeadingText': 'Test', 'IsChecked': 'True'})
     Section = ET.SubElement(Heading, 'Section', attrib={'SectionName': 'Test', 'IsChecked': 'True'})
 
-    def __init__(self, rct: RCTree, language='CN'):
+    def __init__(self, rct: RCTree):
         self.rct = rct
         self.obj = self.rct.obj_node
-        self.language = language
-        self.Class_Param_Name_Dict = eval('RevitRuleGenerator.Class_Param_Name_Dict_' + language.upper())
         self.class_name = None
-
-    def get_class_name(self, node):
-        cw = node.word
-        for cn, d in self.Class_Param_Name_Dict.items():
-            if re.search(d['class'], cw):
+        self.cparam_names = {}
+        for cn, w_en, w_cn, pns in self.Class_Param_Names:
+            if re.search(w_en, self.obj.word, re.IGNORECASE) or re.search(w_cn, self.obj.word):
                 self.class_name = cn
-                return cn
-        raise RuntimeError('Class not found:', cw)
+                self.cparam_names = pns
+        if self.class_name is None:
+            raise RuntimeError('Class name not found:', self.obj.word)
 
-    def get_category_filter(self, node, op='And'):
+    def get_category_filter(self, op='And'):
         """ <Filter ID="74c7e428-7bc8-4467-989d-7bb8fd26a934" Operator="And" Category="Category" Property="OST_Doors"
             Condition="Included" Value="True" CaseInsensitive="False" Unit="None" UnitClass="None" FieldTitle=""
             UserDefined="False" Validation="None" /> """
 
-        attrib = {'Operator': op, 'Category': "Category", 'Property': self.get_class_name(node),
+        attrib = {'Operator': op, 'Category': "Category", 'Property': self.class_name,
                   'Condition': "Included", 'Value': "True", 'CaseInsensitive': "False"}
         return attrib
+
+    def to_param_name(self, pw):
+        for pw1, pn in self.cparam_names.items():
+            if re.search(pw1, pw, re.IGNORECASE):
+                return pn
+        for pw1, pn in self.Param_Names.items():
+            if re.search(pw1, pw, re.IGNORECASE):
+                return pn
+
+        if re.search('[a-zA-Z]', pw):
+            pw = pw.title()
+
+        return pw
 
     def get_param_filter(self, node, op='And'):
         """ <Filter ID="71ffc161-ca68-4c0f-bb0a-36f6d87b32dd" Operator="And" Category="Parameter" Property="标高"
             Condition="WildCard" Value="标高3" CaseInsensitive="False" Unit="None" UnitClass="None" FieldTitle=""
             UserDefined="False" Validation="None" /> """
 
-        pw = node.word
-        if 'param' in self.Class_Param_Name_Dict[self.class_name]:
-            for pn, pw1 in self.Class_Param_Name_Dict[self.class_name]['param'].items():
-                if re.search(pw1, pw):
-                    pw = pn
+        pv = node.word
+        if pv is None:
+            pv = str(node).strip('[]')
+        pv = self.to_param_name(pv)  # replace prop name
 
         cmp, rprop, robj = node.req
         if robj is not None:
             raise NotImplementedError('Robj is not support now')
-        cmp_str = str(cmp) if node.is_app_req() else reverse_cmp(str(cmp))
-        cond_str = self.Cmp_Condition[cmp_str]
 
         unit_class = "None"
-        rv = rprop.word
-        if rv.endswith(' m'):
-            rv = str(float(rv[:-2]) * 1000 / 304.8)  # in revit, length unit always uses foot (ft)
-            unit_class = "Length"
-        if rv.endswith(' mm'):
-            rv = str(float(rv[:-3]) / 304.8)
-            unit_class = "Length"
-        else:
-            pass
-            # unit_class
-            # rv = rv.strip(string.ascii_letters+' ')
+        rv = self.to_param_name(rprop.word)
+        if ' ' in rv and re.search('[0-9]', rv):
+            i = rv.rindex(' ')
+            rv, u = rv[:i], rv[i + 1:].lower()
+            if u == 'm':
+                rv = str(float(rv) * 1000 / 304.8)  # in revit, length unit always uses foot (ft)
+                unit_class = "Length"
+            elif u == 'mm':
+                rv = str(float(rv) / 304.8)
+                unit_class = "Length"
+            else:
+                pass
+                # unit_class
 
-        attrib = {'Operator': op, 'Category': "Parameter", 'Property': pw, 'Condition': cond_str,
+        cmp_str = str(cmp)
+        if not node.is_app_req():
+            cmp_str = reverse_cmp(str(cmp))
+        cond_str = self.Cmp_Condition[cmp_str]
+        if not re.search('[0-9]', rv) and 'Equal' in cond_str:
+            cond_str = 'WildCard' if cond_str == 'Equal' else 'WildCardNoMatch'
+
+        attrib = {'Operator': op, 'Category': "Parameter", 'Property': pv, 'Condition': cond_str,
                   'Value': rv, 'CaseInsensitive': "False", 'Unit': "Default", 'UnitClass': unit_class}
         return attrib
 
@@ -1142,7 +1158,7 @@ class RevitRuleGenerator:
         Property="Is Element Type" Condition="Equal" Value="False" CaseInsensitive="False" Unit="None"
         UnitClass="None" FieldTitle="" UserDefined="False" Validation="None" /> """
         attrib = {'Operator': op, 'Category': "TypeOrInstance", 'Property': "Is Element Type", 'Condition': "Equal",
-                  'Value': "False", 'CaseInsensitive': "False", 'Unit': "Default", 'UnitClass': "None"}
+                  'Value': "0", 'CaseInsensitive': "False", 'Unit': "Default", 'UnitClass': "None"}
         return attrib
 
     def generate(self, write_xml=False):
@@ -1152,25 +1168,18 @@ class RevitRuleGenerator:
             raise NotImplementedError('sobj is not support now')
 
         # if a then b = a -> b = !a or b, fail: !(!a or b) = a and !b
-        # e.g. [门/obj]的[宽度/prop][不应小于/cmp][1.2m/Rprop]
         check1 = ET.SubElement(RevitRuleGenerator.Section, 'Check', {'CheckName': self.rct.seq,
                                                                      'ResultCondition': 'FailMatchingElements',
                                                                      'IsChecked': 'True'})
-
-        ET.SubElement(check1, 'Filter', self.get_category_filter(self.obj))
         ET.SubElement(check1, 'Filter', self.get_is_elem_filter())
+        ET.SubElement(check1, 'Filter', self.get_category_filter())
         for prop in self.obj.child_nodes:
             if prop.child_nodes:
                 raise NotImplementedError('propx is not support now')
             ET.SubElement(check1, 'Filter', self.get_param_filter(prop))
 
         if write_xml:
-            self.write_xml()
-
-    @staticmethod
-    def write_xml(xml_path='./logs/test.xml'):
-        tree = ET.ElementTree(RevitRuleGenerator.Root)
-        tree.write(xml_path, encoding='utf-8', xml_declaration=True)
+            ET.ElementTree(RevitRuleGenerator.Root).write('./logs/test.xml', encoding='utf-8', xml_declaration=True)
 
 
 def model_data_loader():
@@ -1550,10 +1559,13 @@ def interactive_rct_parse():
 def get_args():
     parser = argparse.ArgumentParser('ARC Rule Parser')
     parser.add_argument('-d', '--data_loader', type=str, default='json', help='data loader')
-    parser.add_argument('-u', '--update_eval', type=int, default=1, help='update eval log file (1/0)')
     parser.add_argument('-g', '--gen_rule', action='store_true', help='generate rule')
     parser.add_argument('-i', '--interactive', action='store_true', help='interactive rct parse')
+    parser.add_argument('-U', '--no_update_eval', action='store_true', help='do not update eval log file')
     args_ = parser.parse_args()
+
+    if args_.data_loader != 'json':
+        args_.no_update_eval = True
 
     return args_
 
@@ -1583,7 +1595,7 @@ if __name__ == '__main__':
     log(f'\nComplete: {n_complete}/{n_parse}={n_complete / n_parse:.4f}')
     log(f'Time cost: {get_elapsed_time(start_time)}')
 
-    if args.update_eval:
+    if not args.no_update_eval:
         update_eval_log()
     if args.gen_rule:
-        RevitRuleGenerator.write_xml()
+        ET.ElementTree(RevitRuleGenerator.Root).write('./logs/test.xml', encoding='utf-8', xml_declaration=True)

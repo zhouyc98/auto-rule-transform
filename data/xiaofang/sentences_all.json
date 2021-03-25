@@ -1458,10 +1458,10 @@
     "slabel": "[裙房屋面/sobj]及[退台屋面/sobj]的[保温材料/obj][燃烧性能/prop][不应低于/cmp][B1级/Rprop]"
 },
 {
-    "text_id": "bc56427",
-    "text": "采用B1、B2级保温材料的屋面保温，应采用不燃材料作保护层，保护层的厚度不应小于10 mm",
-    "label": [[0, 2, "cmp"], [2, 8, "aRprop"], [8, 12, "prop"], [13, 15, "obj"], [18, 21, "cmp"], [21, 25, "Rprop"], [26, 29, "prop"], [30, 33, "prop"], [34, 36, "prop"], [36, 40, "cmp"], [40, 45, "Rprop"]],
-    "slabel": "[采用/cmp][B1、B2级/aRprop][保温材料/prop]的[屋面/obj]保温，[应采用/cmp][不燃材料/Rprop]作[保护层/prop]，[保护层/prop]的[厚度/prop][不应小于/cmp][10 mm/Rprop]"
+    "text_id": "daa9dfa",
+    "text": "采用B1级保温材料的屋面保温，应采用不燃材料作保护层，保护层的厚度不应小于10 mm",
+    "label": [[0, 2, "cmp"], [2, 5, "aRprop"], [5, 9, "prop"], [10, 12, "obj"], [15, 18, "cmp"], [18, 22, "Rprop"], [23, 26, "prop"], [27, 30, "prop"], [31, 33, "prop"], [33, 37, "cmp"], [37, 42, "Rprop"]],
+    "slabel": "[采用/cmp][B1级/aRprop][保温材料/prop]的[屋面/obj]保温，[应采用/cmp][不燃材料/Rprop]作[保护层/prop]，[保护层/prop]的[厚度/prop][不应小于/cmp][10 mm/Rprop]"
 },
 {
     "text_id": "c46a3a4",

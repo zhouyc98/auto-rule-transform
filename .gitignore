@@ -20,7 +20,7 @@ src/antlr4parser/*
 
 models
 *.bak
-run*.sh
+run*.*
 *notes*.*
 *.pt
 *.pth

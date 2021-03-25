@@ -24,13 +24,10 @@ python3 train.py
   ```
 For more information about usages, run `python3 train.py -h`  
 
-The best model trained in this research is BertZh-f777029c.pth, which can be downloaded from [Google Drive](https://drive.google.com/file/d/1hwm9h0Z-ocNijgLmbBltmarFe3CAmAbt/view?usp=sharing) or [百度网盘](https://pan.baidu.com/s/1iq1_13DHfZZrH6Z5TBrg0Q) (提取码 8hys).  
-If you want to report the performance of it, put it in src/models/ and run:
+To report the performance of a model in src/models/, rename it to _BertZh0_best.pth and run:
 
   ```
-cp models/BertZh-f777029c.pth models/_BertZh0_best.pth
-python3 train.py --report 
-# then it will automatically report the model named _BertZh0_best.pth
+python3 train.py --report # it will report the model named _BertZh0_best.pth
   ```
 
 ### Parsing
