@@ -141,7 +141,7 @@ class NNFullHistory:
         if remove_first:
             # del d['0']
             p, r, f1, n = 0, 0, 0, 0
-            for i in range(1, 17):
+            for i in range(1, 15):
                 n1 = d[str(i)]['support']
                 p += d[str(i)]['precision'] * n1
                 r += d[str(i)]['recall'] * n1

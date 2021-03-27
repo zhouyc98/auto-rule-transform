@@ -26,8 +26,8 @@ req: CMP? ROBJ? RPROP;
 //non-greedy
 PROP:   '[' CHAR*? '/prop]';
 CMP:    '[' CHAR*? '/cmp]';
-ROBJ:   '[' CHAR*? '/' 'a'? 'Robj]';
-RPROP:  '[' CHAR*? '/' 'a'? 'Rprop]';
+ROBJ:   '[' CHAR*? '/' 'A'? 'Robj]';
+RPROP:  '[' CHAR*? '/' 'A'? 'Rprop]';
 OBJ:    '[' CHAR*? '/obj]' ->skip;
 OTHER:  '[' CHAR*? '/O]' -> skip;
 OTHERS: CHAR+? -> skip;

@@ -147,7 +147,7 @@ class Corpus:
         v = self.val_dataset.sen_tag_ids.numpy().reshape(-1)
         tv = np.concatenate((t, v))
         tags = {'tag-id': [], 'tag': [], 'count-all': [], 'count-train': [], 'count-val': [], 'train-val-ratio': []}
-        for i in range(17):
+        for i in range(15):
             tags['tag-id'].append(i)
             tags['tag'].append(self.idx2tag[i])
             tags['count-all'].append(np.sum(tv == i))
@@ -172,12 +172,6 @@ class Corpus:
         return mask
 
     def render_seq_labels(self, seq, label, pred, mark_down=False):
-        """
-        [设计工作压力 /prop] 为 [0.8MPa /aRprop]、... [1.6MPa /aRprop] 的 [水带 /*obj]，在设计工作压力下其[轴向延伸率 /*prop] 和 [直径的膨胀率 /*prop] [不应大于 /cmp] [5％ /Rprop]
-
-        #[设计工作压力] 为 [0.8MPa]、... [1.6MPa] 的 [水带]，在设计工作压力下其 [轴向延伸率] 和 [直径的膨胀率] [不应大于] [5％]
-        #prop              aRprop       aRprop      *obj                      *prop          *prop           cmp       Rprop
-        """
         # if (label is None) and (pred is None):
         #     return ''.join(seq)
 
@@ -212,7 +206,7 @@ class Corpus:
         """
         :param seq: list of char
         :param label: label_iit
-        :return: e.g., [水带 /obj]，在设计工作压力下其[轴向延伸率 /prop]
+        :return: e.g., [水带/obj]，在设计工作压力下其[轴向延伸率/prop]
         """
         seq = seq.copy()
         for i in range(len(seq)):
@@ -565,7 +559,7 @@ def init_data_by_json(data_dir='../data/xiaofang/', early_return=False, random_s
         tags_last = f.readlines()
         tags_last = [t.strip() for t in tags_last if t.strip()]
     if tags != tags_last:
-        print('! Tag changes')
+        print('! Tag changes (re-compile parser)')
         _write_lines(data_dir + 'tags.txt', tags, add_space=False)
 
     print(f'Process successfully, {len(seqs)} sentences in total, {n}/{len(seqs) - n} in train/val.')

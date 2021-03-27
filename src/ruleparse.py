@@ -16,7 +16,7 @@ from antlr4parser import *
 from utils import *
 from data import *
 
-TAGS = {'sobj', 'obj', 'prop', 'cmp', 'Robj', 'Rprop', 'aRobj', 'aRprop'}
+TAGS = {'sobj', 'obj', 'prop', 'cmp', 'Rprop', 'ARprop', 'Robj'}
 DEFAULT_TAG_VALUES = {'prop': 'Type', 'cmp': '='}
 DEONTIC_WORDS = ('应当', '应该', '应按', '应能', '尚应', '应', '必须', '尽量', '要', '宜', '得', 'shall')
 CMP_DICT = OrderedDict([('≤', '小于或?等于|不(大于|高于|多于|超过)|(not be|no) greater than'),
@@ -154,10 +154,10 @@ class LabelWordTags:
 
     def bool_merge(self, sub_wts, idx_start=None, idx_end=None):
         """ Merge label[i_s:i_e] to one, by OR/AND. If sub_wts is given, other args will be ignored.
-        Example1: [(a, obj), (or, OR), (c, obj)] -> [(a|c, obj)]
-        Example2: [(a, obj), (and, AND), (c, obj)] -> [(a&c, obj)]
+        Example1: [(x, obj), (or, OR), (y, obj)] -> [(x|y, obj)]
+        Example2: [(x, obj), (and, AND), (y, obj)] -> [(x&y, obj)]
         Example:
-            x = LabelWordTags([('a', 'obj'), ('or', 'OR'), ('c', 'obj')])
+            x = LabelWordTags([('x', 'obj'), ('or', 'OR'), ('y', 'obj')])
             x.bool_merge(None, 0, 3)
         """
 
@@ -344,7 +344,7 @@ class RCTreeVisitor(RuleCheckTreeVisitor):
 
     def visitReq(self, ctx: RuleCheckTreeParser.ReqContext):
         cmp = self.to_rcnode(ctx.CMP(), 'cmp')
-        rprop = self.to_rcnode(ctx.RPROP())  # aR* or R*
+        rprop = self.to_rcnode(ctx.RPROP())  # AR* or R*
         robj = self.to_rcnode(ctx.ROBJ()) if (ctx.ROBJ() is not None) else None  # 'Robj'
 
         return cmp, rprop, robj
@@ -505,23 +505,23 @@ class RCTree:
         def _sub_seq_switch(i, j):
             if i < j < len(self.full_label) - 1:
                 print(f'[DEBUG] sub-seq switch at {self.full_label[i:j]}')
-                ar_wts = self.full_label.word_tags[i:j]  # aR
+                ar_wts = self.full_label.word_tags[i:j]  # AR
                 self.full_label.remove(list(range(i, j)))
-                self.full_label.word_tags += ar_wts  # 可以考虑对aR_wts单独生成一个sub-tree
+                self.full_label.word_tags += ar_wts  # 可以考虑对ar_wts单独生成一个sub-tree
 
         for i, (wi, ti) in enumerate(self.full_label):
             if ti == 'O':
                 js = [j for j, (wj, tj) in enumerate(self.full_label[i + 1:]) if tj == 'O' and '时' in wj]
                 if js and (re.search(r'^(应符合|不应.于)下列规定：', wi) or wi.strip(' ,，') in ('在', '当')):
                     j = i + 1 + js[0]
-                    has_arprop = any(t == 'aRprop' for w, t in self.full_label[i + 1:j])
+                    has_arprop = any(t == 'ARprop' for w, t in self.full_label[i + 1:j])
                     has_no_obj = all(t != 'obj' for w, t in self.full_label[i + 1:j])
                     if has_arprop and has_no_obj:
                         j = i + 1 + js[0]
                         _sub_seq_switch(i, j)
                         break
                 if re.search(r'^(应符合|不应.于)下列规定：', wi):
-                    lwtss = self.regex_parse('X: {<O><.*>*<aRprop><O>}', self.full_label[i:])  # greedy
+                    lwtss = self.regex_parse('X: {<O><.*>*<ARprop><O>}', self.full_label[i:])  # greedy
                     if len(lwtss) == 1:
                         lwts = lwtss[0]
                         j = i + len(lwts) - 1  # tag-j is O
@@ -529,7 +529,7 @@ class RCTree:
                         break
 
         # 2) 当A被B C时 -> 当B把A C时
-        for i, lwts in self.regex_parse('X: {<a?Robj>?<a?Rprop><O><obj><prop>}', return_idx=True):
+        for i, lwts in self.regex_parse('X: {<Robj>?<A?Rprop><O><obj><prop>}', return_idx=True):
             if i >= 1 and '当' in self.full_label[i - 1][0] and self.full_label[i + len(lwts) - 3][0] == '被':
                 self.full_label.rename(i + len(lwts) - 3, '把')
                 _switch_full_label_s(i, i + len(lwts) - 2)
@@ -554,7 +554,7 @@ class RCTree:
                     print(f'[DEBUG] (has prop) insert prop in {self.full_label[i:i + 4]}')
 
         # 2.2) has c R P -> has P c R -> has Rp, p c R
-        for i, lwts in self.regex_parse('X: {<cmp><cmp><a?Robj>?<a?Rprop><prop>}', return_idx=True):
+        for i, lwts in self.regex_parse('X: {<cmp><cmp><Robj>?<A?Rprop><prop>}', return_idx=True):
             if _is_cmp_has(*lwts[0]):
                 _switch_full_label_s(i + 1, i + len(lwts) - 1)
                 self.full_label.insert(i + 1, (', ', 'O'))  # avoid p-r swtich here
@@ -566,7 +566,7 @@ class RCTree:
                 _switch_full_label_s(i + 1, i + len(lwts) - 2)
 
         # 3.1) has/eq p1 c? R p2 -> [has Rp2,] p2 p1 c? R
-        for i, lwts in self.regex_parse('X: {<cmp><prop><cmp>?<a?Robj>?<a?Rprop><R?prop>}', return_idx=True):
+        for i, lwts in self.regex_parse('X: {<cmp><prop><cmp>?<Robj>?<A?Rprop><R?prop>}', return_idx=True):
             # while lwts := regex()
             c_str = get_cmp_str(lwts[0][0])
             if c_str in ('has', '='):
@@ -574,7 +574,7 @@ class RCTree:
                 _switch_full_label_s(i + 1, i + len(lwts) - 1)
                 if c_str == 'has':
                     self.full_label.insert(i + 1, (', ', 'O'))  # avoid p-r swtich here
-                    self.full_label.insert(i + 1, (lwts[-1][0], lwts[-2][1]))  # can be aR OR R
+                    self.full_label.insert(i + 1, (lwts[-1][0], lwts[-2][1]))  # can be AR OR R
                 else:
                     self.full_label.remove(i)
                 print(f'[DEBUG] (has prop) p-r switch and insert Rprop in {self.full_label[i:i + 3]}')
@@ -585,11 +585,11 @@ class RCTree:
 
         # ========== (c ro r) order
         # 0.1) ro c r -> c ro r
-        for i, lwts in self.regex_parse('X: {<a?Robj><cmp><a?Rprop>}', return_idx=True):
+        for i, lwts in self.regex_parse('X: {<Robj><cmp><A?Rprop>}', return_idx=True):
             _switch_full_label_s(i, i + 1)
 
         # 0.2) c r ro -> c ro r
-        for i, lwts in self.regex_parse('X: {<cmp><a?Rprop><a?Robj>}', return_idx=True):
+        for i, lwts in self.regex_parse('X: {<cmp><A?Rprop><Robj>}', return_idx=True):
             if i + 2 == len(self.full_label) - 1 or not self.full_label[i + 3][1].endswith('Rprop'):
                 _switch_full_label_s(i + 1, i + 2)
 
@@ -620,8 +620,8 @@ class RCTree:
             _switch_full_label_s(i, i + len(lwts) - 2)
 
         # 2.3) ^r p
-        for i, lwts in self.regex_parse('X: {^<O|obj>*<a?Robj>?<a?Rprop><prop><O>}', return_idx=True):
-            j = int(lwts.contains_tags('aRobj') or lwts.contains_tags('Robj'))  # 0 or 1
+        for i, lwts in self.regex_parse('X: {^<O|obj>*<Robj>?<A?Rprop><prop><O>}', return_idx=True):
+            j = int(lwts.contains_tags('Robj'))  # 0 or 1
             _switch_full_label_s(i + len(lwts) - 3 - j, i + len(lwts) - 2)
 
         # TODO p1 p2 p3 xxx R -> match p2-R not p1-R
@@ -721,7 +721,7 @@ class RCTree:
         def _is_union_word(w_: str):
             for dw in DEONTIC_WORDS:
                 w_ = w_.replace(dw, '')
-            # do not use ('且', '并'): [熔点/prop]_[不小于/cmp]_[1000℃/aRprop]_且_[无/cmp]_[绝热层/aRprop]_的...
+            # do not use ('且', '并'): [熔点/prop]_[不小于/cmp]_[1000℃/ARprop]_且_[无/cmp]_[绝热层/ARprop]_的...
             patterns = {'，并$', '，且$', '，并且$', '，即$', '^或'}
             return any(re.search(p, w_) for p in patterns)
 
@@ -782,7 +782,7 @@ class RCTree:
 
         _rm_duplicated_child_prop(props)
 
-        # ========== Match aRprop-obj (anchor)
+        # ========== Match ARprop-obj (anchor)
         if ', ' in self.obj_node.word:
             words = self.obj_node.word.split(', ')
             anchored = False
@@ -791,7 +791,7 @@ class RCTree:
             for prop in props:
                 if prop.is_app_req() and not isinstance(prop.word, list):
                     wp = prop.word if prop.word is not None else ''
-                    ip = re.search(f'{wp}.*?{prop.req[1].word}/aRprop', slabel).span()[1]
+                    ip = re.search(f'{wp}.*?{prop.req[1].word}/ARprop', slabel).span()[1]
                     for k, io in enumerate(iobjs):
                         if ip < io:
                             prop.anchor = f'&{k}' if ('时，' in slabel[ip:io]) else f'&{k + 1}'
@@ -809,7 +809,7 @@ class RCTree:
 
     def regex_parse(self, grammar, full_label=None, return_idx=False):
         """
-        :param grammar: e.g., 'P: {<prop><propx><cmp>?<a?Rpropx>}'
+        :param grammar: e.g., 'P: {<prop><propx><cmp>?<A?Rpropx>}'
         :param full_label: let it None to use self.full_label
         :param return_idx: set True to return [(idx, lwts),...]
         :return: list of LabelWordTags, return an empty list when no result
@@ -962,12 +962,12 @@ class RCNode:
 
     def is_app_req(self):
         if self.req:
-            return self.req[1].tag[0] == 'a'
+            return self.req[1].tag[0] == 'A'
         return None
 
     def has_app_seq(self):
         if self.req:
-            return self.req[1].tag[0] == 'a'
+            return self.req[1].tag[0] == 'A'
         elif self.child_nodes:
             return any(cn.has_app_seq() for cn in self.child_nodes)
         else:
@@ -982,7 +982,7 @@ class RCNode:
     def set_req(self, req: tuple):
         assert self.req is None, 'Each RCNode has at most one req'
         assert len(req) == 3
-        assert 'Rprop' in req[1].tag  # '[a]Rprop'
+        assert 'Rprop' in req[1].tag  # '[A]Rprop'
 
         self.req = req
 
@@ -994,8 +994,8 @@ class RCNode:
             ct, rt, srt = 'cmp', 'Rprop', 'Robj'
         else:
             raise AssertionError('add_req_by_tuple() should be used for only /obj, /prop')
-        if any(('aR' in wt[1] for wt in wts)):
-            rt = 'a' + rt
+        if any(('AR' in wt[1] for wt in wts)):
+            rt = 'A' + rt
 
         # Double check
         for w, t in wts:
@@ -1359,7 +1359,7 @@ def get_current_eval_log(log_dir='./logs'):
     fns = [fn for fn in os.listdir(log_dir) if re.match(r'ruleparse-eval-v\d+(\.\d+)?\.log$', fn)]
     if len(fns) > 1:
         fns.sort()
-        x = input(f"Proceed? {', '.join(fns[1:])} may be overwritten (y/[n])")
+        x = input(f"Proceed? <{fns[0]}> will be used and <{', '.join(fns[1:])}> may be overwritten (y/[n])")
         if x.lower() != 'y':
             exit()
 
@@ -1506,7 +1506,7 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     print(f"Simple={n - sum(df['2_props'])}")
 
     if sha1_f0 != sha1_f1:  # show_df_tag
-        d_tags = OrderedDict.fromkeys(sorted(TAGS, key=lambda t: 'sobj prop cmp Rprop aRprop Robj aRobj'.index(t)), 0)
+        d_tags = OrderedDict.fromkeys(sorted(TAGS, key=lambda t: 'sobj prop cmp Rprop ARprop Robj'.index(t)), 0)
         df_tag = pd.DataFrame(d_tags, index=['Simple', 'Complex', 'All'])
         for h, d in ef1.ddict.items():
             for t in TAGS:

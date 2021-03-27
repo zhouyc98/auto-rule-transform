@@ -1,5 +1,5 @@
 #!/usr/bin/python3.7
-#coding=utf-8
+# coding=utf-8
 
 import argparse
 import platform
@@ -357,7 +357,7 @@ def load_last_best(model_):
 
 
 def log(msg, end='\n'):
-    c = args.cuda if 'args' in globals() else '' # import-friendly
+    c = args.cuda if 'args' in globals() else ''  # import-friendly
     c = '' if c == '0' else c
 
     print(msg, end=end)
@@ -400,7 +400,7 @@ if __name__ == '__main__':
     batch_size = args.batch_size
     sql = args.sql
     lr = args.lr
-    n_label = 17
+    n_label = 15
     grad_norm_clip = 2
     full_finetuning = True  # must be true, left for compatibility
     show_progressbar = False

@@ -1,5 +1,5 @@
 #!/usr/bin/python3.7
-#coding=utf-8
+# coding=utf-8
 
 from train import *
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     device = torch.device('cuda:0')
     batch_size = args.batch_size
     sql = args.sql
-    n_label = 17
+    n_label = 15
     full_finetuning = True
     show_progressbar = False
     log(f'\n-[{datetime.now().isoformat()}]==================== \n-Args {str(args)[9:]}')
