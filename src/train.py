@@ -352,8 +352,8 @@ def report_model(history_path=None, val_history=None, log_all_preds=False, plot_
     """if given val_history, all other params are ignored"""
     log('\n=== Report ===')
     if val_history is None:
-        global epoch, show_progressbar, model_fullname
-        epoch = -1  # means newly loaded model
+        global best_epoch, show_progressbar, model_fullname
+        best_epoch = -1  # means newly loaded model
         load_last_best(model)
         val_history = evaluate()
         model_fullname = 'BertZh*'
@@ -362,7 +362,7 @@ def report_model(history_path=None, val_history=None, log_all_preds=False, plot_
     val_p, val_r, val_f1 = val_history.avg_prf1_weight()
     report_table = val_history.avg_prf1_all(output_dict=False, label_tags=corpus.tags)
 
-    log(f'[{model_fullname}-f1w{val_f1:.3f}-ep{epoch:02d}]')
+    log(f'[{model_fullname}-f1w{val_f1:.3f}-ep{best_epoch:02d}]')
     log(f"\nValid report:\n{report_table}")
     # log(f"\nValid report (binary-classification): loss={val_loss:.3f},")
 

@@ -126,7 +126,7 @@ class NNFullHistory:
         all_labels = self.all_labels()
         return classification_report(all_labels, all_preds, target_names=label_tags, output_dict=output_dict, digits=3)
 
-    def avg_prf1_weight(self, remove_first=True):
+    def avg_prf1_weight(self, remove_first=False):
         d = self.avg_prf1_all(output_dict=True)
         # Example of d:
         # {'0': {'precision': 0.695, 'recall': 0.753, 'f1-score': 0.723, 'support': 3728},
