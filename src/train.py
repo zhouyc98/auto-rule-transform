@@ -5,12 +5,16 @@ import argparse
 import platform
 import socket
 import shutil
-import torch.nn as nn
 import random
 import csv
 import pathlib
+import numpy as np
+import pandas as pd
+import seaborn as sn
 import matplotlib.pyplot as plt
+import torch
 import torch.nn.functional as F
+import torch.nn as nn
 from tqdm import tqdm
 from glob import glob
 from torch.cuda.amp import autocast, GradScaler
@@ -87,6 +91,39 @@ def plot_model_history(log_path, plot_loss=True):
         plt.xlabel('Epoch')
         plt.legend(['Train', 'Valid'], loc='upper left')
         plt.show()
+
+
+def plot_confusion_matrix():
+    model.eval()
+    f2 = lambda n: int((n + 1) / 2)
+    cm = np.zeros((f2(n_label), f2(n_label)))
+    n_correct = 0
+    n_valid = 0
+
+    with torch.no_grad():
+        for inputs, att_mask, labels in val_data_loader:
+            # inputs: token_ids, labels: tag_ids
+            inputs, att_mask, labels = inputs.to(device), att_mask.to(device), labels.to(device).view(-1)
+            with autocast(enabled=args.fp16):
+                outputs = model(inputs, att_mask)  # shape: [bs, sql, n_tags]
+                outputs = outputs.view(-1, outputs.shape[-1])  # [bs*sql, n_tags]
+                loss = criterion(outputs, labels)
+            _, predictions = torch.max(outputs, 1)  # return (value, index)
+
+            n_correct += torch.sum(predictions == labels)
+            for i in range(labels.shape[0]):
+                if labels[i] >= 0:
+                    cm[f2(labels[i])][f2(predictions[i])] += 1
+                    n_valid += 1
+
+        log(f'Confusion matrix: val acc = {n_correct / n_valid:4f} ({n_correct}/{n_valid})')
+        cm = cm / cm.sum(axis=0)
+        tags2 = [corpus.tags[i].replace('I-', '') for i in range(0, len(corpus.tags), 2)]
+        df_cm = pd.DataFrame(cm, tags2, tags2)
+        plt.figure(figsize=(8, 6))  # default: 6.4, 4.8
+        sn.heatmap(df_cm, square=True, annot=True, fmt='.2f', cmap='Greys')  # font size
+        # plt.show()
+        plt.savefig('logs/confusion-matrix.jpg')
 
 
 def clear_prediction_logs(is_test=False):
@@ -311,7 +348,7 @@ def log_and_save():
         swriter.close()
 
 
-def report_model(history_path=None, val_history=None, log_all_preds=False):
+def report_model(history_path=None, val_history=None, log_all_preds=False, plot_cm=False):
     """if given val_history, all other params are ignored"""
     log('\n=== Report ===')
     if val_history is None:
@@ -338,7 +375,7 @@ def report_model(history_path=None, val_history=None, log_all_preds=False):
             pass
 
         # monkey patching
-        print('\nLoging all predictions...')
+        print('\nLogging all predictions...')
         global val_data_loader, train_data_loader
         evaluate(log_preds='val')
         _val_data_loader = val_data_loader
@@ -348,6 +385,9 @@ def report_model(history_path=None, val_history=None, log_all_preds=False):
 
     if history_path is not None:
         plot_model_history(history_path)
+
+    if plot_cm:
+        plot_confusion_matrix()
 
 
 def load_last_best(model_):
@@ -432,7 +472,7 @@ if __name__ == '__main__':
     criterion = cross_entropy_loss_non_pad
     scaler = GradScaler()
     if args.report:
-        report_model(log_all_preds=True)
+        report_model(log_all_preds=False, plot_cm=True)
         exit()
 
     s = 's' if args.step else ''
@@ -469,5 +509,3 @@ if __name__ == '__main__':
 
     log(f'\n(Time cost: {get_elapsed_time(start_time)})')
     report_model(val_history=best_val_history)
-    #TODO confusion matrix
-    
