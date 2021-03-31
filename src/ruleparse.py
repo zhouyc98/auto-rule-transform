@@ -910,11 +910,11 @@ class RCTree:
 
     def __str__(self, indent='\t\t'):
         """
-        [sobj] -> [obj]
-            if:     [prop] = [Rprop]
-            check:  [prop] = [Rprop]
-                    [prop] = [Rprop]<-[Robj]
-                    [prop]->[prop] = [Robj]<-[Rprop]
+        [sobj1]-[obj1]
+        |-?[prop1] = [ARprop1]-[Robj1]
+        |-[prop2] = [Rprop1]-[Robj2]
+        |-[prop3]
+        |--[prop4] < [Rprop2]
         """
 
         # ========== Obj (consider first child only)
@@ -924,7 +924,7 @@ class RCTree:
         while node is not self.obj_node:
             assert node.n_child() == 1
             node = node.child_nodes[0]
-            tree += f"->{str(node)}"
+            tree += f"-{str(node)}"
 
         assert self.obj_node.req is None  # ignore obj's req now
         if not self.obj_node.child_nodes:
@@ -1052,7 +1052,7 @@ class RCNode:
                 # req_str_: cmp, Rprop [,Robj]
                 req_str_ = f"{self.req[0].__str__(optimize)} {self.req[1].__str__(optimize)}"
                 if self.req[2] is not None:
-                    req_str_ += f"<-{self.req[2].__str__(optimize)}"
+                    req_str_ += f"-{self.req[2].__str__(optimize)}"
                 str_ = f"{str_} {req_str_}"
                 # ? means if
                 prefix = '?' if self.is_app_req() else ''
