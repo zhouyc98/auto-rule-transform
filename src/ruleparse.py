@@ -1070,7 +1070,8 @@ class RevitRuleGenerator:
     Class_Param_Names = (('OST_Doors', 'Doors?$', '门$', {}),
                          ('OST_Stairs', 'Stairs?$', '楼梯$', {'^宽度$': '最小梯段宽度', '^Width$': 'Minimum Run Width'}),
                          ('OST_Windows', 'Windows?$', '窗$|^窗', {}),
-                         ('OST_Walls', 'Walls?$', '墙$', {'Type': '结构材质'})
+                         ('OST_Walls', 'Walls?$', '墙$', {'Type': 'Structural Material'}),  # 结构材质
+                         ('OST_Floors', 'Floors?$', '楼板$', {'Thickness$': 'Default Thickness'})
                          )
     Param_Names = {'混凝土$': 'Concrete', '^热阻$': '热阻(R)', '^thermal resistance$': 'Thermal Resistance (R)'}
     Cmp_Condition = {'=': 'Equal', '<': 'LessThan', '>': 'GreaterThan', '≤': 'LessOrEqual', '≥': 'GreaterOrEqual',

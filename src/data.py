@@ -553,12 +553,12 @@ def init_data_by_json(data_dir='../data/xiaofang/', early_return=False, random_s
         all_tags.extend(t)
     for t in val_labels:
         all_tags.extend(t)
-    tags = list(set(all_tags))
-    tags.sort(key=lambda x: x[2:] + x[:2] if len(x) > 1 else x)  # sort key: B-obj -> obj-B
+    tags = set(all_tags)
+    # tags.sort(key=lambda x: x[2:] + x[:2] if len(x) > 1 else x)  # sort key: B-obj -> obj-B
     with open(data_dir + 'tags.txt', 'r') as f:
         tags_last = f.readlines()
         tags_last = [t.strip() for t in tags_last if t.strip()]
-    if tags != tags_last:
+    if tags != set(tags_last):
         print('! Tag changes (re-compile parser)')
         _write_lines(data_dir + 'tags.txt', tags, add_space=False)
 
@@ -570,6 +570,7 @@ def get_data_by_text(data_dir='../data/xiaofang/'):
     """ 根据sentences_all.txt返回seq, labels, 根据sentences_all.txt中每一行都是slabel """
     with open(data_dir + 'sentences.txt', 'r', encoding='utf8') as fp:
         slabels = fp.readlines()
+    slabels = [sl.strip() for sl in slabels if sl.strip() and not sl.startswith('--') and not sl.startswith('seq  :')]
     seqs, labels = zip(*[slabel_to_seq_label_iit(sl.strip('\n')) for sl in slabels if sl.strip()])
     return seqs, labels
 

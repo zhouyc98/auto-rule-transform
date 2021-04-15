@@ -96,7 +96,8 @@ def plot_model_history(log_path, plot_loss=True):
 def plot_confusion_matrix():
     model.eval()
     f2 = lambda n: int((n + 1) / 2)
-    cm = np.zeros((f2(n_label), f2(n_label)))
+    n2 = f2(n_label)
+    cm = np.zeros((n2, n2))
     n_correct = 0
     n_valid = 0
 
@@ -117,11 +118,16 @@ def plot_confusion_matrix():
                     n_valid += 1
 
         log(f'Confusion matrix: val acc = {n_correct / n_valid:4f} ({n_correct}/{n_valid})')
-        cm = cm / cm.sum(axis=0)
+        cm = cm / cm.sum(axis=1)[:, None]  # use [:, None] to reshapes it to column vec
+        cm = cm[list(range(1, n2)) + [0], :]
+        cm = cm[:, list(range(1, n2)) + [0]]
         tags2 = [corpus.tags[i].replace('I-', '') for i in range(0, len(corpus.tags), 2)]
+        tags2 = tags2[1:] + [tags2[0]]
         df_cm = pd.DataFrame(cm, tags2, tags2)
         plt.figure(figsize=(8, 6))  # default: 6.4, 4.8
-        sn.heatmap(df_cm, square=True, annot=True, fmt='.2f', cmap='Greys')  # font size
+        sn.heatmap(df_cm, square=True, annot=True, fmt='.2f', cmap='Greys')
+        plt.xlabel('Predicted label')
+        plt.ylabel('True label')
         # plt.show()
         plt.savefig('logs/confusion-matrix.jpg')
 
