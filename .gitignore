@@ -9,6 +9,8 @@ predictions/
 runs/
 models/
 
+src/tests/test.*
+
 src/logs/*
 !src/logs/ruleparse-eval.log
 
