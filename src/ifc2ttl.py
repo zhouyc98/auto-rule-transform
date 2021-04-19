@@ -244,8 +244,8 @@ class Building_element():
             return None
 
 
-def gen_ttl_file(ifc_file='./data/ifcfile/Plant_ByhandV2.ifc', ttl_file='./data/ttlfile/Plant_instance.ttl'):
-    def get_allprop_from_ifc(ifcfile='./data/ifcfile/Plant_ByhandV3.ifc'):
+def gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV2.ifc', ttl_file='../data/ontology/Plant_instance.ttl'):
+    def get_allprop_from_ifc(ifcfile='./data/ifc/Plant_ByhandV3.ifc'):
         ifc_file = ifcopenshell.open(ifcfile)
         products = ifc_file.by_type('IfcProduct')
         elements = []
@@ -285,5 +285,5 @@ def gen_ttl_file(ifc_file='./data/ifcfile/Plant_ByhandV2.ifc', ttl_file='./data/
 
 
 if __name__ == "__main__":
-    gen_ttl_file(ifc_file='./data/ifcfile/Plant_ByhandV4.ifc')
+    gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV4.ifc', ttl_file='../data/ontology/Plant_instance.ttl')
     print('ok')

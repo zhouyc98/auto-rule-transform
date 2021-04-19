@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "text": "Plant",
+    "prefixKey": null,
+    "suffixKey": "0",
+    "backgroundColor": "#F44336",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 2,
+    "text": "FireWall",
+    "prefixKey": null,
+    "suffixKey": "1",
+    "backgroundColor": "#E91E63",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 3,
+    "text": "Wall",
+    "prefixKey": null,
+    "suffixKey": "2",
+    "backgroundColor": "#9C27B0",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 4,
+    "text": "Column",
+    "prefixKey": null,
+    "suffixKey": "3",
+    "backgroundColor": "#673AB7",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 5,
+    "text": "Beam",
+    "prefixKey": null,
+    "suffixKey": "4",
+    "backgroundColor": "#3F51B5",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 6,
+    "text": "Floor",
+    "prefixKey": null,
+    "suffixKey": "5",
+    "backgroundColor": "#2196F3",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 7,
+    "text": "WalkingStairs",
+    "prefixKey": null,
+    "suffixKey": "6",
+    "backgroundColor": "#03A9F4",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 8,
+    "text": "Roof",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#00BCD4",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 9,
+    "text": "RoofSheathing",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#009688",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 10,
+    "text": "BuildingStorey",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#4CAF50",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 11,
+    "text": "BuildingSpace",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#CDDC39",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 12,
+    "text": "Antechamber",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#FFEB3B",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 13,
+    "text": "Corridor",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#B71C1C",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 14,
+    "text": "StraightLineDistance",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#880E4F",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 15,
+    "text": "hasFireResistanceGrade",
+    "prefixKey": null,
+    "suffixKey": "a",
+    "backgroundColor": "#4A148C",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 16,
+    "text": "hasFireResistanceLimits_hour",
+    "prefixKey": null,
+    "suffixKey": "z",
+    "backgroundColor": "#311B92",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 17,
+    "text": "hasFireHazardCategory",
+    "prefixKey": null,
+    "suffixKey": "q",
+    "backgroundColor": "#0D47A1",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 18,
+    "text": "hasNumberOfFloors",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#1A237E",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 19,
+    "text": "hasBuildingArea_m2",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#006064",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 20,
+    "text": "isSecurityExits_Boolean",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#1B5E20",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 21,
+    "text": "isFireProtectionSubdivision_Boolean",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#827717",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 22,
+    "text": "hasBuildingHeight",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#F57F17",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 23,
+    "text": "isLoadBearing_Boolean",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#6A1B9A",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 24,
+    "text": "ResidenceBuilding",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#FBC02D",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 25,
+    "text": "Doors",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#26C6DA",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 26,
+    "text": "hasMaxNumberOfHuman",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#D4E157",
+    "textColor": "#ffffff"
+  },
+  {
+    "id": 27,
+    "text": "hasWidth_m",
+    "prefixKey": null,
+    "suffixKey": null,
+    "backgroundColor": "#80DEEA",
+    "textColor": "#ffffff"
+  }
+]

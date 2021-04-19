@@ -102,8 +102,8 @@ DataStructure: dict
 '''
 
 
-def onto_info_extract(src="D:\OntologyExample\Owlready2\BuildingDesignFireCodesOntology.owl",
-                      tag='./data/BuildingDesignFireCodesOntology.pkl'):
+def onto_info_extract(src=r"..\data\ontology\BuildingDesignFireCodesOntology.owl",
+                      tag=r'..\data\ontology\BuildingDesignFireCodesOntology.pkl'):
     onto = get_ontology(src).load()
     ontology_pkl = []
     ontology_class = []
@@ -133,9 +133,9 @@ Function: merge the label_config.json and FireCode_labeled.jsonl file exported b
 
 
 def process_data_docanno(
-        src_config=r"C:\Users\16424\Desktop\2020.12.02 自动审图工具开发\基于本体的抗火规范表达\sparql\sparql自动转换方法\docanno\label_config.json",
-        src_labels=r"C:\Users\16424\Desktop\2020.12.02 自动审图工具开发\基于本体的抗火规范表达\sparql\sparql自动转换方法\docanno\FireCode_labeled.jsonl",
-        tag='./data/FireCode_label_merge.json'):
+        src_config=r'..\data\docanno\label_config.json',
+        src_labels=r'..\data\docanno\FireCode_labeled.jsonl',
+        tag='..\data\docanno\FireCode_label_merge.json'):
     sentences = []
     labels = []
     sentences_labels = []
@@ -164,6 +164,7 @@ def process_data_docanno(
         for r1, r2 in replaces:
             jstr = jstr.replace(r1, r2)
         fout.write(jstr)
+    print(f'The two docanno file have been merged in: {tag}')
 
 
 def stopwordslist(stopWordsFile):
@@ -218,12 +219,12 @@ output:
 
 
 def most_similar_onto_term(words):
-    jieba.load_userdict('./data/model/wordsList500.txt')
-    stopwords = stopwordslist('./data/model/Stopwords.txt')
-    model = Word2Vec.load('./Data/Model/Merge.model')
+    jieba.load_userdict(r'.\models\word2vec\wordsList500.txt')
+    stopwords = stopwordslist(r'.\models\word2vec\Stopwords.txt')
+    model = Word2Vec.load(r'.\models\word2vec\Merge.model')
+    onto_file = r'..\data\ontology\BuildingDesignFireCodesOntology.pkl'
 
-    tag = './data/BuildingDesignFireCodesOntology.pkl'
-    with open(tag, 'rb') as f:
+    with open(onto_file, 'rb') as f:
         onto_list = pickle.load(f)
     ontology_class = onto_list[0]
     ontology_dataproperty = onto_list[1]
@@ -382,23 +383,25 @@ if __name__ == '__main__':
     '''
         BuildingDesignFireCodesOntology.pkl file generator, when the .owl file changes, this function should run again
     '''
-    # onto_info_extract()
-
-    # process_data_docanno()
+    # src = r"..\data\ontology\BuildingDesignFireCodesOntology.owl"
+    # tag = r'..\data\ontology\BuildingDesignFireCodesOntology.pkl'
+    # onto_info_extract(src=src, tag=tag)
 
     '''
-        test for similarity_onto_term
+        Change docanno annotation file and label file into one file 
     '''
-    # similarity1 = similarity_onto_term(['表示建筑物、物品、设备、材质的耐火等级', '耐火等级'], '耐火极限')
-    # similarity2 = similarity_onto_term(['建筑物构件、设备或物品的耐火极限，单位为小时h', '耐火极限'], '耐火极限')
-    # print(similarity1)
-    # print(similarity2)
+    # src_config = r'..\data\docanno\label_config.json'
+    # src_labels = r'..\data\docanno\FireCode_labeled.jsonl'
+    # tag_path = r'..\data\docanno\FireCode_label_merge.json'
+    # process_data_docanno(src_config=src_config, src_labels=src_labels, tag=tag_path)
+
     '''
         test for most_similar_onto_term
     '''
-    print(most_similar_onto_term(['耐火极限', '耐火等级']))
+    # print(most_similar_onto_term(['耐火极限', '耐火等级']))
 
     '''
         test for __test_for_el
     '''
-    # __test_for_el()
+    docanno_src = '..\data\docanno\FireCode_label_merge.json'
+    __test_for_el(docanno_src=docanno_src)
