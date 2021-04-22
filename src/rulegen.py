@@ -4,6 +4,15 @@ from owlready2 import *
 import json
 import jieba_fast as jieba
 from gensim.models import Word2Vec
+from scipy import spatial
+from gensim import models
+from gensim.models.tfidfmodel import TfidfModel
+from gensim import corpora
+from collections import Counter
+import math
+from sklearn.decomposition import TruncatedSVD
+import warnings
+warnings.filterwarnings("ignore", category=Warning)
 
 CMP_DICT_Onto = OrderedDict([('<=', '小于等于 小于或等于 不大于 不高于 不多于 不超过'.split()),
                              ('>=', '大于等于 大于或等于 不小于 不低于 不少于'.split()),
@@ -89,6 +98,31 @@ class Keywords_dict():
 
 
 '''
+State: use
+Function: get the split sentence with no stopwords
+'''
+
+
+class Sentence:
+    def __init__(self, sentence, stopwords):
+        self.raw = sentence
+        self.tokens = [t for t in jieba.cut(sentence)]
+        self.tokens_without_stop = [t for t in self.tokens if t not in stopwords]
+
+    def tokens_no_stop(self):
+        return self.tokens_without_stop
+
+    def tokens_(self):
+        return self.tokens
+
+    def tfidf_weight(self, dictionary, tfidf_model):
+        corpus = [dictionary.doc2bow(self.tokens_without_stop)]
+        token_tf_tdf = list(tfidf_model[corpus])[0]
+        word_tf_tdf = [(dictionary[word_pair[0]], word_pair[1]) for word_pair in token_tf_tdf]
+        return word_tf_tdf
+
+
+'''
 State: Use
 Function: Read the class and dataproperty and their description in the ontology (.owl file), and then save them into dict (.pkl file)
 DataStructure: dict
@@ -124,6 +158,34 @@ def onto_info_extract(src=r"..\data\ontology\BuildingDesignFireCodesOntology.owl
     # with open(tag, 'w', encoding='utf-8') as fout:
     #     jstr = json.dumps(ontology_pkl, ensure_ascii=False)
     #     fout.write(jstr)
+
+
+'''
+State: use
+Function: get TF-IDF from rules, and save the dict
+'''
+
+
+def rules_TFIDF(corpus_path=r'..\data\rules\allRules.text'):
+    stoplist = stopwordslist(r'.\models\word2vec\Stopwords.txt')
+    dictionary_path = r'.\models\tfidf\rules_doc2bow.dict'
+    tfidf_model_path = r'.\models\tfidf\rules_tfidf.model'
+
+    with open(corpus_path, 'r', encoding='UTF-8') as f1:
+        corpus = f1.readlines()
+        texts = [[word for word in document.split(' ') if word not in stoplist] for document in corpus]
+
+    dictionary = corpora.Dictionary(texts)
+    print('Dictionary:', dictionary.token2id)
+    print('*' * 10)
+    dictionary.save(dictionary_path)
+    print('Now caculating tf-idf')
+    tfidf_corpus = [dictionary.doc2bow(text) for text in texts]
+    tf_idf_model = TfidfModel(tfidf_corpus, normalize=False)
+    tf_idf_model.save(tfidf_model_path)
+    # word_tf_tdf = list(tf_idf_model[tfidf_corpus])
+    # print('词频:', tfidf_corpus)
+    # print('词的tf-idf值:', word_tf_tdf)
 
 
 '''
@@ -178,33 +240,230 @@ def is_stop_words(word: str, stopwords):
 
 '''
 State: use
-Function: give a ontology word and the corresponding set of description, calculate the similarity between a natural language word and the ontology word
+Function: give a ontology word and the corresponding set of description, calculate the similarity between a natural language word and the ontology word based
+Method: 
+    1. This method calculate the similartiy based on each word, and then mean similarity
+    2. This method calculate the vector then mean vector, and calculate the similarity
+    3. Take the tf-idf of each word as the weight, and the word similarity of all words is weighted averaged
+    4. Word mover's distance, The Word Mover's Distance uses the word embeddings of the words in two texts to measure 
+       the minimum amount that the words in one text need to "travel" in semantic space to reach the words of the other text.
+       Word mover's distance is available in the popular Gensim library.
+    5. To compute SIF sentence embeddings, we first compute a weighted average of the token embeddings in the sentence. 
+       This procedure is very similar to the weighted average we used above, with the single difference that the word embeddings are weighted by a/a+p(w), 
+       where a is a parameter that is set to 0.001 by default, and p(w) is the estimated relative frequency of a word in a reference corpus.
+       Next, we need to perform common component removal: we compute the principal component of the sentence embeddings,
+       we obtained above and subtract from them their projections on this first principal component. 
+       This corrects for the influence of high-frequency words that mostly have a syntactic or discourse function
+       
 Inout: 
     onto_description: list(str)
     word: str
-    model: pretrained word2vec model
+    word2vec_model: pretrained word2vec word2vec_model
     stopword: stopwords list
 output:
     similarity: float
+Reference:
+    https://github.com/nlptown/nlp-notebooks/blob/master/Simple%20Sentence%20Similarity.ipynb
 '''
 
 
-def similarity_onto_term(onto_description, word, model, stopwords):
-    if len(onto_description) == 0:
+def word2vec_similarity(onto_description, word, word2vec_model, stopwords, dictionary, method=1):
+    if len(onto_description) == 0 and method != 4 and method != 5:
         return 0
-    word_seq = jieba.cut(word)
-    caculation_times = 0
-    similarity = 0
-    for one_onto_description in onto_description:
-        description_seq = jieba.cut(one_onto_description)
-        for word_seq_item in word_seq:
-            for description_seq_item in description_seq:
-                # Eliminate the influence of meaningless words
-                if not is_stop_words(description_seq_item, stopwords):
-                    if word_seq_item in model and description_seq_item in model:
-                        similarity += model.wv.similarity(word_seq_item, description_seq_item)
+    elif len(onto_description) == 0 and method == 4:
+        return -1000
+    elif len(onto_description) == 0 and method == 5:
+        return -10
+
+    if method == 1:
+        '''
+        method = 1 This method calculate the similartiy then mean similarity
+        '''
+        input_word_seq = Sentence(word, stopwords).tokens_no_stop()
+        caculation_times = 0
+        similarity = 0
+        for one_onto_description in onto_description:
+            description_seq = Sentence(one_onto_description, stopwords).tokens_no_stop()
+            for word_seq_item in input_word_seq:
+                for description_seq_item in description_seq:
+                    # Eliminate the influence of meaningless words
+                    if word_seq_item in word2vec_model and description_seq_item in word2vec_model:
+                        similarity += word2vec_model.wv.similarity(word_seq_item, description_seq_item)
                         caculation_times += 1
-    return similarity / caculation_times
+        return similarity / caculation_times
+    elif method == 2:
+        def getVector(cutWords, word2vec_model):
+            '''diffierent similarity method: https://zhuanlan.zhihu.com/p/108127410'''
+            '''
+            State: Use
+            Function: give a list of word, caculated the average vector of it
+            '''
+            i = 0
+            # index2word_set = set(word2vec_model.wv.index2word)
+            article_vector = np.zeros((word2vec_model.layer1_size))
+            for cutWord in cutWords:
+                if cutWord in word2vec_model:
+                    article_vector = np.add(article_vector, word2vec_model.wv[cutWord])
+                    i += 1
+            cutWord_vector = np.divide(article_vector, i)
+            return cutWord_vector
+
+        '''
+        method = 2 This method calculate the vector then mean vector, and calculate the similarity
+        '''
+        input_word_seq = Sentence(word, stopwords).tokens_no_stop()
+        caculation_times = 0
+        similarity = 0
+        input_word_vec = getVector(input_word_seq, word2vec_model)
+        description_vecs = []
+        for one_onto_description in onto_description:
+            description_seq = Sentence(one_onto_description, stopwords).tokens_no_stop()
+            description_vecs.append(getVector(description_seq, word2vec_model))
+        for description_vec in description_vecs:
+            caculation_times += 1
+            similarity += 1 - spatial.distance.cosine(input_word_vec, description_vec)
+        return similarity / caculation_times
+
+    elif method == 3:
+        '''
+            method = 3 This method calculate the vector then mean vector,Take the tf-idf of each word as the weight, 
+            and the word similarity of all words is weighted averaged and calculate the similarity
+            Reference: https://blog.csdn.net/laojie4124/article/details/90378868
+            Reference: https://github.com/nlptown/nlp-notebooks/blob/master/Simple%20Sentence%20Similarity.ipynb
+        '''
+
+        def tfidf_weigh_similarity(sentence1, sentence2, word2vec_model, dictionary, use_stoplist=True):
+            if dictionary is not None:
+                N = dictionary.num_docs
+            sims = []
+            for (sent1, sent2) in zip(sentence1, sentence2):
+                tokens1 = sent1.tokens_without_stop if use_stoplist else sent1.tokens
+                tokens2 = sent2.tokens_without_stop if use_stoplist else sent2.tokens
+
+                tokens1 = [token for token in tokens1 if token in word2vec_model]
+                tokens2 = [token for token in tokens2 if token in word2vec_model]
+
+                if len(tokens1) == 0 or len(tokens2) == 0:
+                    sims.append(0)
+                    continue
+
+                tokfreqs1 = Counter(tokens1)
+                tokfreqs2 = Counter(tokens2)
+
+                weights1 = []
+                weights2 = []
+                for token1 in tokfreqs1:
+                    if token1 in dictionary.token2id:
+                        weights1.append(
+                            tokfreqs1[token1] * math.log(N / (dictionary.dfs[dictionary.token2id[token1]] + 1)))
+                    else:
+                        weights1.append(
+                            tokfreqs1[token1] * math.log(N / (N - 1)))
+                for token2 in tokfreqs2:
+                    if token2 in dictionary.token2id:
+                        weights2.append(
+                            tokfreqs2[token2] * math.log(N / (dictionary.dfs[dictionary.token2id[token2]] + 1)))
+                    else:
+                        weights2.append(
+                            tokfreqs2[token2] * math.log(N / (N - 1)))
+
+                embedding1 = np.average([word2vec_model.wv[token] for token in tokfreqs1], axis=0,
+                                        weights=weights1).reshape(1,
+                                                                  -1)
+                embedding2 = np.average([word2vec_model.wv[token] for token in tokfreqs2], axis=0,
+                                        weights=weights2).reshape(1,
+                                                                  -1)
+
+                sim = 1 - spatial.distance.cosine(embedding1, embedding2)
+                sims.append(sim)
+            return sims
+
+        description_sentences = []
+        input_sentences = []
+        for one_onto_description in onto_description:
+            description_sentences.append(Sentence(one_onto_description, stopwords))
+            input_sentences.append(Sentence(word, stopwords))
+        sims = tfidf_weigh_similarity(description_sentences, input_sentences, word2vec_model, dictionary)
+        return np.mean(sims)
+    elif method == 4:
+        def wmd_similarity(sentences1, sentences2, word2vec_model):
+            sims = []
+            for (sent1, sent2) in zip(sentences1, sentences2):
+                tokens1 = sent1.tokens_without_stop
+                tokens2 = sent2.tokens_without_stop
+
+                tokens1 = [token for token in tokens1 if token in word2vec_model]
+                tokens2 = [token for token in tokens2 if token in word2vec_model]
+
+                if len(tokens1) == 0 or len(tokens2) == 0:
+                    tokens1 = [token for token in sent1.tokens if token in word2vec_model]
+                    tokens2 = [token for token in sent2.tokens if token in word2vec_model]
+                sims.append(-word2vec_model.wmdistance(tokens1, tokens2))
+            return np.mean(sims)
+
+        description_sentences = []
+        input_sentences = []
+        for one_onto_description in onto_description:
+            description_sentences.append(Sentence(one_onto_description, stopwords))
+            input_sentences.append(Sentence(word, stopwords))
+        sims = wmd_similarity(description_sentences, input_sentences, word2vec_model)
+        similarity = np.mean(sims)
+        return similarity
+    elif method == 5:
+        def remove_first_principal_component(X):
+            svd = TruncatedSVD(n_components=1, n_iter=7, random_state=0)
+            svd.fit(X)
+            pc = svd.components_
+            XX = X - X.dot(pc.transpose()) * pc
+            return XX
+
+        def sif_similarity(sentences1, sentences2, word2vec_model, dictionary, a=0.001):
+            total_freq = dictionary.num_pos
+
+            embeddings = []
+            # SIF requires us to first collect all sentence embeddings and then perform
+            # common component analysis.
+            for (sent1, sent2) in zip(sentences1, sentences2):
+                tokens1 = sent1.tokens_without_stop
+                tokens2 = sent2.tokens_without_stop
+
+                tokens1 = [token for token in tokens1 if token in word2vec_model]
+                tokens2 = [token for token in tokens2 if token in word2vec_model]
+
+                weights1 = []
+                weights2 = []
+                for token1 in tokens1:
+                    if token1 in dictionary.token2id:
+                        weights1. append(a / (a + dictionary.cfs[dictionary.token2id[token1]] / total_freq))
+                    else:
+                        weights1.append(a / (a + 1000 / total_freq))
+                for token2 in tokens2:
+                    if token2 in dictionary.token2id:
+                        weights2. append(a / (a + dictionary.cfs[dictionary.token2id[token2]] / total_freq))
+                    else:
+                        weights2.append(a / (a + 1000 / total_freq))
+
+                embedding1 = np.average([word2vec_model[token] for token in tokens1], axis=0, weights=weights1)
+                embedding2 = np.average([word2vec_model[token] for token in tokens2], axis=0, weights=weights2)
+
+                embeddings.append(embedding1)
+                embeddings.append(embedding2)
+
+            embeddings = remove_first_principal_component(np.array(embeddings))
+            sims = [1 - spatial.distance.cosine(embeddings[idx * 2].reshape(1, -1),
+                                                embeddings[idx * 2 + 1].reshape(1, -1))
+                    for idx in range(int(len(embeddings) / 2))]
+
+            return sims
+
+        description_sentences = []
+        input_sentences = []
+        for one_onto_description in onto_description:
+            description_sentences.append(Sentence(one_onto_description, stopwords))
+            input_sentences.append(Sentence(word, stopwords))
+        sims = sif_similarity(description_sentences, input_sentences, word2vec_model, dictionary)
+        similarity = np.mean(sims)
+        return similarity
 
 
 '''
@@ -218,11 +477,12 @@ output:
 '''
 
 
-def most_similar_onto_term(words):
+def most_similar_onto_term(words, method=1):
     jieba.load_userdict(r'.\models\word2vec\wordsList500.txt')
     stopwords = stopwordslist(r'.\models\word2vec\Stopwords.txt')
     model = Word2Vec.load(r'.\models\word2vec\Merge.model')
     onto_file = r'..\data\ontology\BuildingDesignFireCodesOntology.pkl'
+    dictionary = corpora.Dictionary.load(r"./models/tfidf/rules_doc2bow.dict")
 
     with open(onto_file, 'rb') as f:
         onto_list = pickle.load(f)
@@ -235,12 +495,13 @@ def most_similar_onto_term(words):
         for one_class in ontology_class:
             class_name = one_class[0]
             class_description = one_class[2]
-            similarity_scores[class_name] = similarity_onto_term(class_description, word, model, stopwords)
+            similarity_scores[class_name] = word2vec_similarity(class_description, word, model, stopwords, dictionary,
+                                                                method=method)
         for one_dataproperty in ontology_dataproperty:
             dataproperty_name = one_dataproperty[0]
             dataproperty_description = one_dataproperty[2]
-            similarity_scores[dataproperty_name] = similarity_onto_term(dataproperty_description, word, model,
-                                                                        stopwords)
+            similarity_scores[dataproperty_name] = word2vec_similarity(dataproperty_description, word, model,
+                                                                       stopwords, dictionary, method=method)
         similarity_scores_sort = sorted(similarity_scores.items(), key=lambda item: item[1], reverse=True)
         for key in similarity_scores_sort:
             onto_term = key
@@ -255,7 +516,7 @@ Function: test for the most_similar_onto_term using the doccano tag words， met
 '''
 
 
-def __test_for_el(docanno_src='./data/FireCode_label_merge.json'):
+def __test_for_el(docanno_src='./data/FireCode_label_merge.json', method=1):
     with open(docanno_src, 'r', encoding='utf-8') as f1:
         test_data = json.load(f1)
     annotations = []
@@ -265,7 +526,7 @@ def __test_for_el(docanno_src='./data/FireCode_label_merge.json'):
     words = []
     for annotation in annotations:
         words.append(annotation['word'])
-    predicitons = most_similar_onto_term(words)
+    predicitons = most_similar_onto_term(words, method=method)
     assert len(predicitons) == len(annotations), 'Somewords in annotations test dataset is not predict'
     true_num = 0
     for index in range(len(annotations)):
@@ -274,7 +535,7 @@ def __test_for_el(docanno_src='./data/FireCode_label_merge.json'):
         # data structure:
         #   predictions {'label':(term,similarity_score), 'word':word}
         #   annotaions {'label':term, 'word':word}
-        if predicitons[index]['label'][0] == annotations[index]['label']:
+        if predicitons[index]['label'][0].lower() == annotations[index]['label'].lower():
             true_num += 1
         else:
             print('*' * 10)
@@ -404,4 +665,14 @@ if __name__ == '__main__':
         test for __test_for_el
     '''
     docanno_src = '..\data\docanno\FireCode_label_merge.json'
-    __test_for_el(docanno_src=docanno_src)
+    __test_for_el(docanno_src=docanno_src, method=5)
+
+    '''
+        pre-train for tf-idf
+    '''
+    # rules_TFIDF()
+    # dictionary = corpora.Dictionary.load(r"./models/tfidf/rules_doc2bow.dict")
+    # model_load = models.TfidfModel.load(r"./models/tfidf/rules_tfidf.word2vec_model")
+    # stoplist = stopwordslist(r'.\models\word2vec\Stopwords.txt')
+    # sentence1 = Sentence('生产的火灾危险性类别为乙级，厂房的耐火等级为二级的高层厂房，面积不超过1500m2。', stoplist)
+    # print(sentence1.tfidf_weight(dictionary, model_load))
