@@ -7,7 +7,7 @@ import nltk
 import re
 import hashlib
 import pyperclip
-import string
+import shutil
 import pandas as pd
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
@@ -54,7 +54,7 @@ def get_cmp_str(cmp_w):
 
 def reverse_cmp(cmp):
     assert cmp in CMP_DICT
-    for cmp2 in (('=', '≠'), ('<', '>'), ('≤', '≥'), ('has', 'has no'), ('in', 'not in')):
+    for cmp2 in (('=', '≠'), ('<', '≥'), ('≤', '>'), ('has', 'has no'), ('in', 'not in')):
         if cmp in cmp2:
             return cmp2[1 - cmp2.index(cmp)]
 
@@ -1098,7 +1098,7 @@ class RevitRuleGenerator:
             UserDefined="False" Validation="None" /> """
 
         attrib = {'Operator': op, 'Category': "Category", 'Property': self.class_name,
-                  'Condition': "Included", 'Value': "True", 'CaseInsensitive': "False"}
+                  'Condition': "Included", 'Value': "True"}
         return attrib
 
     def to_param_name(self, pw):
@@ -1151,15 +1151,16 @@ class RevitRuleGenerator:
             cond_str = 'WildCard' if cond_str == 'Equal' else 'WildCardNoMatch'
 
         attrib = {'Operator': op, 'Category': "Parameter", 'Property': pv, 'Condition': cond_str,
-                  'Value': rv, 'CaseInsensitive': "False", 'Unit': "Default", 'UnitClass': unit_class}
+                  'Value': rv, 'Unit': "Default", 'UnitClass': unit_class}
         return attrib
 
     def get_is_elem_filter(self, op='And'):
         """ <Filter ID="3ba6a2fb-2da7-45f1-bd47-fb6fc6838764" Operator="And" Category="TypeOrInstance"
         Property="Is Element Type" Condition="Equal" Value="False" CaseInsensitive="False" Unit="None"
         UnitClass="None" FieldTitle="" UserDefined="False" Validation="None" /> """
+        
         attrib = {'Operator': op, 'Category': "TypeOrInstance", 'Property': "Is Element Type", 'Condition': "Equal",
-                  'Value': "0", 'CaseInsensitive': "False", 'Unit': "Default", 'UnitClass': "None"}
+                  'Value': "0", 'Unit': "Default", 'UnitClass': "None"}
         return attrib
 
     def generate(self, write_xml=False):
@@ -1363,9 +1364,16 @@ def get_current_eval_log(log_dir='./logs'):
         x = input(f"Proceed? <{fns[0]}> will be used and <{', '.join(fns[1:])}> may be overwritten (y/[n])")
         if x.lower() != 'y':
             exit()
-
-    fn = fns[0]
-    f0_v = int(fn[fn.index('-v') + 2:fn.index('.')])
+    
+    if not fns:
+        fn = 'ruleparse-eval.log'
+        f0_v = 1
+        assert os.path.exists(f'{log_dir}/{fn}')
+        shutil.copy(f'{log_dir}/{fn}', f'{log_dir}/{fn[:-4]}-v1.log')
+    else:
+        fn = fns[0]
+        f0_v = int(fn[fn.index('-v') + 2:fn.index('.')])
+    
     print(f'Read file: {fn}\n')
     with open(f'{log_dir}/{fn}', 'r', encoding='utf8') as f:
         f0_txt = f.read()
