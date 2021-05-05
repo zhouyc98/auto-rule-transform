@@ -1,0 +1,2199 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#"
+     xml:base="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingElement -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingElement">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isBuildingElementOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>表示某空间元素包含某些建筑构件</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingRegion -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingRegion">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingSpatialElement"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingRegion"/>
+        <rdfs:comment>通常表示某区域含有某建筑</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingSpace -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingSpace">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingSpatialElement"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpace"/>
+        <rdfs:comment>通常指某楼层或某建筑含有某区域</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingSpatialElement -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingSpatialElement">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:comment>表示建筑空间元素之间的包含关系，比如某场地含有某建筑，某建筑含有某楼层，某楼层含有某区域</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingStorey -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingStorey">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingSpatialElement"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey"/>
+        <rdfs:comment>通常指某建筑含有某楼层</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingType -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingType">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasConnectThing -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasConnectThing">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasEquipment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasEquipment">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isEquipmentOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireProtectionLayer -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireProtectionLayer">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFirstThing -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFirstThing">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasConnectThing"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasGoods -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasGoods">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isGoodsOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#StorageTank"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasInsulatingLayer -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasInsulatingLayer">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Roof"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InsulatingLayer"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasProperty -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasProperty">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasSecondThing -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasSecondThing">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasConnectThing"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasWaterproofLaye -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasWaterproofLaye">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Roof"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#WaterproofLayer"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isBesideSpatialTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isBesideSpatialTo">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSpatialRelationshipsTo"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isBuildingElementOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isBuildingElementOf"/>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isDownSpatialTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isDownSpatialTo">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSpatialRelationshipsTo"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isEquipmentOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isEquipmentOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:comment>表示某设备属于某空间范围</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isGoodsOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isGoodsOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#StorageTank"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:comment>表示某物体术语某储罐或某空间范围</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSpatialRelationshipsTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSpatialRelationshipsTo">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isUnionSpatialTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isUnionSpatialTo">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSpatialRelationshipsTo"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isUpSpatialTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isUpSpatialTo">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSpatialRelationshipsTo"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IsSecurityExits_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IsSecurityExits_Boolean">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Holes"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否是安全出口</rdfs:comment>
+        <rdfs:comment>门，窗，洞口是否是安全出口</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#has3DDimensions_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#has3DDimensions_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>三维尺寸</rdfs:comment>
+        <rdfs:comment>表示建筑物、物体、设备的三维尺寸。以m为单位</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasAbusoluteHeight_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasAbusoluteHeight_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasHeight_m"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>一般指建筑物的绝对高度，单位为m</rdfs:comment>
+        <rdfs:comment>绝对高度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasActionTemperature_Celsius -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasActionTemperature_Celsius">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasTemperature_Celsius"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>动作温度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasArea_m2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasArea_m2">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>表示面积，单位平方米m2</rdfs:comment>
+        <rdfs:comment>面积</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasAverageNumberOfEvacuees -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasAverageNumberOfEvacuees">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>平均疏散人数</rdfs:comment>
+        <rdfs:comment>表示每个疏散门的平均疏散人数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasAverageTemperature_Celsius -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasAverageTemperature_Celsius">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasTemperature_Celsius"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>平均温度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingArea_m2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingArea_m2">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasArea_m2"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>建筑面积</rdfs:comment>
+        <rdfs:comment>表示建筑物的面积，单位m2</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingHeight_m2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasBuildingHeight_m2">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:comment>建筑物高度</rdfs:comment>
+        <rdfs:comment>表示建筑物高度，单位为m</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasContinuousPowerSupplyTime_hour -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasContinuousPowerSupplyTime_hour">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>表示疏散照明和疏散指示标志的连续供电时间，单位小时h，在不同建筑物内有不同的要求。</rdfs:comment>
+        <rdfs:comment>连续供电时间</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasCoverTemperature_Celsius -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasCoverTemperature_Celsius">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasTemperature_Celsius"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>表面温度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDiameter_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDiameter_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#has3DDimensions_m"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>建筑物、物体、设备的直径，单位m</rdfs:comment>
+        <rdfs:comment>直径</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDistanceWith_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDistanceWith_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>表示和某物体之间的距离</rdfs:comment>
+        <rdfs:comment>距离大小</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDoorFireRating -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDoorFireRating">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>防火门等级</rdfs:comment>
+        <rdfs:comment>防火门等级，取值为1、2、3分别代表甲乙丙</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDrivewayGradient_Angle -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasDrivewayGradient_Angle">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEngineLane"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>坡度</rdfs:comment>
+        <rdfs:comment>消防车道坡度</rdfs:comment>
+        <rdfs:comment>表示消防车道的坡度，单位角度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasExplosionLowLimit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasExplosionLowLimit">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>爆炸下限</rdfs:comment>
+        <rdfs:comment>表示物体的爆炸下限，可燃的蒸气、气体或粉尘与空气组成的混合物，遇火源即能发生爆炸的最低浓度。单位%</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireHazardCategory -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireHazardCategory">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>指建筑物或物体的火灾危险性类别，1、2、3、4、5分别代表甲乙丙丁戊。</rdfs:comment>
+        <rdfs:comment>火灾危险性类别</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireInsulation_hour -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireInsulation_hour">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>建筑构件的耐火隔热性，一般指门窗。单位小时</rdfs:comment>
+        <rdfs:comment>耐火隔热性</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireIntegrity_hour -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireIntegrity_hour">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>指的是门窗的耐火完整性，单位小时h</rdfs:comment>
+        <rdfs:comment>耐火完整性</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireResistanceGrade -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireResistanceGrade">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>耐火等级</rdfs:comment>
+        <rdfs:comment>表示建筑物、物品、设备、材质的耐火等级</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireResistanceLimits_hour -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFireResistanceLimits_hour">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>在标准耐火试验条件下，建筑构件、配件或结构从受到火的作用时起，至失去承载能力、完整性或隔热性时止所用时间，用小时表示。</rdfs:comment>
+        <rdfs:comment>建筑物构件、设备或物品的耐火极限，单位为小时h</rdfs:comment>
+        <rdfs:comment>耐火极限</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFlashpoint_Celsius -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasFlashpoint_Celsius">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>指的是物体的闪点。
+在规定的试验条件下，可燃性液体或固体表面产生的蒸气与空气形成的混合物，遇火源能够闪燃的液体或固体的最低温度（采用闭杯法测定）。
+单位摄氏度。</rdfs:comment>
+        <rdfs:comment>闪点</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasGlobalId -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasGlobalId">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasHeight_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasHeight_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#has3DDimensions_m"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>建筑物、物体、设备的高度，单位为m</rdfs:comment>
+        <rdfs:comment>高度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasLength_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasLength_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#has3DDimensions_m"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>表示建筑物、物体、设备的长度，单位为m</rdfs:comment>
+        <rdfs:comment>长度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMaxNumberOfHuman -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMaxNumberOfHuman">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>容纳人数</rdfs:comment>
+        <rdfs:comment>表示建筑的最大容纳人数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMaxNumberOfWorkers -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMaxNumberOfWorkers">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>作业人数</rdfs:comment>
+        <rdfs:comment>表示建筑物的最大作业人数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMaxSeatingRows -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMaxSeatingRows">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>座位排数</rdfs:comment>
+        <rdfs:comment>表示某建筑物座位的最大排数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinEmergencyVentilationTimes -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinEmergencyVentilationTimes">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinVentilationTimes"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>事故换气次数</rdfs:comment>
+        <rdfs:comment>表示某建筑物应急情况下的机械排通风次数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinGroundBrightness_lx -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinGroundBrightness_lx">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>地面最低水平照度</rdfs:comment>
+        <rdfs:comment>表示建筑物地面最低水平照度，单位lx</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinNormalVentilationTimes -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinNormalVentilationTimes">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinVentilationTimes"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>正常换气次数</rdfs:comment>
+        <rdfs:comment>表示某建筑物正常情况下的机械排通风次数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinVentilationTimes -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasMinVentilationTimes">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>换气次数</rdfs:comment>
+        <rdfs:comment>表示某建筑物的机械排通风次数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasNetArea_m2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasNetArea_m2">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasArea_m2"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>净面积</rdfs:comment>
+        <rdfs:comment>表示建筑物的净面积，单位m2</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasNumberOfFloors -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasNumberOfFloors">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>楼层数</rdfs:comment>
+        <rdfs:comment>表示建筑物的楼层数</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasOpenDirection -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasOpenDirection">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Holes"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>开启方向</rdfs:comment>
+        <rdfs:comment>门、窗、洞口的开启方向，取值为1、2分别代表向内向外。</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPopulationDensity_perm2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPopulationDensity_perm2">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>人员密度</rdfs:comment>
+        <rdfs:comment>建筑物人员密度，单位人/m2。</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPowerLoadLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPowerLoadLevel">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment>供电负荷级别</rdfs:comment>
+        <rdfs:comment>建筑物的供电负荷等级，取值为1、2、3级</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPowerRating_W -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPowerRating_W">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>设备的额定功率，单位瓦特</rdfs:comment>
+        <rdfs:comment>额定功率</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPressureReliefArea_m2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasPressureReliefArea_m2">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>泄压面积</rdfs:comment>
+        <rdfs:comment>泄压面积，单位m2</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasRelativeHeight_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasRelativeHeight_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasHeight_m"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>相对高度</rdfs:comment>
+        <rdfs:comment>表示建筑物、物体、设备的相对高度，单位为m</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasSmokeExtractionFacilities_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasSmokeExtractionFacilities_Boolean">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否含有排烟设施</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasStairInclination_Angle -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasStairInclination_Angle">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#WalkingStairs"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>倾斜角度</rdfs:comment>
+        <rdfs:comment>楼梯的倾斜角度，单位angle</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasTemperature_Celsius -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasTemperature_Celsius">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>温度</rdfs:comment>
+        <rdfs:comment>温度，单位摄氏度</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasUseArea_m2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasUseArea_m2">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasArea_m2"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>使用面积</rdfs:comment>
+        <rdfs:comment>表示建筑物的使用面积，单位m2</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasVoltage_V -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasVoltage_V">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>电压</rdfs:comment>
+        <rdfs:comment>表示建筑物或设备的电压，单位V</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasVolumn_m3 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasVolumn_m3">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#StorageTank"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>容量</rdfs:comment>
+        <rdfs:comment>建筑物或储罐的容量，单位m3</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasWaterConsumptionForFire_m3 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasWaterConsumptionForFire_m3">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>消防用水量</rdfs:comment>
+        <rdfs:comment>表示建筑的消防用水量，单位m3</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasWidth_m -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#hasWidth_m">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#has3DDimensions_m"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment>宽度</rdfs:comment>
+        <rdfs:comment>表示建筑物、设备、物体的宽度，单位为m</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isBelowGroundLevel_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isBelowGroundLevel_Boolean">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否位于地下</rdfs:comment>
+        <rdfs:comment>表示建筑物，储罐，物体是否位于地下</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isFireProtectionSubdivision_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isFireProtectionSubdivision_Boolean">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否为防火分区</rdfs:comment>
+        <rdfs:comment>某个空间是否为防火分区</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isFireWall_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isFireWall_Boolean">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CurtainWall"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InnerWall"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否为防火墙</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isLoadBearing_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isLoadBearing_Boolean">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否是承重构件</rdfs:comment>
+        <rdfs:comment>表示建筑构件是否是承重构件</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSufaceMaterial_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isSufaceMaterial_Boolean">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否是表面材料</rdfs:comment>
+        <rdfs:comment>表示是否是表面材料</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isValuable_Boolean -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#isValuable_Boolean">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>是否贵重</rdfs:comment>
+        <rdfs:comment>表示设备或物品是否贵重</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#topDataProperty -->
+
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#topDataProperty">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CurtainWall"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InnerWall"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>全局唯一ID，为了定位到是哪一个元素超限。</rdfs:comment>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass">
+        <rdfs:comment>表示两点之间的距离</rdfs:comment>
+        <rdfs:comment>距离</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#EvacuationDistance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#EvacuationDistance">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
+        <rdfs:comment>疏散距离</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#FireWall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#FireWall">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall"/>
+        <rdfs:comment>防止火灾蔓延至相邻建筑或相邻水平防火分区且耐火极限不低于3.00h 的不燃性墙体。</rdfs:comment>
+        <rdfs:comment>防火墙</rdfs:comment>
+        <rdfs:comment>防火墙是一种用来减缓或阻止火势蔓延的消防设施，它由阻燃材料制作而成。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes"/>
+        <rdfs:comment>工业生产部门作为基本生产资料使用的房屋、构筑物。</rdfs:comment>
+        <rdfs:comment>工业用建筑物</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#StraightLineDistance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#StraightLineDistance">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
+        <rdfs:comment>直线距离</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Alcoholic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Alcoholic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Flours"/>
+        <rdfs:comment>酒精</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Antechamber -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Antechamber">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpace"/>
+        <rdfs:comment>前室</rdfs:comment>
+        <rdfs:comment>设置在人流进入消防电梯、防烟楼梯间或者没有自然通风的封闭楼梯间之前的过渡空间</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Atrium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Atrium">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpace"/>
+        <rdfs:comment>中庭</rdfs:comment>
+        <rdfs:comment>中庭，是四周由建筑物围绕而成的空地。在建筑中，中庭是指一块开阔的空间，通常有几层楼高并开有窗户，在办公楼中中庭通常紧邻主入口。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Auditorium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Auditorium">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>礼堂</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#AutomaticSprinklerSystems -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#AutomaticSprinklerSystems">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
+        <rdfs:comment>自动喷水灭火系统</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Basement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Basement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SemiBasement"/>
+        <rdfs:comment>地下室</rdfs:comment>
+        <rdfs:comment>房间地面低于室外设计地面的平均高度大于该房间平均净高1/2者。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>梁</rdfs:comment>
+        <rdfs:comment>梁是一种在荷载作用下主要发生弯曲变形的水平结构构件。</rdfs:comment>
+        <rdfs:comment>横梁</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Boilers -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Boilers">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>锅炉</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass">
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingRegion -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingRegion">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:comment>单个建筑物</rdfs:comment>
+        <rdfs:comment>建筑环境的独立单元，具有特征性的空间结构，旨在提供至少一种功能或用户活动。 建筑物可以包含一个或多个垂直连接的楼层。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSite -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSite">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:comment>建筑场地</rdfs:comment>
+        <rdfs:comment>建筑物场地包含一个或多个建筑物。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpace -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpace">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:comment>将建筑物空间按不同功能要求进行分类，并根据它们之间联系的密切程度加以组合、划分。</rdfs:comment>
+        <rdfs:comment>建筑空间分区</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:comment>建筑空间元素</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+        <rdfs:comment>建筑楼层</rdfs:comment>
+        <rdfs:comment>楼层包含在建筑物中，旨在包含一个或多个水平连接的建筑空间。 楼层通过垂直连接（例如电梯和楼梯）连接。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+        <rdfs:comment>建筑类别</rdfs:comment>
+        <rdfs:comment>根据建筑物不同的功能可以将建筑物分为不同的类别</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cable -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cable">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem"/>
+        <rdfs:comment>电缆线</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CableWell -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CableWell">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem"/>
+        <rdfs:comment>电缆井</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Canteen -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Canteen">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>食堂</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cinema -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cinema">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>电影院</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes"/>
+        <rdfs:comment>民用建筑</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>柱</rdfs:comment>
+        <rdfs:comment>柱子</rdfs:comment>
+        <rdfs:comment>柱是建筑物中垂直的主结构件，主要承受各种作用产生的轴向压力，有时也承受弯矩、剪力或扭矩。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CombustibleMaterialStorageArea -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CombustibleMaterialStorageArea">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding"/>
+        <rdfs:comment>可燃材料堆场</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CommercialFacilities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CommercialFacilities">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>商业服务网点</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CottonLinen -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CottonLinen">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        <rdfs:comment>棉麻</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CurtainWall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CurtainWall">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InnerWall"/>
+        <rdfs:comment>幕墙</rdfs:comment>
+        <rdfs:comment>幕墙，又名建筑幕墙，帷幕墙，是现代化建筑的经常使用的一种立面，由面板与支承结构体系（支承装置与支承结构）组成的、可相对主体有一定位移能力或自身有一定变形能力、不承担主体结构所受作用的建筑外围护墙或装饰性结构。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DangerousGasStorageTankArea -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DangerousGasStorageTankArea">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DangerousLiquidStorageTankArea"/>
+        <rdfs:comment>助燃气体储罐区</rdfs:comment>
+        <rdfs:comment>可燃气体储罐区</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DangerousLiquidStorageTankArea -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DangerousLiquidStorageTankArea">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding"/>
+        <rdfs:comment>危险液体储罐区</rdfs:comment>
+        <rdfs:comment>存放危险液体储罐的区域</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DeformationJoint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DeformationJoint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Holes"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PipelineHoles"/>
+        <rdfs:comment>变形缝</rdfs:comment>
+        <rdfs:comment>将建(构)筑物垂直分割开永久留置的预留缝，包括伸缩缝和沉降缝。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DistributionBox -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DistributionBox">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem"/>
+        <rdfs:comment>配电箱</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>门</rdfs:comment>
+        <rdfs:comment>门是指标示出入口的结构物，中间可供人穿过</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Elevator -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Elevator">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#WalkingStairs"/>
+        <rdfs:comment>电梯</rdfs:comment>
+        <rdfs:comment>电梯是指服务于建筑物内若干特定的楼层，其轿厢运行在至少两列垂直于水平面或与铅垂线倾斜角小于15°的刚性轨道运动的永久运输设备。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>应急疏散设备</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass">
+        <rdfs:comment>设备</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EvacationHandrails -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EvacationHandrails">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement"/>
+        <rdfs:comment>栏杆是土木工程附建设施，疏散栏杆指的是疏散楼梯两旁的栏杆。</rdfs:comment>
+        <rdfs:comment>疏散栏杆</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EvacuationSigns -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EvacuationSigns">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyLighting"/>
+        <rdfs:comment>疏散指示标志</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyBroadcasting_System"/>
+        <rdfs:comment>火灾报警系统</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>消防报警系统</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireDamper -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireDamper">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
+        <rdfs:comment>防火阀</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireDike -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireDike">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding"/>
+        <rdfs:comment>在油罐和其他液态危险品储罐发生泄漏事故时，防止液体外流和火势蔓延的构筑物</rdfs:comment>
+        <rdfs:comment>防火堤</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireElevators -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireElevators">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
+        <rdfs:comment>消防电梯</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyBroadcasting_System -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyBroadcasting_System">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems"/>
+        <rdfs:comment>消防应急广播系统</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyLighting -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyLighting">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment"/>
+        <rdfs:comment>消防应急照明</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEngineLane -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEngineLane">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
+        <rdfs:comment>消防车道</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireExtinguisher -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireExtinguisher">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
+        <rdfs:comment>灭火器</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>消防电源及其配电</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
+        <rdfs:comment>消火栓系统</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirePumps -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirePumps">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingWaterSource"/>
+        <rdfs:comment>消防水泵</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>救援设施</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueSite -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueSite">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
+        <rdfs:comment>救援场地</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>消防设施</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingWaterSource -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingWaterSource">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem"/>
+        <rdfs:comment>消防水源</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>楼板</rdfs:comment>
+        <rdfs:comment>直接承受楼面荷载的板。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Flours -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Flours">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+        <rdfs:comment>面粉</rdfs:comment>
+        <rdfs:comment>面粉是一种由小麦磨成的粉状物。按面粉中蛋白质含量的多少，可以分为高筋面粉、中筋面粉、低筋面粉及无筋面粉。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Gerocomium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Gerocomium">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>敬老院</rdfs:comment>
+        <rdfs:comment>老年人照料设施</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Glass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Glass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        <rdfs:comment>玻璃</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass">
+        <rdfs:comment>物品</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Helipad -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Helipad">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
+        <rdfs:comment>直升机停机坪</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Holes -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Holes">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>建筑物中开启的洞口等</rdfs:comment>
+        <rdfs:comment>洞口</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Hospital -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Hospital">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>医院</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InnerWall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InnerWall">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall"/>
+        <rdfs:comment>位于建筑物内部的墙体。</rdfs:comment>
+        <rdfs:comment>内部墙体</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InsulatingLayer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#InsulatingLayer">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement"/>
+        <rdfs:comment>保温层</rdfs:comment>
+        <rdfs:comment>绝热层</rdfs:comment>
+        <rdfs:comment>绝热材料覆盖在结构或者构件表面，形成的层状物。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Joint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Joint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>构件或杆件相互连接的部位。</rdfs:comment>
+        <rdfs:comment>节点</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Kindergarten -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Kindergarten">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>幼儿园</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Market -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Market">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>菜市场</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Metals -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Metals">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        <rdfs:comment>金属</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#NonPrestressedReinforcedConcrete -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#NonPrestressedReinforcedConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PrestressedReinforcedConcrete"/>
+        <rdfs:comment>非预应力钢筋混凝土</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Oil-immersedTransformer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Oil-immersedTransformer">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>油浸变压器</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>其他结构构件</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PipeSewer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PipeSewer">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement"/>
+        <rdfs:comment>一种容纳建筑物或城市中的各类公用类管线的建筑物管廊或城市地下隧道结构</rdfs:comment>
+        <rdfs:comment>管沟</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PipelineHoles -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PipelineHoles">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Holes"/>
+        <rdfs:comment>用于管道通过而在建筑中预留的洞口</rdfs:comment>
+        <rdfs:comment>管道口</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Plant -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Plant">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding"/>
+        <rdfs:comment>厂房</rdfs:comment>
+        <rdfs:comment>工业厂房，指直接用于生产或为生产配套的各种房屋，包括主要车间、辅助用房及附属设施用房。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PlatformBridge -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PlatformBridge">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement"/>
+        <rdfs:comment>栈桥</rdfs:comment>
+        <rdfs:comment>栈桥是一种具有码头功能的桥状建筑，由岸边伸出海面，通常建于靠近海岸或河岸的铁路站、港口、矿场或工厂，可用木材、石材或钢材建构而成。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Precipitator -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Precipitator">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
+        <rdfs:comment>除尘器</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PressureReliefDevice -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PressureReliefDevice">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
+        <rdfs:comment>泄压装置</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PrestressedReinforcedConcrete -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PrestressedReinforcedConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete"/>
+        <rdfs:comment>预应力钢筋混凝土</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass">
+        <rdfs:comment>材质</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ResidenceBuilding"/>
+        <rdfs:comment>公共建筑</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        <rdfs:comment>钢筋混凝土</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ResidenceBuilding -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ResidenceBuilding">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding"/>
+        <rdfs:comment>住宅</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Roof -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Roof">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>屋顶</rdfs:comment>
+        <rdfs:comment>屋顶是建筑的普遍构成元素之一，主要目的适用于防水，有平顶和坡顶之分</rdfs:comment>
+        <rdfs:comment>楼顶</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#RoofSheathing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#RoofSheathing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Roof"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SuspendedCeiling"/>
+        <rdfs:comment>屋面板</rdfs:comment>
+        <rdfs:comment>屋面板是可直接承受屋面荷载的板。屋面板位于房屋的屋顶，一般使用铝镁锰或合金等金属制成。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Sanatorium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Sanatorium">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>疗养院</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SemiBasement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SemiBasement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey"/>
+        <rdfs:comment>半地下室</rdfs:comment>
+        <rdfs:comment>房间地面低于室外设计地面的平均高度大于该房间平均净高1/3，且不大于1/2者。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SmokeExtractionFacilities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SmokeExtractionFacilities">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
+        <rdfs:comment>防烟排烟设施</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SmokeOutletHoles -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SmokeOutletHoles">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PipelineHoles"/>
+        <rdfs:comment>排烟口</rdfs:comment>
+        <rdfs:comment>用于排烟管道通过，在建筑物中提前开启的洞口。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>建筑物中作为楼层间垂直交通用的构件。</rdfs:comment>
+        <rdfs:comment>楼梯</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#StorageTank -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#StorageTank">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>储罐</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SuspendedCeiling -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SuspendedCeiling">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Roof"/>
+        <rdfs:comment>吊顶</rdfs:comment>
+        <rdfs:comment>吊顶是指房屋居住环境的顶部装修的一种装饰。简单的说，就是指天花板的装饰，是室内装饰的重要部分之一。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#TeachingBuilding -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#TeachingBuilding">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>教学建筑</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Tunnel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Tunnel">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes"/>
+        <rdfs:comment>隧道</rdfs:comment>
+        <rdfs:comment>隧道是指在既有的建筑或土石结构中挖出来的通道，供交通立体化、穿山越岭、地下通道、越江、过海、管道运输、电缆地下化、水利工程等使用。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationDuct -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationDuct">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
+        <rdfs:comment>风管</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+        <rdfs:comment>通风供暖系统</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#WalkingStairs -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#WalkingStairs">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs"/>
+        <rdfs:comment>步走楼梯</rdfs:comment>
+        <rdfs:comment>疏散楼梯</rdfs:comment>
+        <rdfs:comment>疏散楼梯是指有足够防火能力可作为竖向通道的室内楼梯和室外楼梯。一般是步行楼梯。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>墙</rdfs:comment>
+        <rdfs:comment>墙体</rdfs:comment>
+        <rdfs:comment>墙（或称壁、墙壁）在建筑学上是指一种重直向的空间隔断结构，用来围合、分割或保护某一区域，是建筑设计中最重要的元素之一。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Warehouse -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Warehouse">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding"/>
+        <rdfs:comment>仓库</rdfs:comment>
+        <rdfs:comment>仓库由贮存物品的库房、运输传送设施（如吊车、电梯、滑梯等）、出入库房的输送管道和设备以及消防设施、管理用房等组成。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#WaterproofLayer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#WaterproofLayer">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement"/>
+        <rdfs:comment>防水层</rdfs:comment>
+        <rdfs:comment>防水材料覆盖在结构或者构件表面，形成的层状物。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+        <rdfs:comment>窗</rdfs:comment>
+        <rdfs:comment>窗或窗户，在建筑学上是指墙或屋顶上建造的洞口，用以使光线或空气进入室内。</rdfs:comment>
+        <rdfs:comment>窗户</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wood -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wood">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        <rdfs:comment>木材</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#exhibitionHall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#exhibitionHall">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>展览建筑</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Auditorium"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Canteen"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cinema"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CommercialFacilities"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Gerocomium"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Hospital"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Kindergarten"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Market"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Sanatorium"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#TeachingBuilding"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#exhibitionHall"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#AutomaticSprinklerSystems"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireExtinguisher"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SmokeExtractionFacilities"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Holes"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Joint"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#OtherBuildingComponentElement"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Roof"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Boilers"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Oil-immersedTransformer"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#StorageTank"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingClass"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingComponentElement"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpatialElement"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingRegion"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSite"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingSpace"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cable"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CableWell"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DistributionBox"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CombustibleMaterialStorageArea"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireDike"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Plant"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Tunnel"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Warehouse"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CottonLinen"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Glass"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Metals"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wood"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireDamper"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Precipitator"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PressureReliefDevice"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationDuct"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireElevators"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEngineLane"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueSite"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Helipad"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

@@ -3,11 +3,14 @@
 
 data/msra/
 data/xiaofang/test
+data/rules
 bak*/
 csv/
 predictions/
 runs/
 models/
+
+src/tests/test.*
 
 src/logs/*
 !src/logs/ruleparse-eval.log

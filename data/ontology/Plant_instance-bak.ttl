@@ -1,0 +1,1771 @@
+@prefix : <http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology> .
+
+#################################################################
+#    Individuals
+#################################################################
+###  http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#column1_test
+
+:IfcBuilding0 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingRegion> .
+:IfcBuilding0 :hasGlobalId "2OibT2UMLBYgfonVRELIuz"^^xsd:string .
+:IfcBuildingStorey1 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey> .
+:IfcBuildingStorey1 :hasGlobalId "2OibT2UMLBYgfonVOngj2l"^^xsd:string .
+:IfcBuildingStorey2 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey> .
+:IfcBuildingStorey2 :hasGlobalId "2OibT2UMLBYgfonVOngUg_"^^xsd:string .
+:IfcBuildingStorey3 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey> .
+:IfcBuildingStorey3 :hasGlobalId "2OibT2UMLBYgfonVOngjlZ"^^xsd:string .
+:IfcBuildingStorey4 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey> .
+:IfcBuildingStorey4 :hasGlobalId "2OibT2UMLBYgfonVOngUeO"^^xsd:string .
+:IfcBuildingStorey5 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingStorey> .
+:IfcBuildingStorey5 :hasGlobalId "2OibT2UMLBYgfonVOngUh$"^^xsd:string .
+:IfcColumn7 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn7 :hasGlobalId "0gKFhH4357pRQxVB7vb_0Y"^^xsd:string .
+:IfcColumn7 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn7 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn8 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn8 :hasGlobalId "0gKFhH4357pRQxVB7vb_Jw"^^xsd:string .
+:IfcColumn8 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn8 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn9 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn9 :hasGlobalId "0gKFhH4357pRQxVB7vb_gf"^^xsd:string .
+:IfcColumn9 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn9 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn10 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn10 :hasGlobalId "0gKFhH4357pRQxVB7vb_gh"^^xsd:string .
+:IfcColumn10 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn10 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn11 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn11 :hasGlobalId "0gKFhH4357pRQxVB7vb_g6"^^xsd:string .
+:IfcColumn11 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn11 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn12 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn12 :hasGlobalId "0gKFhH4357pRQxVB7vb_fu"^^xsd:string .
+:IfcColumn12 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn12 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn13 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn13 :hasGlobalId "0gKFhH4357pRQxVB7vb_fM"^^xsd:string .
+:IfcColumn13 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn13 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn14 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn14 :hasGlobalId "0gKFhH4357pRQxVB7vb_lI"^^xsd:string .
+:IfcColumn14 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn14 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn15 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn15 :hasGlobalId "0gKFhH4357pRQxVB7vb_l2"^^xsd:string .
+:IfcColumn15 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn15 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn16 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn16 :hasGlobalId "0gKFhH4357pRQxVB7vb_kq"^^xsd:string .
+:IfcColumn16 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn16 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn17 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn17 :hasGlobalId "0gKFhH4357pRQxVB7vb_kY"^^xsd:string .
+:IfcColumn17 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn17 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn18 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn18 :hasGlobalId "0gKFhH4357pRQxVB7vb_kG"^^xsd:string .
+:IfcColumn18 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn18 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn19 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn19 :hasGlobalId "0gKFhH4357pRQxVB7vb_k0"^^xsd:string .
+:IfcColumn19 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn19 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn20 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn20 :hasGlobalId "0gKFhH4357pRQxVB7vb_ix"^^xsd:string .
+:IfcColumn20 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn20 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn22 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn22 :hasGlobalId "0gKFhH4357pRQxVB7vb_iz"^^xsd:string .
+:IfcColumn22 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn22 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn23 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn23 :hasGlobalId "0gKFhH4357pRQxVB7vb_i$"^^xsd:string .
+:IfcColumn23 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn23 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn24 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn24 :hasGlobalId "0gKFhH4357pRQxVB7vb_in"^^xsd:string .
+:IfcColumn24 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn24 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn25 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn25 :hasGlobalId "0gKFhH4357pRQxVB7vb_ip"^^xsd:string .
+:IfcColumn25 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn25 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn26 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn26 :hasGlobalId "0gKFhH4357pRQxVB7vb_ir"^^xsd:string .
+:IfcColumn26 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn26 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn27 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn27 :hasGlobalId "0gKFhH4357pRQxVB7vb_it"^^xsd:string .
+:IfcColumn27 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn27 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn28 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn28 :hasGlobalId "0gKFhH4357pRQxVB7vb_if"^^xsd:string .
+:IfcColumn28 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn28 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn29 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn29 :hasGlobalId "0gKFhH4357pRQxVB7vb_ih"^^xsd:string .
+:IfcColumn29 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn29 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn30 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn30 :hasGlobalId "0gKFhH4357pRQxVB7vb_ij"^^xsd:string .
+:IfcColumn30 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn30 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn31 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn31 :hasGlobalId "0gKFhH4357pRQxVB7vb_il"^^xsd:string .
+:IfcColumn31 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn31 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn32 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn32 :hasGlobalId "0gKFhH4357pRQxVB7vb_iX"^^xsd:string .
+:IfcColumn32 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn32 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn33 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn33 :hasGlobalId "0gKFhH4357pRQxVB7vb_iZ"^^xsd:string .
+:IfcColumn33 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn33 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn34 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn34 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZX"^^xsd:string .
+:IfcColumn34 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn34 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn35 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn35 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZZ"^^xsd:string .
+:IfcColumn35 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn35 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn37 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn37 :hasGlobalId "0gKFhH4357pRQxVB7vb_Zb"^^xsd:string .
+:IfcColumn37 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn37 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn38 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn38 :hasGlobalId "0gKFhH4357pRQxVB7vb_Zd"^^xsd:string .
+:IfcColumn38 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn38 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn39 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn39 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZP"^^xsd:string .
+:IfcColumn39 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn39 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn40 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn40 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZR"^^xsd:string .
+:IfcColumn40 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn40 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn41 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn41 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZT"^^xsd:string .
+:IfcColumn41 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn41 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn42 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn42 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZV"^^xsd:string .
+:IfcColumn42 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn42 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn43 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn43 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZH"^^xsd:string .
+:IfcColumn43 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn43 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn44 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn44 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZJ"^^xsd:string .
+:IfcColumn44 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn44 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn45 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn45 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZL"^^xsd:string .
+:IfcColumn45 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn45 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn46 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn46 :hasGlobalId "0gKFhH4357pRQxVB7vb_ZN"^^xsd:string .
+:IfcColumn46 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn46 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn47 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn47 :hasGlobalId "0gKFhH4357pRQxVB7vb_Z9"^^xsd:string .
+:IfcColumn47 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn47 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn48 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn48 :hasGlobalId "0gKFhH4357pRQxVB7vb_YN"^^xsd:string .
+:IfcColumn48 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn48 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn49 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn49 :hasGlobalId "0gKFhH4357pRQxVB7vb_Y9"^^xsd:string .
+:IfcColumn49 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn49 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn50 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn50 :hasGlobalId "0gKFhH4357pRQxVB7vb_YB"^^xsd:string .
+:IfcColumn50 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn50 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn52 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn52 :hasGlobalId "0gKFhH4357pRQxVB7vb_YD"^^xsd:string .
+:IfcColumn52 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn52 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn53 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn53 :hasGlobalId "0gKFhH4357pRQxVB7vb_YF"^^xsd:string .
+:IfcColumn53 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn53 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn54 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn54 :hasGlobalId "0gKFhH4357pRQxVB7vb_Y1"^^xsd:string .
+:IfcColumn54 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn54 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn55 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn55 :hasGlobalId "0gKFhH4357pRQxVB7vb_Y3"^^xsd:string .
+:IfcColumn55 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn55 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn56 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn56 :hasGlobalId "0gKFhH4357pRQxVB7vb_Y5"^^xsd:string .
+:IfcColumn56 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn56 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn57 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn57 :hasGlobalId "0gKFhH4357pRQxVB7vb_Y7"^^xsd:string .
+:IfcColumn57 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn57 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn58 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn58 :hasGlobalId "0gKFhH4357pRQxVB7vb_Xv"^^xsd:string .
+:IfcColumn58 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn58 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn59 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn59 :hasGlobalId "0gKFhH4357pRQxVB7vb_Xx"^^xsd:string .
+:IfcColumn59 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn59 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn60 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn60 :hasGlobalId "0gKFhH4357pRQxVB7vb_Xz"^^xsd:string .
+:IfcColumn60 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn60 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn61 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn61 :hasGlobalId "0gKFhH4357pRQxVB7vb_X$"^^xsd:string .
+:IfcColumn61 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn61 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn62 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn62 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wz"^^xsd:string .
+:IfcColumn62 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn62 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn63 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn63 :hasGlobalId "0gKFhH4357pRQxVB7vb_W$"^^xsd:string .
+:IfcColumn63 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn63 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn64 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn64 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wn"^^xsd:string .
+:IfcColumn64 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn64 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn65 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn65 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wp"^^xsd:string .
+:IfcColumn65 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn65 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn67 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn67 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wr"^^xsd:string .
+:IfcColumn67 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn67 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn68 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn68 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wt"^^xsd:string .
+:IfcColumn68 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn68 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn69 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn69 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wf"^^xsd:string .
+:IfcColumn69 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn69 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn70 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn70 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wh"^^xsd:string .
+:IfcColumn70 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn70 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn71 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn71 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wj"^^xsd:string .
+:IfcColumn71 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn71 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn72 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn72 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wl"^^xsd:string .
+:IfcColumn72 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn72 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn73 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn73 :hasGlobalId "0gKFhH4357pRQxVB7vb_WX"^^xsd:string .
+:IfcColumn73 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn73 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn74 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn74 :hasGlobalId "0gKFhH4357pRQxVB7vb_WZ"^^xsd:string .
+:IfcColumn74 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn74 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn75 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn75 :hasGlobalId "0gKFhH4357pRQxVB7vb_Wb"^^xsd:string .
+:IfcColumn75 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn75 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn76 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn76 :hasGlobalId "0gKFhH4357pRQxVB7vb_dZ"^^xsd:string .
+:IfcColumn76 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn76 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn77 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn77 :hasGlobalId "0gKFhH4357pRQxVB7vb_db"^^xsd:string .
+:IfcColumn77 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn77 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn78 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn78 :hasGlobalId "0gKFhH4357pRQxVB7vb_dd"^^xsd:string .
+:IfcColumn78 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn78 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn79 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn79 :hasGlobalId "0gKFhH4357pRQxVB7vb_dP"^^xsd:string .
+:IfcColumn79 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn79 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn80 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn80 :hasGlobalId "0gKFhH4357pRQxVB7vb_dR"^^xsd:string .
+:IfcColumn80 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn80 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn82 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn82 :hasGlobalId "0gKFhH4357pRQxVB7vb_dT"^^xsd:string .
+:IfcColumn82 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn82 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn83 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn83 :hasGlobalId "0gKFhH4357pRQxVB7vb_dV"^^xsd:string .
+:IfcColumn83 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn83 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn84 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn84 :hasGlobalId "0gKFhH4357pRQxVB7vb_dH"^^xsd:string .
+:IfcColumn84 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn84 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn85 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn85 :hasGlobalId "0gKFhH4357pRQxVB7vb_dJ"^^xsd:string .
+:IfcColumn85 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn85 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn86 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn86 :hasGlobalId "0gKFhH4357pRQxVB7vb_dL"^^xsd:string .
+:IfcColumn86 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn86 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn87 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn87 :hasGlobalId "0gKFhH4357pRQxVB7vb_dN"^^xsd:string .
+:IfcColumn87 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn87 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn88 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn88 :hasGlobalId "0gKFhH4357pRQxVB7vb_d9"^^xsd:string .
+:IfcColumn88 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn88 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn89 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn89 :hasGlobalId "0gKFhH4357pRQxVB7vb_dB"^^xsd:string .
+:IfcColumn89 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn89 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn90 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn90 :hasGlobalId "0gKFhH4357pRQxVB7vb_cD"^^xsd:string .
+:IfcColumn90 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn90 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn91 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn91 :hasGlobalId "0gKFhH4357pRQxVB7vb_cF"^^xsd:string .
+:IfcColumn91 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn91 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn92 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn92 :hasGlobalId "0gKFhH4357pRQxVB7vb_c1"^^xsd:string .
+:IfcColumn92 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn92 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn93 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn93 :hasGlobalId "0gKFhH4357pRQxVB7vb_c3"^^xsd:string .
+:IfcColumn93 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn93 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn94 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn94 :hasGlobalId "0gKFhH4357pRQxVB7vb_c5"^^xsd:string .
+:IfcColumn94 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn94 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn95 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn95 :hasGlobalId "0gKFhH4357pRQxVB7vb_c7"^^xsd:string .
+:IfcColumn95 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn95 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn97 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn97 :hasGlobalId "0gKFhH4357pRQxVB7vb_bv"^^xsd:string .
+:IfcColumn97 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn97 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn98 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn98 :hasGlobalId "0gKFhH4357pRQxVB7vb_bx"^^xsd:string .
+:IfcColumn98 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn98 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn99 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn99 :hasGlobalId "0gKFhH4357pRQxVB7vb_bz"^^xsd:string .
+:IfcColumn99 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn99 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn100 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn100 :hasGlobalId "0gKFhH4357pRQxVB7vb_b$"^^xsd:string .
+:IfcColumn100 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn100 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn101 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn101 :hasGlobalId "0gKFhH4357pRQxVB7vb_bn"^^xsd:string .
+:IfcColumn101 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn101 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn102 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn102 :hasGlobalId "0gKFhH4357pRQxVB7vb_bp"^^xsd:string .
+:IfcColumn102 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn102 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn103 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn103 :hasGlobalId "0gKFhH4357pRQxVB7vb_br"^^xsd:string .
+:IfcColumn103 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn103 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn104 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn104 :hasGlobalId "0gKFhH4357pRQxVB7vb_ap"^^xsd:string .
+:IfcColumn104 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn104 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn105 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn105 :hasGlobalId "0gKFhH4357pRQxVB7vb_ar"^^xsd:string .
+:IfcColumn105 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn105 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn106 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn106 :hasGlobalId "0gKFhH4357pRQxVB7vb_at"^^xsd:string .
+:IfcColumn106 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn106 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn107 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn107 :hasGlobalId "0gKFhH4357pRQxVB7vb_af"^^xsd:string .
+:IfcColumn107 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn107 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn108 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn108 :hasGlobalId "0gKFhH4357pRQxVB7vb_ah"^^xsd:string .
+:IfcColumn108 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn108 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn109 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn109 :hasGlobalId "0gKFhH4357pRQxVB7vb_aj"^^xsd:string .
+:IfcColumn109 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn109 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn110 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn110 :hasGlobalId "0gKFhH4357pRQxVB7vb_al"^^xsd:string .
+:IfcColumn110 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn110 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn112 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn112 :hasGlobalId "0gKFhH4357pRQxVB7vb_aX"^^xsd:string .
+:IfcColumn112 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn112 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn113 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn113 :hasGlobalId "0gKFhH4357pRQxVB7vb_aZ"^^xsd:string .
+:IfcColumn113 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn113 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn114 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn114 :hasGlobalId "0gKFhH4357pRQxVB7vb_ab"^^xsd:string .
+:IfcColumn114 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn114 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn115 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn115 :hasGlobalId "0gKFhH4357pRQxVB7vb_ad"^^xsd:string .
+:IfcColumn115 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn115 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn116 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn116 :hasGlobalId "0gKFhH4357pRQxVB7vb_aP"^^xsd:string .
+:IfcColumn116 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn116 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn117 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn117 :hasGlobalId "0gKFhH4357pRQxVB7vb_aR"^^xsd:string .
+:IfcColumn117 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn117 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn118 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn118 :hasGlobalId "0gKFhH4357pRQxVB7vb_xP"^^xsd:string .
+:IfcColumn118 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn118 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn119 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn119 :hasGlobalId "0gKFhH4357pRQxVB7vb_xR"^^xsd:string .
+:IfcColumn119 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn119 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn120 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn120 :hasGlobalId "0gKFhH4357pRQxVB7vb_xT"^^xsd:string .
+:IfcColumn120 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn120 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn121 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn121 :hasGlobalId "0gKFhH4357pRQxVB7vb_xV"^^xsd:string .
+:IfcColumn121 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn121 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn122 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn122 :hasGlobalId "0gKFhH4357pRQxVB7vb_xH"^^xsd:string .
+:IfcColumn122 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn122 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn123 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn123 :hasGlobalId "0gKFhH4357pRQxVB7vb_xJ"^^xsd:string .
+:IfcColumn123 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn123 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn124 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn124 :hasGlobalId "0gKFhH4357pRQxVB7vb_xL"^^xsd:string .
+:IfcColumn124 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn124 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn125 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn125 :hasGlobalId "0gKFhH4357pRQxVB7vb_xN"^^xsd:string .
+:IfcColumn125 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn125 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn127 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn127 :hasGlobalId "0gKFhH4357pRQxVB7vb_x9"^^xsd:string .
+:IfcColumn127 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn127 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn128 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn128 :hasGlobalId "0gKFhH4357pRQxVB7vb_xB"^^xsd:string .
+:IfcColumn128 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn128 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn129 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn129 :hasGlobalId "0gKFhH4357pRQxVB7vb_xD"^^xsd:string .
+:IfcColumn129 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn129 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn130 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn130 :hasGlobalId "0gKFhH4357pRQxVB7vb_xF"^^xsd:string .
+:IfcColumn130 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn130 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn131 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn131 :hasGlobalId "0gKFhH4357pRQxVB7vb_x1"^^xsd:string .
+:IfcColumn131 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn131 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn132 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn132 :hasGlobalId "0gKFhH4357pRQxVB7vb_wF"^^xsd:string .
+:IfcColumn132 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn132 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn133 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn133 :hasGlobalId "0gKFhH4357pRQxVB7vb_w1"^^xsd:string .
+:IfcColumn133 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn133 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn134 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn134 :hasGlobalId "0gKFhH4357pRQxVB7vb_w3"^^xsd:string .
+:IfcColumn134 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn134 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn135 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn135 :hasGlobalId "0gKFhH4357pRQxVB7vb_w5"^^xsd:string .
+:IfcColumn135 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn135 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn136 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn136 :hasGlobalId "0gKFhH4357pRQxVB7vb_w7"^^xsd:string .
+:IfcColumn136 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn136 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn137 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn137 :hasGlobalId "0gKFhH4357pRQxVB7vb_vv"^^xsd:string .
+:IfcColumn137 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn137 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn138 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn138 :hasGlobalId "0gKFhH4357pRQxVB7vb_vx"^^xsd:string .
+:IfcColumn138 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn138 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn139 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn139 :hasGlobalId "0gKFhH4357pRQxVB7vb_vz"^^xsd:string .
+:IfcColumn139 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn139 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn140 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn140 :hasGlobalId "0gKFhH4357pRQxVB7vb_v$"^^xsd:string .
+:IfcColumn140 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn140 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn142 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn142 :hasGlobalId "0gKFhH4357pRQxVB7vb_vn"^^xsd:string .
+:IfcColumn142 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn142 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn143 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn143 :hasGlobalId "0gKFhH4357pRQxVB7vb_vp"^^xsd:string .
+:IfcColumn143 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn143 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn144 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn144 :hasGlobalId "0gKFhH4357pRQxVB7vb_vr"^^xsd:string .
+:IfcColumn144 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn144 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn145 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn145 :hasGlobalId "0gKFhH4357pRQxVB7vb_vt"^^xsd:string .
+:IfcColumn145 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn145 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn146 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn146 :hasGlobalId "0gKFhH4357pRQxVB7vb_ut"^^xsd:string .
+:IfcColumn146 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn146 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn147 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn147 :hasGlobalId "0gKFhH4357pRQxVB7vb_uf"^^xsd:string .
+:IfcColumn147 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn147 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn148 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn148 :hasGlobalId "0gKFhH4357pRQxVB7vb_uh"^^xsd:string .
+:IfcColumn148 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn148 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn149 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn149 :hasGlobalId "0gKFhH4357pRQxVB7vb_uj"^^xsd:string .
+:IfcColumn149 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn149 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn150 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn150 :hasGlobalId "0gKFhH4357pRQxVB7vb_ul"^^xsd:string .
+:IfcColumn150 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn150 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn151 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn151 :hasGlobalId "0gKFhH4357pRQxVB7vb_uX"^^xsd:string .
+:IfcColumn151 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn151 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn152 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn152 :hasGlobalId "0gKFhH4357pRQxVB7vb_uZ"^^xsd:string .
+:IfcColumn152 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn152 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn153 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn153 :hasGlobalId "0gKFhH4357pRQxVB7vb_ub"^^xsd:string .
+:IfcColumn153 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn153 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn154 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn154 :hasGlobalId "0gKFhH4357pRQxVB7vb_ud"^^xsd:string .
+:IfcColumn154 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn154 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn155 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn155 :hasGlobalId "0gKFhH4357pRQxVB7vb_uP"^^xsd:string .
+:IfcColumn155 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn155 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn157 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn157 :hasGlobalId "0gKFhH4357pRQxVB7vb_uR"^^xsd:string .
+:IfcColumn157 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn157 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn158 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn158 :hasGlobalId "0gKFhH4357pRQxVB7vb_uT"^^xsd:string .
+:IfcColumn158 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn158 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn159 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn159 :hasGlobalId "0gKFhH4357pRQxVB7vb_uV"^^xsd:string .
+:IfcColumn159 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn159 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn160 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn160 :hasGlobalId "0gKFhH4357pRQxVB7vb_$T"^^xsd:string .
+:IfcColumn160 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn160 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn161 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn161 :hasGlobalId "0gKFhH4357pRQxVB7vb_$V"^^xsd:string .
+:IfcColumn161 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn161 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn162 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn162 :hasGlobalId "0gKFhH4357pRQxVB7vb_$H"^^xsd:string .
+:IfcColumn162 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn162 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn163 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn163 :hasGlobalId "0gKFhH4357pRQxVB7vb_$J"^^xsd:string .
+:IfcColumn163 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn163 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn164 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn164 :hasGlobalId "0gKFhH4357pRQxVB7vb_$L"^^xsd:string .
+:IfcColumn164 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn164 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn165 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn165 :hasGlobalId "0gKFhH4357pRQxVB7vb_$N"^^xsd:string .
+:IfcColumn165 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn165 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn166 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn166 :hasGlobalId "0gKFhH4357pRQxVB7vb_$9"^^xsd:string .
+:IfcColumn166 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn166 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn167 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn167 :hasGlobalId "0gKFhH4357pRQxVB7vb_$B"^^xsd:string .
+:IfcColumn167 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn167 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn168 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn168 :hasGlobalId "0gKFhH4357pRQxVB7vb_$D"^^xsd:string .
+:IfcColumn168 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn168 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn169 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn169 :hasGlobalId "0gKFhH4357pRQxVB7vb_$F"^^xsd:string .
+:IfcColumn169 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn169 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn170 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn170 :hasGlobalId "0gKFhH4357pRQxVB7vb_$1"^^xsd:string .
+:IfcColumn170 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn170 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn172 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn172 :hasGlobalId "0gKFhH4357pRQxVB7vb_$3"^^xsd:string .
+:IfcColumn172 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn172 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn173 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn173 :hasGlobalId "0gKFhH4357pRQxVB7vb_$5"^^xsd:string .
+:IfcColumn173 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn173 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn174 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn174 :hasGlobalId "2TJvWVuN51mepwyN3rKJao"^^xsd:string .
+:IfcColumn174 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn174 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn175 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn175 :hasGlobalId "2TJvWVuN51mepwyN3rKJh1"^^xsd:string .
+:IfcColumn175 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn175 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn176 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn176 :hasGlobalId "2TJvWVuN51mepwyN3rKJem"^^xsd:string .
+:IfcColumn176 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn176 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn177 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn177 :hasGlobalId "2TJvWVuN51mepwyN3rKJf2"^^xsd:string .
+:IfcColumn177 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn177 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn178 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn178 :hasGlobalId "2TJvWVuN51mepwyN3rKJfF"^^xsd:string .
+:IfcColumn178 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn178 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn179 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn179 :hasGlobalId "2TJvWVuN51mepwyN3rKJk_"^^xsd:string .
+:IfcColumn179 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn179 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn180 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn180 :hasGlobalId "2TJvWVuN51mepwyN3rKJkh"^^xsd:string .
+:IfcColumn180 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn180 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn181 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn181 :hasGlobalId "2TJvWVuN51mepwyN3rKJkQ"^^xsd:string .
+:IfcColumn181 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn181 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn182 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn182 :hasGlobalId "2TJvWVuN51mepwyN3rKJk7"^^xsd:string .
+:IfcColumn182 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn182 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn183 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn183 :hasGlobalId "2TJvWVuN51mepwyN3rKJls"^^xsd:string .
+:IfcColumn183 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn183 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn184 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn184 :hasGlobalId "2TJvWVuN51mepwyN3rKJlZ"^^xsd:string .
+:IfcColumn184 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn184 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn185 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn185 :hasGlobalId "2TJvWVuN51mepwyN3rKJlI"^^xsd:string .
+:IfcColumn185 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn185 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn187 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn187 :hasGlobalId "2TJvWVuN51mepwyN3rKJlP"^^xsd:string .
+:IfcColumn187 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn187 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn188 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn188 :hasGlobalId "2TJvWVuN51mepwyN3rKJiH"^^xsd:string .
+:IfcColumn188 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn188 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn189 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn189 :hasGlobalId "2TJvWVuN51mepwyN3rKJiN"^^xsd:string .
+:IfcColumn189 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn189 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn190 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn190 :hasGlobalId "2TJvWVuN51mepwyN3rKJiL"^^xsd:string .
+:IfcColumn190 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn190 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn191 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn191 :hasGlobalId "2TJvWVuN51mepwyN3rKJiR"^^xsd:string .
+:IfcColumn191 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn191 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn192 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn192 :hasGlobalId "2TJvWVuN51mepwyN3rKJiP"^^xsd:string .
+:IfcColumn192 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn192 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn193 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn193 :hasGlobalId "2TJvWVuN51mepwyN3rKJiV"^^xsd:string .
+:IfcColumn193 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn193 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn194 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn194 :hasGlobalId "2TJvWVuN51mepwyN3rKJiT"^^xsd:string .
+:IfcColumn194 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn194 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn195 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn195 :hasGlobalId "2TJvWVuN51mepwyN3rKJi3"^^xsd:string .
+:IfcColumn195 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn195 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn196 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn196 :hasGlobalId "2TJvWVuN51mepwyN3rKJi1"^^xsd:string .
+:IfcColumn196 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn196 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn197 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn197 :hasGlobalId "2TJvWVuN51mepwyN3rKJi7"^^xsd:string .
+:IfcColumn197 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn197 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn198 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn198 :hasGlobalId "2TJvWVuN51mepwyN3rKJi5"^^xsd:string .
+:IfcColumn198 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn198 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn199 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn199 :hasGlobalId "2TJvWVuN51mepwyN3rKJiB"^^xsd:string .
+:IfcColumn199 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn199 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn200 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn200 :hasGlobalId "2TJvWVuN51mepwyN3rKJi9"^^xsd:string .
+:IfcColumn200 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn200 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn202 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn202 :hasGlobalId "2TJvWVuN51mepwyN3rKJjG"^^xsd:string .
+:IfcColumn202 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn202 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn203 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn203 :hasGlobalId "2TJvWVuN51mepwyN3rKJjM"^^xsd:string .
+:IfcColumn203 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn203 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn204 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn204 :hasGlobalId "2TJvWVuN51mepwyN3rKJjK"^^xsd:string .
+:IfcColumn204 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn204 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn205 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn205 :hasGlobalId "2TJvWVuN51mepwyN3rKJjQ"^^xsd:string .
+:IfcColumn205 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn205 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn206 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn206 :hasGlobalId "2TJvWVuN51mepwyN3rKJjO"^^xsd:string .
+:IfcColumn206 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn206 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn207 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn207 :hasGlobalId "2TJvWVuN51mepwyN3rKJjU"^^xsd:string .
+:IfcColumn207 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn207 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn208 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn208 :hasGlobalId "2TJvWVuN51mepwyN3rKJjS"^^xsd:string .
+:IfcColumn208 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn208 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn209 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn209 :hasGlobalId "2TJvWVuN51mepwyN3rKJj2"^^xsd:string .
+:IfcColumn209 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn209 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn210 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn210 :hasGlobalId "2TJvWVuN51mepwyN3rKJj0"^^xsd:string .
+:IfcColumn210 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn210 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn211 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn211 :hasGlobalId "2TJvWVuN51mepwyN3rKJj6"^^xsd:string .
+:IfcColumn211 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn211 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn212 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn212 :hasGlobalId "2TJvWVuN51mepwyN3rKJj4"^^xsd:string .
+:IfcColumn212 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn212 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn213 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn213 :hasGlobalId "2TJvWVuN51mepwyN3rKJjA"^^xsd:string .
+:IfcColumn213 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn213 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn214 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn214 :hasGlobalId "2TJvWVuN51mepwyN3rKJj8"^^xsd:string .
+:IfcColumn214 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn214 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn215 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn215 :hasGlobalId "2TJvWVuN51mepwyN3rKIIj"^^xsd:string .
+:IfcColumn215 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn215 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn217 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn217 :hasGlobalId "2TJvWVuN51mepwyN3rKIIJ"^^xsd:string .
+:IfcColumn217 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn217 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn218 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn218 :hasGlobalId "2TJvWVuN51mepwyN3rKIIH"^^xsd:string .
+:IfcColumn218 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn218 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn219 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn219 :hasGlobalId "2TJvWVuN51mepwyN3rKIIN"^^xsd:string .
+:IfcColumn219 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn219 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn220 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn220 :hasGlobalId "2TJvWVuN51mepwyN3rKIIL"^^xsd:string .
+:IfcColumn220 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn220 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn221 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn221 :hasGlobalId "2TJvWVuN51mepwyN3rKIIR"^^xsd:string .
+:IfcColumn221 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn221 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn222 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn222 :hasGlobalId "2TJvWVuN51mepwyN3rKIIP"^^xsd:string .
+:IfcColumn222 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn222 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn223 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn223 :hasGlobalId "2TJvWVuN51mepwyN3rKIIV"^^xsd:string .
+:IfcColumn223 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn223 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn224 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn224 :hasGlobalId "2TJvWVuN51mepwyN3rKIIT"^^xsd:string .
+:IfcColumn224 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn224 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn225 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn225 :hasGlobalId "2TJvWVuN51mepwyN3rKII3"^^xsd:string .
+:IfcColumn225 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn225 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn226 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn226 :hasGlobalId "2TJvWVuN51mepwyN3rKII1"^^xsd:string .
+:IfcColumn226 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn226 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn227 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn227 :hasGlobalId "2TJvWVuN51mepwyN3rKII7"^^xsd:string .
+:IfcColumn227 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn227 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn228 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn228 :hasGlobalId "2TJvWVuN51mepwyN3rKII5"^^xsd:string .
+:IfcColumn228 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn228 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn229 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn229 :hasGlobalId "2TJvWVuN51mepwyN3rKIJk"^^xsd:string .
+:IfcColumn229 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn229 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn230 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn230 :hasGlobalId "2TJvWVuN51mepwyN3rKIJi"^^xsd:string .
+:IfcColumn230 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn230 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn232 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn232 :hasGlobalId "2TJvWVuN51mepwyN3rKIJI"^^xsd:string .
+:IfcColumn232 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn232 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn233 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn233 :hasGlobalId "2TJvWVuN51mepwyN3rKIJG"^^xsd:string .
+:IfcColumn233 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn233 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn234 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn234 :hasGlobalId "2TJvWVuN51mepwyN3rKIJM"^^xsd:string .
+:IfcColumn234 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn234 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn235 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn235 :hasGlobalId "2TJvWVuN51mepwyN3rKIJK"^^xsd:string .
+:IfcColumn235 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn235 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn236 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn236 :hasGlobalId "2TJvWVuN51mepwyN3rKIJQ"^^xsd:string .
+:IfcColumn236 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn236 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn237 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn237 :hasGlobalId "2TJvWVuN51mepwyN3rKIJO"^^xsd:string .
+:IfcColumn237 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn237 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn238 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn238 :hasGlobalId "2TJvWVuN51mepwyN3rKIJU"^^xsd:string .
+:IfcColumn238 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn238 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn239 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn239 :hasGlobalId "2TJvWVuN51mepwyN3rKIJS"^^xsd:string .
+:IfcColumn239 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn239 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn240 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn240 :hasGlobalId "2TJvWVuN51mepwyN3rKIJ2"^^xsd:string .
+:IfcColumn240 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn240 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn241 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn241 :hasGlobalId "2TJvWVuN51mepwyN3rKIJ0"^^xsd:string .
+:IfcColumn241 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn241 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn242 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn242 :hasGlobalId "2TJvWVuN51mepwyN3rKIJ6"^^xsd:string .
+:IfcColumn242 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn242 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn243 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn243 :hasGlobalId "2TJvWVuN51mepwyN3rKIGf"^^xsd:string .
+:IfcColumn243 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn243 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn244 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn244 :hasGlobalId "2TJvWVuN51mepwyN3rKIGl"^^xsd:string .
+:IfcColumn244 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn244 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn245 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn245 :hasGlobalId "2TJvWVuN51mepwyN3rKIGj"^^xsd:string .
+:IfcColumn245 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn245 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn247 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn247 :hasGlobalId "2TJvWVuN51mepwyN3rKIGJ"^^xsd:string .
+:IfcColumn247 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn247 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn248 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn248 :hasGlobalId "2TJvWVuN51mepwyN3rKIGH"^^xsd:string .
+:IfcColumn248 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn248 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn249 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn249 :hasGlobalId "2TJvWVuN51mepwyN3rKIGN"^^xsd:string .
+:IfcColumn249 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn249 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn250 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn250 :hasGlobalId "2TJvWVuN51mepwyN3rKIGL"^^xsd:string .
+:IfcColumn250 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn250 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn251 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn251 :hasGlobalId "2TJvWVuN51mepwyN3rKIGR"^^xsd:string .
+:IfcColumn251 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn251 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn252 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn252 :hasGlobalId "2TJvWVuN51mepwyN3rKIGP"^^xsd:string .
+:IfcColumn252 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn252 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn253 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn253 :hasGlobalId "2TJvWVuN51mepwyN3rKIGV"^^xsd:string .
+:IfcColumn253 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn253 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn254 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn254 :hasGlobalId "2TJvWVuN51mepwyN3rKIGT"^^xsd:string .
+:IfcColumn254 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn254 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn255 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn255 :hasGlobalId "2TJvWVuN51mepwyN3rKIG3"^^xsd:string .
+:IfcColumn255 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn255 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn256 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn256 :hasGlobalId "2TJvWVuN51mepwyN3rKIG1"^^xsd:string .
+:IfcColumn256 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn256 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn257 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn257 :hasGlobalId "2TJvWVuN51mepwyN3rKIHe"^^xsd:string .
+:IfcColumn257 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn257 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn258 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn258 :hasGlobalId "2TJvWVuN51mepwyN3rKIHk"^^xsd:string .
+:IfcColumn258 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn258 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn259 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn259 :hasGlobalId "2TJvWVuN51mepwyN3rKIHi"^^xsd:string .
+:IfcColumn259 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn259 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn260 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn260 :hasGlobalId "2TJvWVuN51mepwyN3rKIHI"^^xsd:string .
+:IfcColumn260 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn260 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn262 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn262 :hasGlobalId "2TJvWVuN51mepwyN3rKIHG"^^xsd:string .
+:IfcColumn262 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn262 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn263 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn263 :hasGlobalId "2TJvWVuN51mepwyN3rKIHM"^^xsd:string .
+:IfcColumn263 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn263 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn264 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn264 :hasGlobalId "2TJvWVuN51mepwyN3rKIHK"^^xsd:string .
+:IfcColumn264 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn264 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn265 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn265 :hasGlobalId "2TJvWVuN51mepwyN3rKIHQ"^^xsd:string .
+:IfcColumn265 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn265 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn266 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn266 :hasGlobalId "2TJvWVuN51mepwyN3rKIHO"^^xsd:string .
+:IfcColumn266 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn266 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn267 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn267 :hasGlobalId "2TJvWVuN51mepwyN3rKIHU"^^xsd:string .
+:IfcColumn267 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn267 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn268 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn268 :hasGlobalId "2TJvWVuN51mepwyN3rKIHS"^^xsd:string .
+:IfcColumn268 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn268 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn269 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn269 :hasGlobalId "2TJvWVuN51mepwyN3rKIH2"^^xsd:string .
+:IfcColumn269 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn269 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn270 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn270 :hasGlobalId "2TJvWVuN51mepwyN3rKIH0"^^xsd:string .
+:IfcColumn270 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn270 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn271 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn271 :hasGlobalId "2TJvWVuN51mepwyN3rKIMh"^^xsd:string .
+:IfcColumn271 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn271 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn272 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn272 :hasGlobalId "2TJvWVuN51mepwyN3rKIMf"^^xsd:string .
+:IfcColumn272 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn272 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn273 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn273 :hasGlobalId "2TJvWVuN51mepwyN3rKIMl"^^xsd:string .
+:IfcColumn273 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn273 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn274 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn274 :hasGlobalId "2TJvWVuN51mepwyN3rKIMj"^^xsd:string .
+:IfcColumn274 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn274 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn275 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn275 :hasGlobalId "2TJvWVuN51mepwyN3rKIMJ"^^xsd:string .
+:IfcColumn275 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn275 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn277 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn277 :hasGlobalId "2TJvWVuN51mepwyN3rKIMH"^^xsd:string .
+:IfcColumn277 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn277 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn278 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn278 :hasGlobalId "2TJvWVuN51mepwyN3rKIMN"^^xsd:string .
+:IfcColumn278 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn278 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn279 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn279 :hasGlobalId "2TJvWVuN51mepwyN3rKIML"^^xsd:string .
+:IfcColumn279 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn279 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn280 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn280 :hasGlobalId "2TJvWVuN51mepwyN3rKIMR"^^xsd:string .
+:IfcColumn280 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn280 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn281 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn281 :hasGlobalId "2TJvWVuN51mepwyN3rKIMP"^^xsd:string .
+:IfcColumn281 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn281 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn282 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn282 :hasGlobalId "2TJvWVuN51mepwyN3rKIMV"^^xsd:string .
+:IfcColumn282 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn282 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn283 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn283 :hasGlobalId "2TJvWVuN51mepwyN3rKIMT"^^xsd:string .
+:IfcColumn283 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn283 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn284 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn284 :hasGlobalId "2TJvWVuN51mepwyN3rKIM3"^^xsd:string .
+:IfcColumn284 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn284 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn285 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn285 :hasGlobalId "2TJvWVuN51mepwyN3rKINg"^^xsd:string .
+:IfcColumn285 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn285 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn286 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn286 :hasGlobalId "2TJvWVuN51mepwyN3rKINe"^^xsd:string .
+:IfcColumn286 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn286 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn287 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn287 :hasGlobalId "2TJvWVuN51mepwyN3rKINk"^^xsd:string .
+:IfcColumn287 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn287 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn288 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn288 :hasGlobalId "2TJvWVuN51mepwyN3rKINi"^^xsd:string .
+:IfcColumn288 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn288 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn289 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn289 :hasGlobalId "2TJvWVuN51mepwyN3rKINI"^^xsd:string .
+:IfcColumn289 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn289 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn290 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn290 :hasGlobalId "2TJvWVuN51mepwyN3rKING"^^xsd:string .
+:IfcColumn290 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn290 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn292 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn292 :hasGlobalId "2TJvWVuN51mepwyN3rKINM"^^xsd:string .
+:IfcColumn292 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn292 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn293 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn293 :hasGlobalId "2TJvWVuN51mepwyN3rKINK"^^xsd:string .
+:IfcColumn293 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn293 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn294 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn294 :hasGlobalId "2TJvWVuN51mepwyN3rKINQ"^^xsd:string .
+:IfcColumn294 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn294 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn295 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn295 :hasGlobalId "2TJvWVuN51mepwyN3rKINO"^^xsd:string .
+:IfcColumn295 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn295 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn296 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn296 :hasGlobalId "2TJvWVuN51mepwyN3rKINU"^^xsd:string .
+:IfcColumn296 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn296 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn297 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn297 :hasGlobalId "2TJvWVuN51mepwyN3rKINS"^^xsd:string .
+:IfcColumn297 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn297 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn298 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn298 :hasGlobalId "2TJvWVuN51mepwyN3rKIN2"^^xsd:string .
+:IfcColumn298 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn298 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn299 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn299 :hasGlobalId "2TJvWVuN51mepwyN3rKIKd"^^xsd:string .
+:IfcColumn299 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn299 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn300 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn300 :hasGlobalId "2TJvWVuN51mepwyN3rKIKb"^^xsd:string .
+:IfcColumn300 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn300 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn301 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn301 :hasGlobalId "2TJvWVuN51mepwyN3rKIKh"^^xsd:string .
+:IfcColumn301 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn301 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn302 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn302 :hasGlobalId "2TJvWVuN51mepwyN3rKIKf"^^xsd:string .
+:IfcColumn302 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn302 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn303 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn303 :hasGlobalId "2TJvWVuN51mepwyN3rKIKl"^^xsd:string .
+:IfcColumn303 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn303 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn304 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn304 :hasGlobalId "2TJvWVuN51mepwyN3rKIKj"^^xsd:string .
+:IfcColumn304 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn304 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn305 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn305 :hasGlobalId "2TJvWVuN51mepwyN3rKIKJ"^^xsd:string .
+:IfcColumn305 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn305 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn307 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn307 :hasGlobalId "2TJvWVuN51mepwyN3rKIKH"^^xsd:string .
+:IfcColumn307 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn307 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn308 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn308 :hasGlobalId "2TJvWVuN51mepwyN3rKIKN"^^xsd:string .
+:IfcColumn308 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn308 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn309 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn309 :hasGlobalId "2TJvWVuN51mepwyN3rKIKL"^^xsd:string .
+:IfcColumn309 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn309 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn310 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn310 :hasGlobalId "2TJvWVuN51mepwyN3rKIKR"^^xsd:string .
+:IfcColumn310 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn310 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn311 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn311 :hasGlobalId "2TJvWVuN51mepwyN3rKIKP"^^xsd:string .
+:IfcColumn311 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn311 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn312 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn312 :hasGlobalId "2TJvWVuN51mepwyN3rKIKV"^^xsd:string .
+:IfcColumn312 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn312 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn313 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn313 :hasGlobalId "2TJvWVuN51mepwyN3rKILc"^^xsd:string .
+:IfcColumn313 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn313 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn314 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn314 :hasGlobalId "2TJvWVuN51mepwyN3rKILa"^^xsd:string .
+:IfcColumn314 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn314 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn315 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn315 :hasGlobalId "2TJvWVuN51mepwyN3rKILg"^^xsd:string .
+:IfcColumn315 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn315 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn316 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn316 :hasGlobalId "2TJvWVuN51mepwyN3rKILe"^^xsd:string .
+:IfcColumn316 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn316 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn317 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn317 :hasGlobalId "2TJvWVuN51mepwyN3rKILk"^^xsd:string .
+:IfcColumn317 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn317 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn318 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn318 :hasGlobalId "2TJvWVuN51mepwyN3rKILi"^^xsd:string .
+:IfcColumn318 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn318 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn319 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn319 :hasGlobalId "2TJvWVuN51mepwyN3rKILI"^^xsd:string .
+:IfcColumn319 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn319 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn320 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn320 :hasGlobalId "2TJvWVuN51mepwyN3rKILG"^^xsd:string .
+:IfcColumn320 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn320 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn322 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn322 :hasGlobalId "2TJvWVuN51mepwyN3rKILM"^^xsd:string .
+:IfcColumn322 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn322 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn323 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn323 :hasGlobalId "2TJvWVuN51mepwyN3rKILK"^^xsd:string .
+:IfcColumn323 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn323 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn324 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn324 :hasGlobalId "2TJvWVuN51mepwyN3rKILQ"^^xsd:string .
+:IfcColumn324 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn324 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn325 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn325 :hasGlobalId "2TJvWVuN51mepwyN3rKILO"^^xsd:string .
+:IfcColumn325 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn325 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn326 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn326 :hasGlobalId "2TJvWVuN51mepwyN3rKILU"^^xsd:string .
+:IfcColumn326 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn326 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn327 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn327 :hasGlobalId "2TJvWVuN51mepwyN3rKIQX"^^xsd:string .
+:IfcColumn327 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn327 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn328 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn328 :hasGlobalId "2TJvWVuN51mepwyN3rKIQd"^^xsd:string .
+:IfcColumn328 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn328 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn329 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn329 :hasGlobalId "2TJvWVuN51mepwyN3rKIQb"^^xsd:string .
+:IfcColumn329 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn329 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn330 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn330 :hasGlobalId "2TJvWVuN51mepwyN3rKIQh"^^xsd:string .
+:IfcColumn330 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn330 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn331 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn331 :hasGlobalId "2TJvWVuN51mepwyN3rKIQf"^^xsd:string .
+:IfcColumn331 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn331 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn332 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn332 :hasGlobalId "2TJvWVuN51mepwyN3rKIQl"^^xsd:string .
+:IfcColumn332 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn332 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn333 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn333 :hasGlobalId "2TJvWVuN51mepwyN3rKIQj"^^xsd:string .
+:IfcColumn333 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn333 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn334 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn334 :hasGlobalId "2TJvWVuN51mepwyN3rKIQJ"^^xsd:string .
+:IfcColumn334 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn334 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn335 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn335 :hasGlobalId "2TJvWVuN51mepwyN3rKIQH"^^xsd:string .
+:IfcColumn335 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn335 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn337 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn337 :hasGlobalId "2TJvWVuN51mepwyN3rKIQN"^^xsd:string .
+:IfcColumn337 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn337 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn338 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn338 :hasGlobalId "2TJvWVuN51mepwyN3rKIQL"^^xsd:string .
+:IfcColumn338 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn338 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn339 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn339 :hasGlobalId "2TJvWVuN51mepwyN3rKIQR"^^xsd:string .
+:IfcColumn339 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn339 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcColumn340 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Column> .
+:IfcColumn340 :hasGlobalId "2TJvWVuN51mepwyN3rKIQP"^^xsd:string .
+:IfcColumn340 :hasFireResistanceLimits_hour "1.98888"^^xsd:decimal .
+:IfcColumn340 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam341 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam341 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1yM"^^xsd:string .
+:IfcBeam341 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam341 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam342 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam342 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1_Q"^^xsd:string .
+:IfcBeam342 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam342 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam343 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam343 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1WH"^^xsd:string .
+:IfcBeam343 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam343 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam344 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam344 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1Wb"^^xsd:string .
+:IfcBeam344 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam344 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam345 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam345 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1Wl"^^xsd:string .
+:IfcBeam345 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam345 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam346 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam346 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1Wn"^^xsd:string .
+:IfcBeam346 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam346 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam347 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam347 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1Z1"^^xsd:string .
+:IfcBeam347 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam347 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam348 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam348 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1ZB"^^xsd:string .
+:IfcBeam348 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam348 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam349 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam349 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1ZT"^^xsd:string .
+:IfcBeam349 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam349 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam350 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam350 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1ZZ"^^xsd:string .
+:IfcBeam350 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam350 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam351 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam351 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1Zt"^^xsd:string .
+:IfcBeam351 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam351 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam352 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam352 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1Zx"^^xsd:string .
+:IfcBeam352 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam352 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam353 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam353 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1YD"^^xsd:string .
+:IfcBeam353 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam353 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam354 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam354 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1b7"^^xsd:string .
+:IfcBeam354 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam354 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam355 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam355 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1bL"^^xsd:string .
+:IfcBeam355 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam355 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam356 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam356 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1bV"^^xsd:string .
+:IfcBeam356 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam356 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam357 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam357 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1bX"^^xsd:string .
+:IfcBeam357 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam357 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam358 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam358 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1bn"^^xsd:string .
+:IfcBeam358 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam358 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam359 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam359 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1a5"^^xsd:string .
+:IfcBeam359 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam359 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam360 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam360 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1aF"^^xsd:string .
+:IfcBeam360 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam360 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam361 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam361 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1aH"^^xsd:string .
+:IfcBeam361 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam361 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam362 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam362 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1aP"^^xsd:string .
+:IfcBeam362 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam362 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam363 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam363 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1aZ"^^xsd:string .
+:IfcBeam363 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam363 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam364 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam364 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1at"^^xsd:string .
+:IfcBeam364 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam364 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam365 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam365 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1av"^^xsd:string .
+:IfcBeam365 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam365 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam366 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam366 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1dr"^^xsd:string .
+:IfcBeam366 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam366 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam367 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam367 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1cm"^^xsd:string .
+:IfcBeam367 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam367 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam368 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam368 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1e3"^^xsd:string .
+:IfcBeam368 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam368 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam369 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam369 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1eL"^^xsd:string .
+:IfcBeam369 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam369 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam370 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam370 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1eP"^^xsd:string .
+:IfcBeam370 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam370 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam371 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam371 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1ej"^^xsd:string .
+:IfcBeam371 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam371 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam372 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam372 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1en"^^xsd:string .
+:IfcBeam372 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam372 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam373 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam373 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1ha"^^xsd:string .
+:IfcBeam373 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam373 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam374 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam374 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1he"^^xsd:string .
+:IfcBeam374 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam374 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam375 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam375 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1hy"^^xsd:string .
+:IfcBeam375 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam375 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam376 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam376 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1g0"^^xsd:string .
+:IfcBeam376 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam376 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam377 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam377 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1gK"^^xsd:string .
+:IfcBeam377 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam377 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam378 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam378 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1gU"^^xsd:string .
+:IfcBeam378 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam378 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam379 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam379 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1jC"^^xsd:string .
+:IfcBeam379 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam379 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam380 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam380 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1jW"^^xsd:string .
+:IfcBeam380 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam380 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam381 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam381 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1jj"^^xsd:string .
+:IfcBeam381 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam381 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam382 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam382 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1jz"^^xsd:string .
+:IfcBeam382 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam382 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam383 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam383 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1j_"^^xsd:string .
+:IfcBeam383 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam383 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam384 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam384 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1in"^^xsd:string .
+:IfcBeam384 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam384 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam385 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam385 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1l0"^^xsd:string .
+:IfcBeam385 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam385 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam386 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam386 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1lJ"^^xsd:string .
+:IfcBeam386 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam386 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam387 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam387 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1lY"^^xsd:string .
+:IfcBeam387 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam387 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam388 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam388 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1lz"^^xsd:string .
+:IfcBeam388 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam388 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam389 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam389 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1k0"^^xsd:string .
+:IfcBeam389 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam389 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcBeam390 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Beam> .
+:IfcBeam390 :hasGlobalId "0BQfC5xMrD0RyTBtqcy1kJ"^^xsd:string .
+:IfcBeam390 :hasFireResistanceLimits_hour "1.5"^^xsd:decimal .
+:IfcBeam390 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcSlab391 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor> .
+:IfcSlab391 :hasGlobalId "2WoqTfK6H4ixXkt521zOtT"^^xsd:string .
+:IfcSlab391 :hasFireResistanceLimits_hour "0.75"^^xsd:decimal .
+:IfcSlab396 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor> .
+:IfcSlab396 :hasGlobalId "2WoqTfK6H4ixXkt521zO2i"^^xsd:string .
+:IfcSlab396 :hasFireResistanceLimits_hour "0.75"^^xsd:decimal .
+:IfcWallStandardCase397 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase397 :hasGlobalId "0TDMvFTNHFH99lCoq9QIbh"^^xsd:string .
+:IfcWallStandardCase397 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase398 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase398 :hasGlobalId "0TDMvFTNHFH99lCoq9QHPU"^^xsd:string .
+:IfcWallStandardCase398 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase399 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase399 :hasGlobalId "0TDMvFTNHFH99lCoq9QHQr"^^xsd:string .
+:IfcWallStandardCase399 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase400 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase400 :hasGlobalId "0TDMvFTNHFH99lCoq9QHUK"^^xsd:string .
+:IfcWallStandardCase400 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase401 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase401 :hasGlobalId "0cauBN0lX9uQLK9JxG0z$a"^^xsd:string .
+:IfcWallStandardCase401 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase402 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase402 :hasGlobalId "0cauBN0lX9uQLK9JxG0zwB"^^xsd:string .
+:IfcWallStandardCase402 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase402 :isLoadBearing_Boolean "true"^^xsd:boolean .
+:IfcWallStandardCase403 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase403 :hasGlobalId "0cauBN0lX9uQLK9JxG0zuW"^^xsd:string .
+:IfcWallStandardCase403 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase404 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase404 :hasGlobalId "0cauBN0lX9uQLK9JxG0zdT"^^xsd:string .
+:IfcWallStandardCase404 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWindow405 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow405 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGr2"^^xsd:string .
+:IfcWindow406 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow406 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG0Q"^^xsd:string .
+:IfcWindow407 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow407 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG10"^^xsd:string .
+:IfcWindow408 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow408 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG1I"^^xsd:string .
+:IfcWindow409 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow409 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG1a"^^xsd:string .
+:IfcWindow410 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow410 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG6a"^^xsd:string .
+:IfcWindow411 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow411 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG4K"^^xsd:string .
+:IfcWindow412 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow412 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG4c"^^xsd:string .
+:IfcWindow413 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow413 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG58"^^xsd:string .
+:IfcWindow414 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow414 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQG5Q"^^xsd:string .
+:IfcWindow415 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow415 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGBW"^^xsd:string .
+:IfcWindow416 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow416 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGEW"^^xsd:string .
+:IfcWindow417 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow417 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGEo"^^xsd:string .
+:IfcWindow418 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow418 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGF4"^^xsd:string .
+:IfcWindow419 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow419 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGFM"^^xsd:string .
+:IfcWindow420 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow420 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGFu"^^xsd:string .
+:IfcWindow421 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow421 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGCA"^^xsd:string .
+:IfcWindow422 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow422 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGCS"^^xsd:string .
+:IfcWindow423 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow423 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGCk"^^xsd:string .
+:IfcWindow424 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow424 :hasGlobalId "3ukqaAA$v1PPUnQ6pJQGCm"^^xsd:string .
+:IfcWindow425 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow425 :hasGlobalId "0ikQV35OvAc9SYgmByLmqX"^^xsd:string .
+:IfcWindow426 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow426 :hasGlobalId "0ikQV35OvAc9SYgmByLmkD"^^xsd:string .
+:IfcWindow427 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow427 :hasGlobalId "0ikQV35OvAc9SYgmByLmkR"^^xsd:string .
+:IfcWindow428 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow428 :hasGlobalId "0ikQV35OvAc9SYgmByLmjf"^^xsd:string .
+:IfcWindow429 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow429 :hasGlobalId "0ikQV35OvAc9SYgmByLmjt"^^xsd:string .
+:IfcWindow430 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow430 :hasGlobalId "0ikQV35OvAc9SYgmByLmj5"^^xsd:string .
+:IfcWindow431 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow431 :hasGlobalId "0ikQV35OvAc9SYgmByLmZ9"^^xsd:string .
+:IfcWindow432 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow432 :hasGlobalId "0ikQV35OvAc9SYgmByLmZN"^^xsd:string .
+:IfcWindow433 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow433 :hasGlobalId "0ikQV35OvAc9SYgmByLmYn"^^xsd:string .
+:IfcWindow434 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow434 :hasGlobalId "0ikQV35OvAc9SYgmByLmdO"^^xsd:string .
+:IfcWindow435 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow435 :hasGlobalId "0ikQV35OvAc9SYgmByLmcc"^^xsd:string .
+:IfcWindow436 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow436 :hasGlobalId "0ikQV35OvAc9SYgmByLmcq"^^xsd:string .
+:IfcWindow437 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow437 :hasGlobalId "0ikQV35OvAc9SYgmByLmcG"^^xsd:string .
+:IfcWindow438 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow438 :hasGlobalId "0ikQV35OvAc9SYgmByLmaP"^^xsd:string .
+:IfcWindow439 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow439 :hasGlobalId "0ikQV35OvAc9SYgmByLnO9"^^xsd:string .
+:IfcWindow440 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow440 :hasGlobalId "0ikQV35OvAc9SYgmByLnU4"^^xsd:string .
+:IfcWindow441 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow441 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Mo"^^xsd:string .
+:IfcWindow442 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow442 :hasGlobalId "25tn8MYSn0rPfUFzzuY$N3"^^xsd:string .
+:IfcWindow443 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow443 :hasGlobalId "25tn8MYSn0rPfUFzzuY$P2"^^xsd:string .
+:IfcWindow444 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow444 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Qy"^^xsd:string .
+:IfcWindow445 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow445 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Qk"^^xsd:string .
+:IfcWindow446 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow446 :hasGlobalId "25tn8MYSn0rPfUFzzuY$QO"^^xsd:string .
+:IfcWindow447 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow447 :hasGlobalId "25tn8MYSn0rPfUFzzuY$QA"^^xsd:string .
+:IfcWindow448 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow448 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Ra"^^xsd:string .
+:IfcWindow449 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow449 :hasGlobalId "25tn8MYSn0rPfUFzzuY$RM"^^xsd:string .
+:IfcWindow450 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow450 :hasGlobalId "25tn8MYSn0rPfUFzzuY$R0"^^xsd:string .
+:IfcWindow451 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow451 :hasGlobalId "25tn8MYSn0rPfUFzzuY$So"^^xsd:string .
+:IfcWindow452 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow452 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Si"^^xsd:string .
+:IfcWindow453 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow453 :hasGlobalId "25tn8MYSn0rPfUFzzuY$SU"^^xsd:string .
+:IfcWindow454 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow454 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Tq"^^xsd:string .
+:IfcWindow455 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow455 :hasGlobalId "25tn8MYSn0rPfUFzzuY$V8"^^xsd:string .
+:IfcWindow456 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow456 :hasGlobalId "25tn8MYSn0rPfUFzzuY$0w"^^xsd:string .
+:IfcWindow457 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow457 :hasGlobalId "25tn8MYSn0rPfUFzzuY$0K"^^xsd:string .
+:IfcWindow458 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow458 :hasGlobalId "25tn8MYSn0rPfUFzzuY$06"^^xsd:string .
+:IfcWindow459 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow459 :hasGlobalId "25tn8MYSn0rPfUFzzuY$1m"^^xsd:string .
+:IfcWindow460 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow460 :hasGlobalId "25tn8MYSn0rPfUFzzuY$1Y"^^xsd:string .
+:IfcWindow461 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow461 :hasGlobalId "25tn8MYSn0rPfUFzzuY$1S"^^xsd:string .
+:IfcWindow462 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow462 :hasGlobalId "25tn8MYSn0rPfUFzzuY$1E"^^xsd:string .
+:IfcWindow463 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow463 :hasGlobalId "25tn8MYSn0rPfUFzzuY$2u"^^xsd:string .
+:IfcWindow464 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow464 :hasGlobalId "25tn8MYSn0rPfUFzzuY$2g"^^xsd:string .
+:IfcWindow465 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow465 :hasGlobalId "25tn8MYSn0rPfUFzzuY$20"^^xsd:string .
+:IfcWindow466 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow466 :hasGlobalId "25tn8MYSn0rPfUFzzuY$8$"^^xsd:string .
+:IfcWindow467 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow467 :hasGlobalId "25tn8MYSn0rPfUFzzuY$8f"^^xsd:string .
+:IfcWindow468 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow468 :hasGlobalId "25tn8MYSn0rPfUFzzuY$8R"^^xsd:string .
+:IfcWindow469 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow469 :hasGlobalId "25tn8MYSn0rPfUFzzuY$9r"^^xsd:string .
+:IfcWindow470 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow470 :hasGlobalId "25tn8MYSn0rPfUFzzuY$9d"^^xsd:string .
+:IfcWindow471 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow471 :hasGlobalId "25tn8MYSn0rPfUFzzuY$9H"^^xsd:string .
+:IfcWindow472 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow472 :hasGlobalId "25tn8MYSn0rPfUFzzuY$93"^^xsd:string .
+:IfcWindow473 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow473 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Az"^^xsd:string .
+:IfcWindow474 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow474 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Al"^^xsd:string .
+:IfcWindow475 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow475 :hasGlobalId "25tn8MYSn0rPfUFzzuY$AP"^^xsd:string .
+:IfcWindow476 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow476 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Bt"^^xsd:string .
+:IfcWindow477 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow477 :hasGlobalId "25tn8MYSn0rPfUFzzuY$C3"^^xsd:string .
+:IfcWindow478 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow478 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Dz"^^xsd:string .
+:IfcWindow479 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow479 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Dl"^^xsd:string .
+:IfcWindow480 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow480 :hasGlobalId "25tn8MYSn0rPfUFzzuY$DP"^^xsd:string .
+:IfcWindow481 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow481 :hasGlobalId "25tn8MYSn0rPfUFzzuY$DB"^^xsd:string .
+:IfcWindow482 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow482 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Eb"^^xsd:string .
+:IfcWindow483 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow483 :hasGlobalId "25tn8MYSn0rPfUFzzuY$EN"^^xsd:string .
+:IfcWindow484 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow484 :hasGlobalId "25tn8MYSn0rPfUFzzuY$E1"^^xsd:string .
+:IfcWindow485 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow485 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Fp"^^xsd:string .
+:IfcWindow486 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow486 :hasGlobalId "25tn8MYSn0rPfUFzzuY$Fj"^^xsd:string .
+:IfcWindow487 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Window> .
+:IfcWindow487 :hasGlobalId "25tn8MYSn0rPfUFzzuY$FV"^^xsd:string .
+:IfcDoor488 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor488 :hasGlobalId "2PwpcYxEv3BQDGz$YVbjRc"^^xsd:string .
+:IfcDoor488 :IsSecurityExits_Boolean "true"^^xsd:boolean .
+:IfcDoor489 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor489 :hasGlobalId "2PwpcYxEv3BQDGz$YVbjOh"^^xsd:string .
+:IfcDoor490 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor490 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYdh"^^xsd:string .
+:IfcDoor491 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor491 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYar"^^xsd:string .
+:IfcDoor492 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor492 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYZD"^^xsd:string .
+:IfcDoor493 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor493 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYWf"^^xsd:string .
+:IfcDoor494 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor494 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYlf"^^xsd:string .
+:IfcDoor494 :IsSecurityExits_Boolean "false"^^xsd:boolean .
+:IfcDoor495 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor495 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYj_"^^xsd:string .
+:IfcDoor495 :IsSecurityExits_Boolean "false"^^xsd:boolean .
+:IfcDoor496 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor496 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYim"^^xsd:string .
+:IfcDoor496 :IsSecurityExits_Boolean "false"^^xsd:boolean .
+:IfcDoor497 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor497 :hasGlobalId "2PwpcYxEv3BQDGz$YVbYh8"^^xsd:string .
+:IfcDoor497 :IsSecurityExits_Boolean "false"^^xsd:boolean .
+:IfcStair498 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs> .
+:IfcStair498 :hasGlobalId "0CFRT$QsDD89xIDV$SU16F"^^xsd:string .
+:IfcStair498 :hasFireResistanceLimits_hour "1.0"^^xsd:decimal .
+:IfcSlab501 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor> .
+:IfcSlab501 :hasGlobalId "0CFRT$QsDD89xIDV$SU1iU"^^xsd:string .
+:IfcStair510 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs> .
+:IfcStair510 :hasGlobalId "0CFRT$QsDD89xIDV$SU1dA"^^xsd:string .
+:IfcStair510 :hasFireResistanceLimits_hour "1.0"^^xsd:decimal .
+:IfcSlab513 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor> .
+:IfcSlab513 :hasGlobalId "0CFRT$QsDD89xIDV$SU1d5"^^xsd:string .
+:IfcStair522 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs> .
+:IfcStair522 :hasGlobalId "0CFRT$QsDD89xIDV$SU1wP"^^xsd:string .
+:IfcStair522 :hasFireResistanceLimits_hour "1.0"^^xsd:decimal .
+:IfcSlab525 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor> .
+:IfcSlab525 :hasGlobalId "0CFRT$QsDD89xIDV$SU1wG"^^xsd:string .
+:IfcStair534 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Stairs> .
+:IfcStair534 :hasGlobalId "0CFRT$QsDD89xIDV$SU1zE"^^xsd:string .
+:IfcStair534 :hasFireResistanceLimits_hour "1.0"^^xsd:decimal .
+:IfcSlab537 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Floor> .
+:IfcSlab537 :hasGlobalId "0CFRT$QsDD89xIDV$SU1z9"^^xsd:string .
+:IfcWallStandardCase546 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase546 :hasGlobalId "1Dkc0PZSH8QhoXanFZjDlI"^^xsd:string .
+:IfcWallStandardCase546 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase547 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase547 :hasGlobalId "1Dkc0PZSH8QhoXanFZjDjM"^^xsd:string .
+:IfcWallStandardCase547 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase549 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase549 :hasGlobalId "1Dkc0PZSH8QhoXanFZjDeH"^^xsd:string .
+:IfcWallStandardCase549 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase550 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase550 :hasGlobalId "1Dkc0PZSH8QhoXanFZjDbN"^^xsd:string .
+:IfcWallStandardCase550 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase551 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase551 :hasGlobalId "1Dkc0PZSH8QhoXanFZjDYQ"^^xsd:string .
+:IfcWallStandardCase551 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase552 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase552 :hasGlobalId "1Dkc0PZSH8QhoXanFZjESf"^^xsd:string .
+:IfcWallStandardCase552 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase554 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase554 :hasGlobalId "1Dkc0PZSH8QhoXanFZjEP0"^^xsd:string .
+:IfcWallStandardCase554 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase555 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase555 :hasGlobalId "1Dkc0PZSH8QhoXanFZjENO"^^xsd:string .
+:IfcWallStandardCase555 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcDoor556 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor556 :hasGlobalId "1Dkc0PZSH8QhoXanFZjEzD"^^xsd:string .
+:IfcDoor557 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor557 :hasGlobalId "1Dkc0PZSH8QhoXanFZjEwA"^^xsd:string .
+:IfcWallStandardCase558 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase558 :hasGlobalId "04M84dkEz8GhpqWbHUDGoh"^^xsd:string .
+:IfcWallStandardCase558 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase559 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase559 :hasGlobalId "04M84dkEz8GhpqWbHUDGqU"^^xsd:string .
+:IfcWallStandardCase559 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase561 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase561 :hasGlobalId "04M84dkEz8GhpqWbHUDGs0"^^xsd:string .
+:IfcWallStandardCase561 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase562 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase562 :hasGlobalId "04M84dkEz8GhpqWbHUDGto"^^xsd:string .
+:IfcWallStandardCase562 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase563 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase563 :hasGlobalId "04M84dkEz8GhpqWbHUDG8X"^^xsd:string .
+:IfcWallStandardCase563 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase564 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase564 :hasGlobalId "04M84dkEz8GhpqWbHUDGAV"^^xsd:string .
+:IfcWallStandardCase564 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase566 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase566 :hasGlobalId "04M84dkEz8GhpqWbHUDGBJ"^^xsd:string .
+:IfcWallStandardCase566 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcWallStandardCase567 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wall> .
+:IfcWallStandardCase567 :hasGlobalId "04M84dkEz8GhpqWbHUDGBZ"^^xsd:string .
+:IfcWallStandardCase567 :hasFireResistanceLimits_hour "2.5"^^xsd:decimal .
+:IfcDoor568 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor568 :hasGlobalId "26bv8NXWT6ZffBljVe3EEW"^^xsd:string .
+:IfcDoor569 rdf:type owl:NamedIndividual , <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Doors> .
+:IfcDoor569 :hasGlobalId "26bv8NXWT6ZffBljVe3ELX"^^xsd:string .
