@@ -14,6 +14,7 @@ src/tests/test.*
 
 src/logs/*
 !src/logs/ruleparse-eval.log
+!src/logs/log-file-highlighter.txt
 
 src/antlr4parser/*
 !src/antlr4parser/*.py

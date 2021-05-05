@@ -1,0 +1,48 @@
+﻿//copy the following lines to the user settings (json) of vscode to enable the syntax highlight of log files
+
+    "logFileHighlighter.customPatterns": [
+        {
+            "pattern": "(?<=/)prop(?=\\])",
+            "foreground": "#0000ff",
+        },
+        {
+            "pattern": "(?<=/)s?obj(?=\\])",
+            "foreground": "#ff8800",
+        },
+        {
+            "pattern": "(?<=/)cmp(?=\\])",
+            "foreground": "#4e4b4e",
+        },
+        {
+            "pattern": "(?<=/)ARprop(?=\\])",
+            "foreground": "#11cc11",
+        },
+        {
+            "pattern": "(?<=/)Rprop(?=\\])",
+            "foreground": "#ff0000",
+        },
+        {
+            "pattern": "(?<=/)Robj(?=\\])",
+            "foreground": "#ffa845",
+        },
+        {
+            "pattern": "\\|(-|\\+)+(?=\\?\\[)", //rctree app
+            "foreground": "#11cc11",
+        },
+        {
+            "pattern": "\\|(-|\\+)+(?=\\[.*\\[)", //rctree req
+            "foreground": "#ff0000",
+        },
+        {
+            "pattern": "##(correct)", //evel keyword
+            "foreground": "#11cc11",
+        },
+        {
+            "pattern": "##(wrong|relabel|del)", //evel keyword
+            "foreground": "#ff0000",
+        },
+        {
+            "pattern": "# .*", //comment
+            "foreground": "#7f7f7f",
+        },
+    ],
