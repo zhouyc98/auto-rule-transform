@@ -1058,7 +1058,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#EvacuationDistance">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
         <rdfs:comment>疏散距离</rdfs:comment>
-        <rdfs:comment>疏散距离是指建筑物内最远处到外部出口或楼梯最大允许距离。安全疏散设施包括安全出口，即疏散门、过道、楼梯、事故照明和排烟设施等。</rdfs:comment>
     </owl:Class>
     
 
@@ -1088,7 +1087,6 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#StraightLineDistance">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#DistanceClass"/>
-        <rdfs:comment>指的是两点间的欧氏距离</rdfs:comment>
         <rdfs:comment>直线距离</rdfs:comment>
     </owl:Class>
     
@@ -1099,7 +1097,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Alcoholic">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#GoodsClass"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Flours"/>
-        <rdfs:comment>乙醇易燃，是常用的燃料、溶剂和消毒剂，也用于有机合成。</rdfs:comment>
         <rdfs:comment>酒精</rdfs:comment>
     </owl:Class>
     
@@ -1130,8 +1127,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Auditorium">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>礼堂</rdfs:comment>
-        <rdfs:comment>礼堂，指举行典礼或集会的厅堂。</rdfs:comment>
-        <rdfs:comment>礼堂，是一座建筑物内用作举行仪式、社交活动的房间，其基本设施是要有一个舞台。</rdfs:comment>
     </owl:Class>
     
 
@@ -1141,7 +1136,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#AutomaticSprinklerSystems">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
         <rdfs:comment>自动喷水灭火系统</rdfs:comment>
-        <rdfs:comment>自动喷水灭火系统由洒水喷头、报警阀组、水流报警装置（水流指示器或压力开关）等组件，以及管道、供水设施组成，并能在发生火灾时喷水的自动灭火系统。</rdfs:comment>
     </owl:Class>
     
 
@@ -1173,7 +1167,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Boilers">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
         <rdfs:comment>锅炉</rdfs:comment>
-        <rdfs:comment>锅炉是一种利用燃料燃烧放出的热能或者其他热能加热水或其他工质，以生产规定参数（温度、压力）的品质的蒸汽、热水或者其他工质的设备</rdfs:comment>
     </owl:Class>
     
 
@@ -1258,7 +1251,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cable">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem"/>
         <rdfs:comment>电缆线</rdfs:comment>
-        <rdfs:comment>电缆，是连接两个设备传输电信号的组件，由两条或更多的导线粘合、扭曲或编织在一起形成。电缆的用途广泛并且每个用途都需特制，它的功能大至传输电能、电信号和实现电磁能转换的线材产品。</rdfs:comment>
     </owl:Class>
     
 
@@ -1268,7 +1260,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CableWell">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem"/>
         <rdfs:comment>电缆井</rdfs:comment>
-        <rdfs:comment>高层建筑物用于垂直走供电电缆或通讯电缆的垂直通道。和电梯竖井类似，强电和弱电一般分开敷设。</rdfs:comment>
     </owl:Class>
     
 
@@ -1278,7 +1269,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Canteen">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>食堂</rdfs:comment>
-        <rdfs:comment>餐厅就是指在一定场所，公开地对一般大众提供食品、饮料等餐饮的设施或公共餐饮屋。</rdfs:comment>
     </owl:Class>
     
 
@@ -1288,7 +1278,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cinema">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>电影院</rdfs:comment>
-        <rdfs:comment>电影院是放映电影的场所。大部分的电影院都是企业所拥有，并对一般大众提供服务，必须购买门票才能入场。影像是由电影放映机投射在观众席前的银幕上。某些电影院装设有数位电影的放映设备，不需要传统的电影底片就能够放映。</rdfs:comment>
     </owl:Class>
     
 
@@ -1298,7 +1287,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#BuildingTypes"/>
         <rdfs:comment>民用建筑</rdfs:comment>
-        <rdfs:comment>民用建筑 （Civil Building），供人们居住和进行公共活动的建筑的总称，按使用功能可分为居住建筑和公共建筑两大类。</rdfs:comment>
     </owl:Class>
     
 
@@ -1319,7 +1307,15 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CombustibleMaterialStorageArea">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#IndustrialBuilding"/>
         <rdfs:comment>可燃材料堆场</rdfs:comment>
-        <rdfs:comment>堆放可燃材料的场所</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CommercialFacilities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CommercialFacilities">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
+        <rdfs:comment>商业服务网点</rdfs:comment>
     </owl:Class>
     
 
@@ -1329,7 +1325,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CottonLinen">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
         <rdfs:comment>棉麻</rdfs:comment>
-        <rdfs:comment>棉麻是指棉和麻为原材料的纺织品</rdfs:comment>
     </owl:Class>
     
 
@@ -1382,7 +1377,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#DistributionBox">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireFightingPowerSupplySystem"/>
         <rdfs:comment>配电箱</rdfs:comment>
-        <rdfs:comment>配电箱是数据上的海量参数，一般是构成低压林按电气接线，要求将开关设备、测量仪表、保护电器和辅助设备组装在封闭或半封闭金属柜中或屏幅上，构成低压配电箱。正常运行时可借助手动或自动开关接通或分断电路。</rdfs:comment>
     </owl:Class>
     
 
@@ -1440,8 +1434,17 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EvacuationSigns">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyLighting"/>
-        <rdfs:comment>用于指示疏散方向和(或)位置、引导人员疏散的标志。一般由疏散通道方向标志、疏散出口标志或两种标志组成。</rdfs:comment>
         <rdfs:comment>疏散指示标志</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyBroadcasting_System"/>
+        <rdfs:comment>火灾报警系统</rdfs:comment>
     </owl:Class>
     
 
@@ -1451,7 +1454,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
         <rdfs:comment>消防报警系统</rdfs:comment>
-        <rdfs:comment>火灾自动报警系统是由触发装置、火灾报警装置、联动输出装置以及具有其它辅助功能装置组成的，它具有能在火灾初期，将燃烧产生的烟雾、热量、火焰等物理量，通过火灾探测器变成电信号，传输到火灾报警控制器，并同时以声或光的形式通知整个楼层疏散</rdfs:comment>
     </owl:Class>
     
 
@@ -1461,7 +1463,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireDamper">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
         <rdfs:comment>防火阀</rdfs:comment>
-        <rdfs:comment>防火阀是一种记忆熔合金的温度控制，利用重力作用和弹簧机构的作用关闭的阀门形式。新型产品中亦有利用记忆合金产生形变使阀门关闭的。</rdfs:comment>
     </owl:Class>
     
 
@@ -1481,7 +1482,15 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireElevators">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
         <rdfs:comment>消防电梯</rdfs:comment>
-        <rdfs:comment>消防电梯是在建筑物发生火灾时供消防人员进行灭火与救援使用且具有一定功能的电梯。</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyBroadcasting_System -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyBroadcasting_System">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireAlarmSystems"/>
+        <rdfs:comment>消防应急广播系统</rdfs:comment>
     </owl:Class>
     
 
@@ -1491,7 +1500,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEmergencyLighting">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EmergencyEvacuationEquipment"/>
         <rdfs:comment>消防应急照明</rdfs:comment>
-        <rdfs:comment>消防应急照明系统主要包括事故应急照明、应急出口标志及指示灯，是在发生火灾时正常照明电源切断后，引导被困人员疏散或展开灭火救援行动而设置的。</rdfs:comment>
     </owl:Class>
     
 
@@ -1501,7 +1509,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireEngineLane">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
         <rdfs:comment>消防车道</rdfs:comment>
-        <rdfs:comment>消防车道（Fire Lane）是指火灾时供消防车通行的道路。根据规定消防车道的净宽和净空高度均不应小于4.0米，消防车道上不允许停放车辆，防止发生火灾时堵塞。</rdfs:comment>
     </owl:Class>
     
 
@@ -1511,7 +1518,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireExtinguisher">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
         <rdfs:comment>灭火器</rdfs:comment>
-        <rdfs:comment>灭火器是一种可携式灭火工具。灭火器内放置化学物品，用以救灭火灾。灭火器是常见的防火设施之一，存放在公众场所或可能发生火灾的地方，不同种类的灭火器内装填的成分不一样，是专为不同的火灾起因而设。</rdfs:comment>
     </owl:Class>
     
 
@@ -1530,7 +1536,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
         <rdfs:comment>消火栓系统</rdfs:comment>
-        <rdfs:comment>消火栓系统一般都由主泵和备用泵组成。</rdfs:comment>
     </owl:Class>
     
 
@@ -1541,7 +1546,6 @@
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingWaterSource"/>
         <rdfs:comment>消防水泵</rdfs:comment>
-        <rdfs:comment>消防水泵是指专用消防水泵或达到国家标准《消防泵性能要求和试验方法》GB 6245的普通清水泵。大多数消防水源提供的消防用水，都需要消防水泵进行加压，以满足灭火时对水压和水量的要求。</rdfs:comment>
     </owl:Class>
     
 
@@ -1559,7 +1563,6 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueSite">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
-        <rdfs:comment>开展救援的场地</rdfs:comment>
         <rdfs:comment>救援场地</rdfs:comment>
     </owl:Class>
     
@@ -1579,7 +1582,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingWaterSource">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireHydrantSystem"/>
         <rdfs:comment>消防水源</rdfs:comment>
-        <rdfs:comment>消防水源是指开展消防工作时所需要的水源，一般有天然水源和人工水源两种。</rdfs:comment>
     </owl:Class>
     
 
@@ -1619,7 +1621,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Glass">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
         <rdfs:comment>玻璃</rdfs:comment>
-        <rdfs:comment>玻璃是非晶无机非金属材料，一般是用多种无机矿物为主要原料，另外加入少量辅助原料制成的。</rdfs:comment>
     </owl:Class>
     
 
@@ -1636,7 +1637,6 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Helipad">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FireRescueFacilities"/>
-        <rdfs:comment>供直升机、垂直起降战斗机的场地，其一般要求配备相应的助航设备、航管通信设备、气象设施、消防救援设备、机场标识等，使之能符合直升机安全起降要求。</rdfs:comment>
         <rdfs:comment>直升机停机坪</rdfs:comment>
     </owl:Class>
     
@@ -1657,7 +1657,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Hospital">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>医院</rdfs:comment>
-        <rdfs:comment>医院是治疗和护理病人的机构，也可执行健康检查、疾病预防等</rdfs:comment>
     </owl:Class>
     
 
@@ -1698,7 +1697,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Kindergarten">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>幼儿园</rdfs:comment>
-        <rdfs:comment>幼儿园（英语：Kindergarten），又称幼稚园，是给学龄前儿童的培育设施，属于一种学前教育机构。</rdfs:comment>
     </owl:Class>
     
 
@@ -1708,7 +1706,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Market">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>菜市场</rdfs:comment>
-        <rdfs:comment>菜市场指一区域内用于销售蔬菜、瓜果、水产品、禽蛋、肉类及其制品、粮食及其制品、豆制品、熟食、调味品、土特产等各类农产品和食品的以零售经营为主的固定场所。</rdfs:comment>
     </owl:Class>
     
 
@@ -1718,7 +1715,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Metals">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
         <rdfs:comment>金属</rdfs:comment>
-        <rdfs:comment>金属是一种具有光泽（对可见光强烈反射）、富有延展性、容易导电、传热等性质的物质。</rdfs:comment>
     </owl:Class>
     
 
@@ -1728,7 +1724,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#NonPrestressedReinforcedConcrete">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PrestressedReinforcedConcrete"/>
-        <rdfs:comment>没有进行预应力张拉的混凝土材料</rdfs:comment>
         <rdfs:comment>非预应力钢筋混凝土</rdfs:comment>
     </owl:Class>
     
@@ -1739,7 +1734,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Oil-immersedTransformer">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
         <rdfs:comment>油浸变压器</rdfs:comment>
-        <rdfs:comment>油浸式变压器，是以油作为变压器主要绝缘手段，并依靠油作冷却介质，如油浸自冷，油浸风冷，油浸水冷及强迫油循环等。</rdfs:comment>
     </owl:Class>
     
 
@@ -1798,7 +1792,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Precipitator">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
         <rdfs:comment>除尘器</rdfs:comment>
-        <rdfs:comment>除尘器，是把粉尘从烟气中分离出来的设备叫除尘器或除尘设备。</rdfs:comment>
     </owl:Class>
     
 
@@ -1808,7 +1801,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PressureReliefDevice">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
         <rdfs:comment>泄压装置</rdfs:comment>
-        <rdfs:comment>泄放容器、封闭管路和封闭保护空间内超压的装置。</rdfs:comment>
     </owl:Class>
     
 
@@ -1817,7 +1809,6 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PrestressedReinforcedConcrete">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete"/>
-        <rdfs:comment>应用预应力钢筋混凝土的概念及原理对钢筋混凝土构件中的主要受力钢筋预先施行张拉的就是预应力钢筋混凝土</rdfs:comment>
         <rdfs:comment>预应力钢筋混凝土</rdfs:comment>
     </owl:Class>
     
@@ -1837,7 +1828,6 @@
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ResidenceBuilding"/>
         <rdfs:comment>公共建筑</rdfs:comment>
-        <rdfs:comment>公共建筑（public building），是指供人们进行各种公共活动的建筑。一般包括办公建筑、商业建筑、旅游建筑、科教文卫建筑、通信建筑、交通运输类建筑等。</rdfs:comment>
     </owl:Class>
     
 
@@ -1847,7 +1837,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ReinforcedConcrete">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
         <rdfs:comment>钢筋混凝土</rdfs:comment>
-        <rdfs:comment>钢筋混凝土，工程上常被简称为钢筋砼。是指通过在混凝土中加入钢筋网、钢板或纤维而构成的一种组合材料与之共同工作来改善混凝土力学性质的一种组合材料。</rdfs:comment>
     </owl:Class>
     
 
@@ -1857,7 +1846,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#ResidenceBuilding">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CivilBuilding"/>
         <rdfs:comment>住宅</rdfs:comment>
-        <rdfs:comment>住宅，又称家宅、住所、房屋、房子，是人所建筑以供居住的建筑物，可能是简单的小屋，也有可能是用木材、砌体结构、混凝土或其他建材建成的复杂建筑物。</rdfs:comment>
     </owl:Class>
     
 
@@ -1889,7 +1877,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Sanatorium">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>疗养院</rdfs:comment>
-        <rdfs:comment>疗养院是一种医疗设施，为需要长期照料的病患（如肺结核、痳疯病患者）、残疾人士或老年人设置，也有疗养院是安排末期病人入住，并提供舒缓治疗及灵养服务，提高末期病人的生活品质。</rdfs:comment>
     </owl:Class>
     
 
@@ -1908,7 +1895,6 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#SmokeExtractionFacilities">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#FirefightingFacilities"/>
-        <rdfs:comment>防排烟系统，都是由送排风管道、管井、防火阀、门开关设备、送、排风机等设备组成。</rdfs:comment>
         <rdfs:comment>防烟排烟设施</rdfs:comment>
     </owl:Class>
     
@@ -1939,7 +1925,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#StorageTank">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#EquipmentClass"/>
         <rdfs:comment>储罐</rdfs:comment>
-        <rdfs:comment>储罐用以存放酸碱、醇、气体、液态等提炼的化学物质。</rdfs:comment>
     </owl:Class>
     
 
@@ -1959,7 +1944,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#TeachingBuilding">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>教学建筑</rdfs:comment>
-        <rdfs:comment>教室是教师向学生传授课业的场所。</rdfs:comment>
     </owl:Class>
     
 
@@ -1979,7 +1963,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationDuct">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#VentilationHeatingSystem"/>
         <rdfs:comment>风管</rdfs:comment>
-        <rdfs:comment>风管，是用于空气输送和分布的管道系统。有复合风管和无机风管两种。</rdfs:comment>
     </owl:Class>
     
 
@@ -2051,7 +2034,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Wood">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PropertyClass"/>
         <rdfs:comment>木材</rdfs:comment>
-        <rdfs:comment>木材泛指用于工民建筑的木制材料，通常被为软材和硬材。工程中所用的木材主要取自树木的树干部分。木材因取得和加工容易，自古以来就是一种主要的建筑材料。</rdfs:comment>
     </owl:Class>
     
 
@@ -2061,7 +2043,6 @@
     <owl:Class rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#exhibitionHall">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#PublicBuilding"/>
         <rdfs:comment>展览建筑</rdfs:comment>
-        <rdfs:comment>展览馆是作为展出临时陈列品之用的公共建筑。</rdfs:comment>
     </owl:Class>
     
 
@@ -2074,6 +2055,22 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Auditorium"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Canteen"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Cinema"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#CommercialFacilities"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Gerocomium"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Hospital"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Kindergarten"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Market"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#Sanatorium"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#TeachingBuilding"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#exhibitionHall"/>
+        </owl:members>
+    </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
