@@ -351,7 +351,7 @@ class RCTreeVisitor(RuleCheckTreeVisitor):
 
 
 class RCTree:
-    def __init__(self, seq, label_iit):
+    def __init__(self, seq, label_iit, log_func=print):
         """
         :param seq:     sentence, list of char: ['a','b','c',...] -> str: 'abc..'
         :param label_iit:   label_tuple, [(i,j,tag),(i,j,tag),...]
@@ -366,6 +366,10 @@ class RCTree:
         # self.strip_seq_label()
         self.full_label = self.get_full_label()  # flabel_wt: LabelWordTags
         self.slabel = str(self.full_label)
+
+        self.parse_complete = False
+        self.error_msg = ''
+        self.log_func = log_func
 
     def strip_seq_label(self):
         self.label_iit.sort(key=lambda t: t[0])
@@ -835,7 +839,7 @@ class RCTree:
             parser._listeners = [RCTreeErrorListener()]
             # parser.addErrorListener(RCTreeErrorListener())
             tree = parser.rctree()
-            # log(tree.toStringTree(recog=parser))
+            # print(tree.toStringTree(recog=parser))
             return tree
 
         self.full_label.remove_tag('O')
@@ -850,12 +854,6 @@ class RCTree:
 
     def parse(self):
         """ Parse RCTree based on CFG and regex """
-
-        log(f'[{n_parse + 1}]#{self.seq_id}')
-        log(f'Seq:\t{self.seq}')
-        log(f'Label:\t{self.slabel}')
-
-        # ======================================== Pre-process & Obj
         self.pre_process1()
 
         def _classes_same(ws: list):
@@ -890,20 +888,27 @@ class RCTree:
             self.add_curr_child(self.obj_node)
 
         self.pre_process2()
-        # ======================================== Parsing
+
         try:
             self.cfg_parse()
         except ParserError as ex:
-            log(str(ex))
+            self.error_msg = str(ex)
 
         self.post_process()
-        # ======================================== Finish
-        is_complete = self.full_label.contains_tags(('O', 'obj'), only=True)
 
-        log(f"RCTree:\t#{self.hashtag()}\n{self}")
-        log('Parsing complete' if is_complete else f'Parsing incomplete: {self.full_label}')
-        log('-' * 90)
-        return is_complete
+        self.parse_complete = self.full_label.contains_tags(('O', 'obj'), only=True)
+
+    def log_msg(self, idx=0):
+        self.log_func('-' * 90)
+        self.log_func(f'[{idx}]#{self.seq_id}')
+        self.log_func(f'Seq:\t{self.seq}')
+        self.log_func(f'Label:\t{self.slabel}')
+
+        if self.error_msg:
+            self.log_func(self.error_msg)
+
+        self.log_func(f"RCTree:\t#{self.hashtag()}\n{self}")
+        self.log_func('Parsing complete' if self.parse_complete else f'Parsing incomplete: {self.full_label}')
 
     def hashtag(self):
         return str_hash(self.__str__(indent='\t\t'))
@@ -953,6 +958,8 @@ class RCNode:
 
         self.word = word
         self.tag = tag
+        self.onto_name = None
+        self.onto_type = None
 
         self.child_nodes = []
         self.req = None  # a tuple of (cmp_node, req_node, sreq_node=None)
@@ -1045,7 +1052,8 @@ class RCNode:
             # TODO default_cmp_value 高于: 位置 大于, etc
 
         t = f'/{self.tag}' if show_tag else ''
-        str_ = f'[{word}{self.anchor}{t}]'
+        o = f':{self.onto_name}' if self.onto_name else ''
+        str_ = f'[{word}{self.anchor}{o}{t}]'
 
         if show_req:
             if self.req:
@@ -1158,7 +1166,7 @@ class RevitRuleGenerator:
         """ <Filter ID="3ba6a2fb-2da7-45f1-bd47-fb6fc6838764" Operator="And" Category="TypeOrInstance"
         Property="Is Element Type" Condition="Equal" Value="False" CaseInsensitive="False" Unit="None"
         UnitClass="None" FieldTitle="" UserDefined="False" Validation="None" /> """
-        
+
         attrib = {'Operator': op, 'Category': "TypeOrInstance", 'Property': "Is Element Type", 'Condition': "Equal",
                   'Value': "0", 'Unit': "Default", 'UnitClass': "None"}
         return attrib
@@ -1188,7 +1196,6 @@ def model_data_loader():
     seqs_raw, labels_raw, _ = init_data_by_json()
     train_data_loader, val_data_loader, corpus = get_data_loader('../data/xiaofang', batch_size=1,
                                                                  check_stratify=False, shuffle_train=False)
-    log('-' * 90)
 
     def resolve_token(seq: list):
         assert isinstance(seq, list)
@@ -1252,21 +1259,6 @@ def model_data_loader():
 
     for seq, label_t in yield_data(train_data_loader):
         yield seq, label_t
-
-
-def seq_data_loader():
-    if args.data_loader == 'json':
-        seqs, labels, _ = init_data_by_json(early_return=True)
-        log('-' * 90)
-        return zip(seqs, labels)
-
-    elif args.data_loader == 'text':
-        seqs, labels = get_data_by_text()
-        log('-' * 90)
-        return zip(seqs, labels)
-
-    elif args.data_loader == 'model':
-        model_data_loader()  # yield data
 
 
 class EvalLogFile:
@@ -1364,7 +1356,7 @@ def get_current_eval_log(log_dir='./logs'):
         x = input(f"Proceed? <{fns[0]}> will be used and <{', '.join(fns[1:])}> may be overwritten (y/[n])")
         if x.lower() != 'y':
             exit()
-    
+
     if not fns:
         fn = 'ruleparse-eval.log'
         f0_v = 1
@@ -1373,7 +1365,7 @@ def get_current_eval_log(log_dir='./logs'):
     else:
         fn = fns[0]
         f0_v = int(fn[fn.index('-v') + 2:fn.index('.')])
-    
+
     print(f'Read file: {fn}\n')
     with open(f'{log_dir}/{fn}', 'r', encoding='utf8') as f:
         f0_txt = f.read()
@@ -1550,9 +1542,10 @@ def interactive_rct_parse():
             else:
                 raise KeyError
 
-            log('-' * 90)
             rct = RCTree(seq, label)
             rct.parse()
+            rct.log_msg()
+            log('-' * 90)
 
             if args.gen_rule:
                 rg = RevitRuleGenerator(rct)
@@ -1567,40 +1560,41 @@ def interactive_rct_parse():
 
 def get_args():
     parser = argparse.ArgumentParser('ARC Rule Parser')
-    parser.add_argument('-d', '--data_loader', type=str, default='json', help='data loader')
+    parser.add_argument('-d', '--dataset_name', type=str, default='json', help='dataset name, json or text')
     parser.add_argument('-g', '--gen_rule', action='store_true', help='generate rule')
     parser.add_argument('-i', '--interactive', action='store_true', help='interactive rct parse')
     parser.add_argument('-U', '--no_update_eval', action='store_true', help='do not update eval log file')
     args_ = parser.parse_args()
 
-    if args_.data_loader != 'json':
+    if args_.dataset_name != 'json':
         args_.no_update_eval = True
 
     return args_
 
 
-n_parse, n_complete = 0, 0
 if __name__ == '__main__':
     start_time = time.time()
     args = get_args()
-
     logger = Logger(file_name='ruleparse.log', init_mode='w+')
     log = logger.log
+
     if args.interactive:
         log('=== Interactive RCTree Parsing (Ctrl-C to exit) ===')
         interactive_rct_parse()
         exit()
 
+    n_parse, n_complete = 0, 0
     log('=== RCTree Parsing Start ===')
-    for seq, label in seq_data_loader():
-        rct = RCTree(seq, label)
-        is_comp = rct.parse()
+    for seq, label in seq_data_loader(args.dataset_name):
+        rct = RCTree(seq, label, log)
+        rct.parse()
+        rct.log_msg(n_parse + 1)
         n_parse += 1
-        n_complete += 1 if is_comp else 0
+        n_complete += 1 if rct.parse_complete else 0
         if args.gen_rule:
             rg = RevitRuleGenerator(rct)
             rg.generate()
-
+    log('-' * 90)
     log(f'\nComplete: {n_complete}/{n_parse}={n_complete / n_parse:.4f}')
     log(f'Time cost: {get_elapsed_time(start_time)}')
 

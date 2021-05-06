@@ -575,6 +575,16 @@ def get_data_by_text(data_dir='../data/xiaofang/'):
     return seqs, labels
 
 
+def seq_data_loader(dataset_name):
+    if dataset_name == 'json':
+        seqs, labels, _ = init_data_by_json(early_return=True)
+        return zip(seqs, labels)
+
+    elif dataset_name == 'text':
+        seqs, labels = get_data_by_text()
+        return zip(seqs, labels)
+
+
 def clean_seq_label(seq: list, label: list):
     """label: label_bio"""
     # seq_, label_ = dict_seqs[x][i], dict_labels[x][i]
