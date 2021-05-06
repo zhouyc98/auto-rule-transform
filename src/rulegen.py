@@ -242,6 +242,8 @@ def is_stop_words(word: str, stopwords):
 State: use
 Function: give a ontology word and the corresponding set of description, calculate the similarity between a natural language word and the ontology word based
 Method: 
+    0. keyword matching
+    0.1. weight keyword matching
     1. This method calculate the similartiy based on each word, and then mean similarity
     2. This method calculate the vector then mean vector, and calculate the similarity
     3. Take the tf-idf of each word as the weight, and the word similarity of all words is weighted averaged
@@ -275,7 +277,24 @@ def word2vec_similarity(onto_description, word, word2vec_model, stopwords, dicti
     elif len(onto_description) == 0 and method == 5:
         return -10
 
-    if method == 1:
+    if method == 0:
+        for one_onto_description in onto_description:
+            if word in one_onto_description:
+                return 1
+        else:
+            return 0
+
+    elif method == 0.1:
+        similarity = 0
+        words_num = len(onto_description)
+        for one_onto_description in onto_description:
+            if word == one_onto_description:
+                similarity += 1
+            elif word in one_onto_description:
+                similarity += 0.6/math.log(len(one_onto_description))
+        return similarity/words_num
+
+    elif method == 1:
         '''
         method = 1 This method calculate the similartiy then mean similarity
         '''
@@ -665,7 +684,7 @@ if __name__ == '__main__':
         test for __test_for_el
     '''
     docanno_src = '..\data\docanno\FireCode_label_merge.json'
-    __test_for_el(docanno_src=docanno_src, method=5)
+    __test_for_el(docanno_src=docanno_src, method=2)
 
     '''
         pre-train for tf-idf
