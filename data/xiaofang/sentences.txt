@@ -1,4 +1,13 @@
-The [thickness/prop] of [floors/obj] [shall not be less than/cmp] [30 mm/Rprop]
-The [width/prop] of [stairs/obj] [shall not be less than/cmp] [0.8 m/Rprop]
-[Windows/obj] that having a [width/prop] [greater than/cmp] [800 mm/ARprop] shall have a [height/prop] [no less than/cmp] [600 mm/Rprop]
-[Concrete/ARprop] [walls/obj] that having a [width/prop] [less than/cmp] [200 mm/ARprop] shall have a [thermal resistance/prop] [no less than/cmp] [0.1 m2K/W/Rprop]
+-----[2021-05-08T18:54:34.949209]  
+
+seq  : 防火墙的耐火极限不低于3##h。  
+[防火墙/obj]的[耐火极限/prop][不低于/cmp][3##h/Rprop]。  
+
+seq  : 柱的耐火极限不低于3##h。  
+[柱/obj]的[耐火极限/prop][不低于/cmp][3##h/Rprop]。    
+
+seq  : 防火分区的柱的耐火极限不低于3##h。  
+[防火分区/obj]的[柱/prop]的[耐火极限/prop][不低于/cmp][1.5##h/Rprop]。 
+
+seq  : 每个防火分区，其安全出口的数量应经计算确定，且不应少于2个。  
+[每个防火分区/obj]，其[安全出口/prop]的数量应经计算确定，且[不应少于/cmp][2个/Rprop]。  

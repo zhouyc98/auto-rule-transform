@@ -220,7 +220,7 @@ class Building_element():
 
     @staticmethod
     def get_objprop(domain: str, range: str,
-                    owl_file=r"D:\OntologyExample\Owlready2\BuildingDesignFireCodesOntology.owl"):
+                    owl_file=r"../data/ontology/BuildingDesignFireCodesOntology.owl"):
         onto = get_ontology(owl_file).load()
 
         def ontoclass_tostr(ontoclass):

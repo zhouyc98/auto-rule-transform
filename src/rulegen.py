@@ -1,17 +1,20 @@
 from ruleparse import *
 import ruleparse
+from data import *
+from ruleparse import RCTree
 from owlready2 import *
 import json
 import jieba_fast as jieba
 from gensim.models import Word2Vec
 from scipy import spatial
-from gensim import models
 from gensim.models.tfidfmodel import TfidfModel
 from gensim import corpora
 from collections import Counter
 import math
 from sklearn.decomposition import TruncatedSVD
 import warnings
+import ifc2ttl
+
 warnings.filterwarnings("ignore", category=Warning)
 
 CMP_DICT_Onto = OrderedDict([('<=', '小于等于 小于或等于 不大于 不高于 不多于 不超过'.split()),
@@ -27,6 +30,11 @@ CMP_DICT_Onto = OrderedDict([('<=', '小于等于 小于或等于 不大于 不�
                              ])
 DEONTIC_WORDS = ('应当', '应该', '应按', '应能', '尚应', '应', '必须', '尽量', '要', '宜', '得')  # '得' 通常在 '不得' 中使用
 
+TERM_CHANGE_DICT = OrderedDict([('isFireProtectionSubdivision_Boolean',['BuildingSpace', '建筑区域', 'isFireProtectionSubdivision_Boolean', '是防火分区']),
+                                ('IsSecurityExits_Boolean',['Doors', '门', 'IsSecurityExits_Boolean', '是安全出口']),
+                                ('isFireWall_Boolean', ['Wall', '墙体', 'isFireWall_Boolean', '是防火墙'])])
+EQUIVALENT_TERM_DICT = OrderedDict([('FireWall',['Wall', '墙体','isFireWall_Boolean','是防火墙']),
+                                ])
 '''
 State: Use
 Funtion: Get compare operation by text
@@ -291,15 +299,15 @@ def word2vec_similarity(onto_description, word, word2vec_model, stopwords, dicti
             if word == one_onto_description:
                 similarity += 1
             elif word in one_onto_description:
-                similarity += 0.6/math.log(len(one_onto_description))
-        return similarity/words_num
+                similarity += 0.6 / math.log(len(one_onto_description))
+        return similarity / words_num
 
     elif method == 1:
         '''
         method = 1 This method calculate the similartiy then mean similarity
         '''
         input_word_seq = Sentence(word, stopwords).tokens_no_stop()
-        caculation_times = 0
+        caculation_times = 1
         similarity = 0
         for one_onto_description in onto_description:
             description_seq = Sentence(one_onto_description, stopwords).tokens_no_stop()
@@ -453,12 +461,12 @@ def word2vec_similarity(onto_description, word, word2vec_model, stopwords, dicti
                 weights2 = []
                 for token1 in tokens1:
                     if token1 in dictionary.token2id:
-                        weights1. append(a / (a + dictionary.cfs[dictionary.token2id[token1]] / total_freq))
+                        weights1.append(a / (a + dictionary.cfs[dictionary.token2id[token1]] / total_freq))
                     else:
                         weights1.append(a / (a + 1000 / total_freq))
                 for token2 in tokens2:
                     if token2 in dictionary.token2id:
-                        weights2. append(a / (a + dictionary.cfs[dictionary.token2id[token2]] / total_freq))
+                        weights2.append(a / (a + dictionary.cfs[dictionary.token2id[token2]] / total_freq))
                     else:
                         weights2.append(a / (a + 1000 / total_freq))
 
@@ -492,11 +500,11 @@ Input:
     word: str
     ontology: pickle file
 output:
-    onto_term: str
+    onto_term: (term:str, similarity:float)
 '''
 
 
-def most_similar_onto_term(words, method=1):
+def most_similar_onto_term(words: list, method=1):
     jieba.load_userdict(r'.\models\word2vec\wordsList500.txt')
     stopwords = stopwordslist(r'.\models\word2vec\Stopwords.txt')
     model = Word2Vec.load(r'.\models\word2vec\Merge.model')
@@ -509,22 +517,32 @@ def most_similar_onto_term(words, method=1):
     ontology_dataproperty = onto_list[1]
     ontology_objectproperty = onto_list[2]
     term_word_pair = []
+    class_names = []
+    dataproperty_names = []
     for word in words:
         similarity_scores = {}
         for one_class in ontology_class:
             class_name = one_class[0]
+            class_names.append(class_name)
             class_description = one_class[2]
             similarity_scores[class_name] = word2vec_similarity(class_description, word, model, stopwords, dictionary,
                                                                 method=method)
         for one_dataproperty in ontology_dataproperty:
             dataproperty_name = one_dataproperty[0]
+            dataproperty_names.append(dataproperty_name)
             dataproperty_description = one_dataproperty[2]
             similarity_scores[dataproperty_name] = word2vec_similarity(dataproperty_description, word, model,
                                                                        stopwords, dictionary, method=method)
         similarity_scores_sort = sorted(similarity_scores.items(), key=lambda item: item[1], reverse=True)
         for key in similarity_scores_sort:
             onto_term = key
-            term_word_pair.append({"label": onto_term, "word": word})
+            type = ''
+            if onto_term[0] in dataproperty_names:
+                type = 'dataproperty'
+            elif onto_term[0] in class_names:
+                type = 'class'
+            if type is not '':
+                term_word_pair.append({"label": onto_term, "word": word, 'type': type})
             break
     return term_word_pair
 
@@ -566,6 +584,301 @@ def __test_for_el(docanno_src='./data/FireCode_label_merge.json', method=1):
     print(f'The acc of the word2vec method is {acc} %')
 
 
+'''
+State: use
+Function: This function set ontology class type and ontology class name for RCtree nodes based on similarity matching
+link Method: 
+    0. keyword matching
+    0.1. weight keyword matching
+    1. This method calculate the similartiy based on each word, and then mean similarity
+    2. This method calculate the vector then mean vector, and calculate the similarity
+    3. Take the tf-idf of each word as the weight, and the word similarity of all words is weighted averaged
+    4. Word mover's distance, The Word Mover's Distance uses the word embeddings of the words in two texts to measure 
+       the minimum amount that the words in one text need to "travel" in semantic space to reach the words of the other text.
+       Word mover's distance is available in the popular Gensim library.
+    5. To compute SIF sentence embeddings, we first compute a weighted average of the token embeddings in the sentence. 
+       This procedure is very similar to the weighted average we used above, with the single difference that the word embeddings are weighted by a/a+p(w), 
+       where a is a parameter that is set to 0.001 by default, and p(w) is the estimated relative frequency of a word in a reference corpus.
+       Next, we need to perform common component removal: we compute the principal component of the sentence embeddings,
+       we obtained above and subtract from them their projections on this first principal component. 
+       This corrects for the influence of high-frequency words that mostly have a syntactic or discourse function
+'''
+
+
+def RCNode_entity_link(link_method=0, islog=False):
+    rcts = []
+
+    def preorder(RCtree):
+        words = [RCtree.curr_node.word]
+        if words is not None:
+            term_word_pair = most_similar_onto_term(words, method=link_method)
+            RCtree.curr_node.set_onto_info(term_word_pair[0]["label"][0], term_word_pair[0]["type"])
+        while RCtree.curr_node.has_child():
+            for one_childnode in RCtree.curr_node.child_nodes:
+                RCtree.curr_node = one_childnode
+                preorder(RCtree)
+
+    if islog:
+        logger = Logger(file_name='rulegen.log', init_mode='w+')
+        log = logger.log
+    else:
+        log = print
+    n_parse = 0
+
+    # rule classify model
+    keyword_dict = init_classify_dict()
+
+    for seq, label in seq_data_loader('text'):
+        # rule classify
+        rule_category = rule_classification(seq, keyword_dict, method= 1)
+        rct = RCTree(seq, label, log)
+        rct.parse()
+        preorder(rct)
+        n_parse += 1
+        rct.log_msg(n_parse)
+        rct.set_rule_category(rule_category)
+        rcts.append(rct)
+    log('-' * 90)  # 这个log是必要的，因为在解析log文件时默认以90个'-'作为rctree信息之间的分隔符，最后一个rct log完后要补一个
+    log('Rule gen complete.')
+    return rcts
+
+'''
+State: use
+Function: give a senquence, Determine the category of the code, add rule_category for rct
+Categorys: 
+    1. direct attribute constraint: 
+        Length, width, height, thickness, depth, span, accuracy, fire resistance grade and other attributes that can be directly stored in the BIM model;
+        Entities that can be directly obtained in the BIM model, such as a certain building, component, device, material, structural form, etc.
+    2. indirect attribute constraint: 
+        Quantity, distance, area, slope, existence, slenderness ratio, height-span ratio, bearing capacity, relative position and other attributes that need 
+        to be calculated and analyzed in the BIM model (some describe the length, width, The provisions of higher attributes also require certain calculations);
+    3. others
+nethod:
+    1. keyword matching
+    2. LSTM (Todo)
+'''
+def init_classify_dict(file_path = r'..\data\rules\classify_keywords.txt'):
+    with open(file_path, 'r', encoding='utf-8') as f1:
+        lines = f1.readlines()
+        direct_attr_dict = lines[1].rstrip().split(',')
+        indirect_attr_dict = lines[3].rstrip().split(',')
+        return [direct_attr_dict, indirect_attr_dict]
+
+def init_model():
+    pass
+
+def rule_classification(sentences:str, model, method= 1):
+    if method == 1:
+        assert type(model) == list, 'the model is not true!'
+        direct_attr_dict = model[0]
+        indirect_attr_dict = model[1]
+        for keyword in indirect_attr_dict:
+            if keyword in sentences:
+                return 2
+        for keyword in direct_attr_dict:
+            if keyword in sentences:
+                return 1
+        return 3
+
+
+'''
+State: use
+Funtion: give a RCtree, generate a sparql rule.
+'''
+
+
+def sparql_generator(rct):
+    # Determine if a dataproperty node needs a term replacement
+    def ischange_dataproperty_node(node):
+        if node.has_child():
+            return True
+        if node.onto_name in TERM_CHANGE_DICT:
+            req = node.req[1].word
+            if type(req) != type(True):
+                return True
+        return False
+
+
+    def preorder_classdefine(RCtree, sparql_con):
+        if RCtree.curr_node.onto_type is not None:
+            # to add sparql pronoun for class node, for example ?element
+
+            if RCtree.curr_node.onto_type == 'class':
+                old_onto_classname = RCtree.curr_node.onto_name
+                # replace by equivalent node
+                if old_onto_classname in EQUIVALENT_TERM_DICT:
+                    new_onto_classname, new_word, new_onto_dataproperty, new_reqword = EQUIVALENT_TERM_DICT[
+                        old_onto_classname]
+                    RCtree.curr_node.set_onto_info(new_onto_classname, 'class')
+                    RCtree.curr_node.set_word(new_word)
+                    # add a new node to store dataproperty
+                    new_childnode = RCNode(new_reqword, 'prop')
+                    new_childnode.set_onto_info(new_onto_dataproperty, 'dataproperty')
+                    req_cmp_node = RCNode('=', 'cmp')
+                    req_value_node = RCNode(True, 'ARprop')
+                    new_childnode.set_req((req_cmp_node, req_value_node, None))
+                    RCtree.curr_node.add_child(new_childnode)
+
+                if not hasattr(RCtree.curr_node, 'sparql_pronoun'):
+                    pronoun_count = RCtree.count_node_pronoun()
+                    RCtree.curr_node.add_sparql_pronoun(pronoun_count)
+
+                sparql_pronoun = RCtree.curr_node.sparql_pronoun
+                sparql_con += sparql_pronoun + ' rdf:type owl:NamedIndividual , myclass:' + RCtree.curr_node.onto_name + ' .\n\t'
+                sparql_con += sparql_pronoun + ' :hasGlobalId ' + sparql_pronoun + '_id .\n\t'
+
+            # if a RCNode onto_type is a dataproperty and it has child, then its onto_name is wrong.
+            # Its onto_type will be changed to class and a corresponding dataproperty child node will be add.
+            elif RCtree.curr_node.onto_type == 'dataproperty' and ischange_dataproperty_node(RCtree.curr_node):
+                old_onto_classname = RCtree.curr_node.onto_name
+
+                # change wrong node
+                if old_onto_classname in TERM_CHANGE_DICT:
+                    new_onto_classname, new_word, new_onto_dataproperty, new_reqword = TERM_CHANGE_DICT[old_onto_classname]
+                    RCtree.curr_node.set_onto_info(new_onto_classname, 'class')
+                    RCtree.curr_node.set_word(new_word)
+                    # add a new node to store dataproperty
+                    new_childnode = RCNode(new_reqword, 'prop')
+                    new_childnode.set_onto_info(new_onto_dataproperty, 'dataproperty')
+                    req_cmp_node = RCNode('=', 'cmp')
+                    req_value_node = RCNode(True, 'ARprop')
+                    new_childnode.set_req((req_cmp_node, req_value_node, None))
+                    RCtree.curr_node.add_child(new_childnode)
+
+                    if not hasattr(RCtree.curr_node, 'sparql_pronoun'):
+                        pronoun_count = RCtree.count_node_pronoun()
+                        RCtree.curr_node.add_sparql_pronoun(pronoun_count)
+
+                    sparql_pronoun = RCtree.curr_node.sparql_pronoun
+                    sparql_con += sparql_pronoun + ' rdf:type owl:NamedIndividual , myclass:' + RCtree.curr_node.onto_name + ' .\n\t'
+                    sparql_con += sparql_pronoun + ' :hasGlobalId ' + sparql_pronoun + '_id .\n\t'
+
+        while RCtree.curr_node.has_child():
+            for one_childnode in RCtree.curr_node.child_nodes:
+                RCtree.curr_node = one_childnode
+                # need to return value otherwise it will return none
+                return preorder_classdefine(RCtree, sparql_con)
+        return sparql_con
+
+    def preorder_relation(RCtree, sparql_con):
+        if RCtree.curr_node.onto_type is not None:
+            if RCtree.curr_node.onto_type == 'class':
+                assert hasattr(RCtree.curr_node, 'sparql_pronoun'), 'The sparql class pronoun is not gen complete yet!'
+                # only do it when the current node type = class
+                for one_childnode in RCtree.curr_node.child_nodes:
+                    if one_childnode.onto_type is not None:
+                        if one_childnode.onto_type == 'dataproperty':
+                            # to add sparl pronoun for dataproperty node, for example ?dataproperty
+                            if not hasattr(one_childnode, 'sparql_pronoun'):
+                                pronoun_count = RCtree.count_node_pronoun()
+                                one_childnode.add_sparql_pronoun(pronoun_count)
+                            req_cmp_rawdata = one_childnode.req[0].word
+                            req_cmp = get_cmp_str_onto(req_cmp_rawdata)
+                            req_value_rawdata = one_childnode.req[1].word
+                            if req_value_rawdata == True:  # req_value_rawdata == True
+                                req_value = req_value_rawdata
+                                flag = "'true'"
+                                sparql_con += RCtree.curr_node.sparql_pronoun + ' :' + one_childnode.onto_name + ' ' + one_childnode.sparql_pronoun + ' .\n\t'
+                                sparql_con += 'BIND ((' + one_childnode.sparql_pronoun + ' ' + req_cmp + ' \'' + 'true' + '\'^^xsd:boolean) AS ?Pass_' + \
+                                              one_childnode.sparql_pronoun.split('_')[
+                                                  1] + ') .\n\t'                                           # 'BIND ((?dataproperty1 >= 'true'^^xsd:boolean) AS ?Pass1) .'
+                                sparql_con += 'FILTER (?Pass_' + one_childnode.sparql_pronoun.split('_')[
+                                    1] + " = " + flag + "^^xsd:boolean) .\n\t"                             # 'FILTER (?Pass1 = 'true'^^xsd:boolean) .'
+
+                            else:
+                                req_value = re.findall(r"\d+\.?\d*", req_value_rawdata)[0]
+                                flag = "'false'"
+                                sparql_con += RCtree.curr_node.sparql_pronoun + ' :' + one_childnode.onto_name + ' ' + one_childnode.sparql_pronoun + ' .\n\t'
+                                sparql_con += 'BIND ((' + one_childnode.sparql_pronoun + ' ' + req_cmp + ' \'' + req_value + '\'^^xsd:decimal) AS ?Pass_' + \
+                                              one_childnode.sparql_pronoun.split('_')[
+                                                  1] + ') .\n\t'                                           # 'BIND ((?dataproperty1 >= '2.0'^^xsd:decimal) AS ?Pass1) .'
+                                sparql_con += 'FILTER (?Pass_' + one_childnode.sparql_pronoun.split('_')[
+                                    1] + " = " + flag + "^^xsd:boolean) .\n\t"                             # 'FILTER (?Pass1 = 'false'^^xsd:boolean) .'
+
+
+                        elif one_childnode.onto_type == 'class':
+                            domain_class = RCtree.curr_node.onto_name
+                            range_class = one_childnode.onto_name
+                            object_property = ifc2ttl.Building_element.get_objprop(domain_class, range_class)
+                            sparql_con += RCtree.curr_node.sparql_pronoun + ' :' + object_property + ' ' + one_childnode.sparql_pronoun + ' .\n\t'
+
+        while RCtree.curr_node.has_child():
+            for one_childnode in RCtree.curr_node.child_nodes:
+                RCtree.curr_node = one_childnode
+                return preorder_relation(RCtree, sparql_con)
+        return sparql_con
+
+    # log tree after augmention
+    def log_rct(rct):
+        print('*' * 30)
+        print('The rct after equivalent class define and dataproperty replacement is:')
+        rct.log_msg()
+        print('*' * 30)
+
+    # return the node that meet requirements
+    def specify_node(rct, tag, onto_type):
+        if rct.curr_node.tag == tag and rct.curr_node.onto_type == onto_type:
+            return rct.curr_node
+        while rct.curr_node.has_child():
+            for one_childnode in rct.curr_node.child_nodes:
+                rct.curr_node = one_childnode
+                return specify_node(rct, tag, onto_type)
+    '''
+    State: use
+    function: add prefix and suffix, select the most important element 
+    rct.rule_category:
+        1: direct constraint
+        2: indirect constraint, now only contains quantifier constraints
+    '''
+    def prefix_suffix(rct, sparql_con):
+        sparql_prefix = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX myclass: <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#>\nPREFIX : <http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#>\n'
+        sparql_suffix = '}\n'
+        if rct.rule_category == 1:
+            key_node = rct.obj_node
+            sparql_prefix += 'SELECT DISTINCT '+key_node.sparql_pronoun +' '+ key_node.sparql_pronoun +'_id\nWHERE {\n\t'
+        elif rct.rule_category == 2:
+            key_node = rct.obj_node
+            rct.curr_node = rct.root
+            number_node = specify_node(rct, 'prop', 'class')
+            if number_node is not None:
+                req_cmp_rawdata = number_node.req[0].word
+                req_cmp = get_cmp_str_onto(req_cmp_rawdata)
+                req_value_rawdata = number_node.req[1].word
+                req_value = re.findall(r"\d+\.?\d*", req_value_rawdata)[0]
+
+                sparql_prefix += 'SELECT ' + key_node.sparql_pronoun + ' ' + key_node.sparql_pronoun + '_id ' + '(COUNT(distinct '+ number_node.sparql_pronoun + ') AS '+ number_node.sparql_pronoun +'_num)\n'
+                sparql_prefix += 'WHERE {\n\t'
+                sparql_suffix += 'GROUP BY '+ key_node.sparql_pronoun + ' ' + key_node.sparql_pronoun + '_id\n'
+                sparql_suffix += 'HAVING ('+ number_node.sparql_pronoun +'_num ' +req_cmp +' '+ req_value +')\n'
+                sparql_suffix += 'ORDER BY DESC (' + number_node.sparql_pronoun + '_num)'
+            else:
+                sparql_prefix += 'SELECT DISTINCT *\nWHERE {\n\t'
+        else:
+            sparql_prefix += 'SELECT DISTINCT *\nWHERE {\n\t'
+        return sparql_prefix + sparql_con + sparql_suffix
+
+    rct.curr_node = rct.root
+    sparql_con = ''
+    sparql_con = preorder_classdefine(rct, sparql_con=sparql_con)
+    rct.curr_node = rct.root
+    sparql_con = preorder_relation(rct, sparql_con=sparql_con)
+    # print rct after the augmented
+    log_rct(rct)
+
+    # sparql_prefix = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX myclass: <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#>\nPREFIX : <http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#>\n' \
+    #                 'SELECT DISTINCT *\nWHERE {\n\t'
+    # sparql_full = sparql_prefix + sparql_con + '}\n'
+    sparql_full = prefix_suffix(rct, sparql_con)
+    return sparql_full
+
+
+'''
+State: discard
+Function: This function set ontology class type and ontology class name for RCtree nodes based on Keywords_dict
+Now it is replaced by the function RCNode_entity_link
+'''
+
+
 def RCNode_ontoclass():
     RCtrees = ruleparse.pkl_data_loader()
     ontoclass_dict = Keywords_dict()
@@ -575,6 +888,7 @@ def RCNode_ontoclass():
         if words is not None:
             class_type, class_name = ontoclass_dict.get_OntoClass_Name(words)
             RCtree.curr_node.add_ontoclass(class_type, class_name)
+
         while RCtree.curr_node.has_child():
             for one_childnode in RCtree.curr_node.child_nodes:
                 RCtree.curr_node = one_childnode
@@ -584,6 +898,12 @@ def RCNode_ontoclass():
         preorder(one_RCtree, ontoclass_dict)
         one_RCtree.curr_node = one_RCtree.root
     return RCtrees
+
+
+'''
+State: discard
+Function: This class is replaced by sparql_generator
+'''
 
 
 class RCtriple():
@@ -683,8 +1003,8 @@ if __name__ == '__main__':
     '''
         test for __test_for_el
     '''
-    docanno_src = '..\data\docanno\FireCode_label_merge.json'
-    __test_for_el(docanno_src=docanno_src, method=2)
+    # docanno_src = '..\data\docanno\FireCode_label_merge.json'
+    # __test_for_el(docanno_src=docanno_src, method=2)
 
     '''
         pre-train for tf-idf
@@ -695,3 +1015,10 @@ if __name__ == '__main__':
     # stoplist = stopwordslist(r'.\models\word2vec\Stopwords.txt')
     # sentence1 = Sentence('生产的火灾危险性类别为乙级，厂房的耐火等级为二级的高层厂房，面积不超过1500m2。', stoplist)
     # print(sentence1.tfidf_weight(dictionary, model_load))
+
+    '''
+        test for sparql generator
+    '''
+    rcts = RCNode_entity_link(2, True)
+    for rct in rcts:
+        print(sparql_generator(rct))

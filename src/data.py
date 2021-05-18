@@ -566,9 +566,9 @@ def init_data_by_json(data_dir='../data/xiaofang/', early_return=False, random_s
     return seqs, labels, dicts
 
 
-def get_data_by_text(data_dir='../data/xiaofang/'):
+def get_data_by_text(data_dir='../data/xiaofang/', file_name = 'sentences.txt'):
     """ 根据sentences_all.txt返回seq, labels, 根据sentences_all.txt中每一行都是slabel """
-    with open(data_dir + 'sentences.txt', 'r', encoding='utf8') as fp:
+    with open(data_dir + file_name, 'r', encoding='utf8') as fp:
         slabels = fp.readlines()
     slabels = [sl.strip() for sl in slabels if sl.strip() and not sl.startswith('--') and not sl.startswith('seq  :')]
     seqs, labels = zip(*[slabel_to_seq_label_iit(sl.strip('\n')) for sl in slabels if sl.strip()])

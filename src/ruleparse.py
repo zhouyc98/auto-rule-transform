@@ -371,6 +371,9 @@ class RCTree:
         self.error_msg = ''
         self.log_func = log_func
 
+    def set_rule_category(self, category):
+        self.rule_category = category
+
     def strip_seq_label(self):
         self.label_iit.sort(key=lambda t: t[0])
         start_i, end_i = self.label_iit[0][0], self.label_iit[-1][1]
@@ -943,6 +946,13 @@ class RCTree:
 
         return tree + '\n' + obj_tree
 
+    def count_node_pronoun(self):
+        if not hasattr(self, 'count_pronoun'):
+            self.count_pronoun = 1
+        else:
+            self.count_pronoun += 1
+        return self.count_pronoun
+
 
 class RCNode:
     """The basic element in RCTree, it can be an object/property, or a union/intersection of them """
@@ -966,6 +976,24 @@ class RCNode:
 
         self.anchor = ''  # anchor to a specific obj, when there are multiple objs
         self.or_combine = False  # bool condition, default (False) is AND
+
+    def set_word(self, word):
+        self.word = word
+
+    def set_onto_info(self, onto_name, onto_type):
+        self.onto_name = onto_name # class or dataproperty
+        self.onto_type = onto_type
+
+    def has_child(self):
+        return len(self.child_nodes) > 0
+
+    def add_sparql_pronoun(self, count: int):
+        if self.onto_type == 'class':
+            self.sparql_pronoun = '?class_'+ self.onto_name + '_' + str(count)
+        elif self.onto_type == 'dataproperty':
+            self.sparql_pronoun = '?dataproperty_' + self.onto_name + '_' + str(count)
+        else:
+            print('The Node has no ontoclass')
 
     def is_app_req(self):
         if self.req:
