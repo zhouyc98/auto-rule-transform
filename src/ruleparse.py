@@ -369,7 +369,14 @@ class RCTree:
 
         self.parse_complete = False
         self.error_msg = ''
+        self.sparql = ''
         self.log_func = log_func
+
+    def change_log_func(self, log_func):
+        self.log_func = log_func
+
+    def set_sparql(self, sparql):
+        self.sparql = sparql
 
     def set_rule_category(self, category):
         self.rule_category = category
@@ -394,6 +401,10 @@ class RCTree:
 
     def add_curr_child(self, node):
         self.curr_node.add_child(node)
+        self.curr_node = node
+
+    def add_parent_node(self, node):
+        node.add_child(self.curr_node)
         self.curr_node = node
 
     def pre_process1(self):
@@ -912,6 +923,9 @@ class RCTree:
 
         self.log_func(f"RCTree:\t#{self.hashtag()}\n{self}")
         self.log_func('Parsing complete' if self.parse_complete else f'Parsing incomplete: {self.full_label}')
+        if self.sparql:
+            self.log_func(f"Sparql:\n{self.sparql}")
+
 
     def hashtag(self):
         return str_hash(self.__str__(indent='\t\t'))
@@ -1080,8 +1094,9 @@ class RCNode:
             # TODO default_cmp_value 高于: 位置 大于, etc
 
         t = f'/{self.tag}' if show_tag else ''
-        o = f':{self.onto_name}' if self.onto_name else ''
-        str_ = f'[{word}{self.anchor}{o}{t}]'
+        ot = f':{self.onto_type}' if self.onto_type else ''
+        on = f':{self.onto_name}' if self.onto_name else ''
+        str_ = f'[{word}{self.anchor}{ot}{on}{t}]'
 
         if show_req:
             if self.req:

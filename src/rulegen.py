@@ -17,8 +17,8 @@ import ifc2ttl
 
 warnings.filterwarnings("ignore", category=Warning)
 
-CMP_DICT_Onto = OrderedDict([('<=', '小于等于 小于或等于 不大于 不高于 不多于 不超过'.split()),
-                             ('>=', '大于等于 大于或等于 不小于 不低于 不少于'.split()),
+CMP_DICT_Onto = OrderedDict([('<=', '小于等于 小于或等于 不大于 不高于 不多于 不超过 ≤'.split()),
+                             ('>=', '大于等于 大于或等于 不小于 不低于 不少于 ≥'.split()),
                              ('>', '大于 超过 高于'.split()),
                              ('<', '小于 低于'.split()),
                              ('!=', '不等于 避免 不采用 无法采用'.split()),
@@ -30,11 +30,12 @@ CMP_DICT_Onto = OrderedDict([('<=', '小于等于 小于或等于 不大于 不�
                              ])
 DEONTIC_WORDS = ('应当', '应该', '应按', '应能', '尚应', '应', '必须', '尽量', '要', '宜', '得')  # '得' 通常在 '不得' 中使用
 
-TERM_CHANGE_DICT = OrderedDict([('isFireProtectionSubdivision_Boolean',['BuildingSpace', '建筑区域', 'isFireProtectionSubdivision_Boolean', '是防火分区']),
-                                ('IsSecurityExits_Boolean',['Doors', '门', 'IsSecurityExits_Boolean', '是安全出口']),
-                                ('isFireWall_Boolean', ['Wall', '墙体', 'isFireWall_Boolean', '是防火墙'])])
-EQUIVALENT_TERM_DICT = OrderedDict([('FireWall',['Wall', '墙体','isFireWall_Boolean','是防火墙']),
-                                ])
+TERM_CHANGE_DICT = OrderedDict(
+    [('isFireProtectionSubdivision_Boolean', ['BuildingSpace', '建筑区域', 'isFireProtectionSubdivision_Boolean', '是防火分区']),
+     ('IsSecurityExits_Boolean', ['Doors', '门', 'IsSecurityExits_Boolean', '是安全出口']),
+     ('isFireWall_Boolean', ['Wall', '墙体', 'isFireWall_Boolean', '是防火墙'])])
+EQUIVALENT_TERM_DICT = OrderedDict([('FireWall', ['Wall', '墙体', 'isFireWall_Boolean', '是防火墙']),
+                                    ])
 '''
 State: Use
 Funtion: Get compare operation by text
@@ -630,7 +631,7 @@ def RCNode_entity_link(link_method=0, islog=False):
 
     for seq, label in seq_data_loader('text'):
         # rule classify
-        rule_category = rule_classification(seq, keyword_dict, method= 1)
+        rule_category = rule_classification(seq, keyword_dict, method=1)
         rct = RCTree(seq, label, log)
         rct.parse()
         preorder(rct)
@@ -641,6 +642,7 @@ def RCNode_entity_link(link_method=0, islog=False):
     log('-' * 90)  # 这个log是必要的，因为在解析log文件时默认以90个'-'作为rctree信息之间的分隔符，最后一个rct log完后要补一个
     log('Rule gen complete.')
     return rcts
+
 
 '''
 State: use
@@ -657,17 +659,21 @@ nethod:
     1. keyword matching
     2. LSTM (Todo)
 '''
-def init_classify_dict(file_path = r'..\data\rules\classify_keywords.txt'):
+
+
+def init_classify_dict(file_path=r'..\data\rules\classify_keywords.txt'):
     with open(file_path, 'r', encoding='utf-8') as f1:
         lines = f1.readlines()
         direct_attr_dict = lines[1].rstrip().split(',')
         indirect_attr_dict = lines[3].rstrip().split(',')
         return [direct_attr_dict, indirect_attr_dict]
 
+
 def init_model():
     pass
 
-def rule_classification(sentences:str, model, method= 1):
+
+def rule_classification(sentences: str, model, method=1):
     if method == 1:
         assert type(model) == list, 'the model is not true!'
         direct_attr_dict = model[0]
@@ -683,7 +689,184 @@ def rule_classification(sentences:str, model, method= 1):
 
 '''
 State: use
-Funtion: give a RCtree, generate a sparql rule.
+Function: log the augmentation rctree and the sparql
+'''
+
+
+# log tree after augmention
+def log_rcts(rcts):
+    logger = Logger(file_name='rulegen.log', init_mode='w+')
+    log = logger.log
+    n_parse = 0
+
+    def log_rct(rct, n_parse):
+        print('*' * 90)
+        print('The rct after equivalent class define and dataproperty replacement is:')
+        rct.change_log_func(log)
+        rct.log_msg(n_parse)
+        log('-' * 90)
+        log('Rule gen complete.')
+
+    for rct in rcts:
+        log_rct(rct, n_parse)
+        n_parse += 1
+
+
+'''
+State: use
+Function: read txt to generate RCTree
+'''
+
+
+class logFile:
+    SEP = '\n' + '-' * 90 + '\n'
+
+    def __init__(self, file_txt):
+        self.txt = file_txt
+        self.msgs = self.txt.split(self.SEP)
+
+    @staticmethod
+    def index_keyword(lines, word: str):
+        for index, line in enumerate(lines):
+            if word in line:
+                return index
+
+    def get_rcts(self):
+        rcts = []
+        sen_classify_dict = init_classify_dict()
+        for msg in self.msgs:
+            rct = self.msg2Rctree(msg, sen_classify_dict)
+            if rct is not None:
+                rcts.append(rct)
+        return rcts
+
+    def msg2Rctree(self, msg: str, sen_classify_dict):
+        """
+            :param msg:
+                    [0]#f57b9fd
+                    Seq:	防火墙的耐火极限不低于3##h。
+                    Label:	[防火墙/obj]的[耐火极限/prop][不低于/cmp][3##h/Rprop]。
+                    RCTree:	#b466cd0
+                    		[墙体:Wall]
+                    		|-[耐火极限:hasFireResistanceLimits_hour] ≥ [3##h]
+                    		|-?[是防火墙:isFireWall_Boolean] = [True]
+                    Parsing complete
+                    Sparql:
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    PREFIX myclass: <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#>
+                    PREFIX : <http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#>
+                    SELECT DISTINCT ?class_Wall_1 ?class_Wall_1_id
+                    WHERE {
+                    	?class_Wall_1 rdf:type owl:NamedIndividual , myclass:Wall .
+                    	?class_Wall_1 :hasGlobalId ?class_Wall_1_id .
+                    	?class_Wall_1 :hasFireResistanceLimits_hour ?dataproperty_hasFireResistanceLimits_hour_2 .
+                    	BIND ((?dataproperty_hasFireResistanceLimits_hour_2 >= '3'^^xsd:decimal) AS ?Pass_hasFireResistanceLimits) .
+                    	FILTER (?Pass_hasFireResistanceLimits = 'false'^^xsd:boolean) .
+                    	?class_Wall_1 :isFireWall_Boolean ?dataproperty_isFireWall_Boolean_3 .
+                    	BIND ((?dataproperty_isFireWall_Boolean_3 = 'true'^^xsd:boolean) AS ?Pass_isFireWall) .
+                    	FILTER (?Pass_isFireWall = 'true'^^xsd:boolean) .
+                    	}
+            :return:
+                one rct
+        """
+        if ']#' in msg and 'Seq' in msg:
+            # === check & pre-process, move 'SyntaxError' to the second line
+            lines = [l for l in msg.split('\n')]
+            assert len(lines) > 5
+            if lines[0].startswith('!SyntaxError'):
+                msg = '\n'.join([lines[1]] + [lines[0]] + lines[2:])
+            assert msg[0] == '[', f"msg format wrong! {msg}"
+
+            lines = [l for l in msg.split('\n') if l.strip()]
+            index_sparql = logFile.index_keyword(lines, 'Sparql')
+            seq_id_, seq, label, rct, eval, sparql = lines[0], lines[1], lines[2], lines[3:index_sparql - 1], lines[
+                index_sparql - 1], lines[index_sparql + 1:]
+
+            # get idx and seq_id
+            i = seq_id_.index('#')
+            idx = int(seq_id_[1:i - 1])
+            seq_id_ = seq_id_[i:]
+
+            # get seq
+            assert seq.startswith('Seq:\t')
+            seq = seq[seq.index(':') + 2:]
+
+            # get label
+            assert label.startswith('Label:\t')
+            label = label[label.index(':') + 2:]
+            _, label_iit = slabel_to_seq_label_iit(label)
+
+            assert rct[0].startswith('RCTree:\t')
+            rct_id_ = rct[0][rct[0].index(':') + 2:]
+
+            # get new RCTree
+            new_rct = RCTree(seq, label_iit)
+
+            pattern = re.compile(r'\[\S*\]')
+            cmp_pattern = re.compile(r"\].*\[")
+
+            for index, line in enumerate(rct[1:]):
+                if index == 0:
+                    sobj_strs = pattern.findall(line)
+                    obj_str = sobj_strs[-1][1:-1]  # obj node
+                    sobj_strs = sobj_strs[:-1]  # exclude obj node
+                    obj_node = RCNode(obj_str.split(':')[0], 'obj')
+                    obj_node.set_onto_info(obj_str.split(':')[2], obj_str.split(':')[1])
+                    new_rct.obj_node = obj_node
+                    new_rct.curr_node = new_rct.obj_node
+
+                    if len(sobj_strs) > 0:
+                        for sobj_str in sobj_strs[:-1]:
+                            sobj_str = sobj_str[1:-1]
+                            sobj_node = RCNode(sobj_str.split(':')[0], 'sobj')
+                            sobj_node.set_onto_info(sobj_str.split(':')[2], sobj_str.split(':')[1])
+                            new_rct.add_parent_node(sobj_node)
+                    new_rct.add_parent_node(new_rct.root)
+                    new_rct.curr_node = new_rct.obj_node
+
+                else:
+                    prop_strs = pattern.findall(line)
+                    if '?' in line:
+                        req_tag = 'ARprop'
+                    else:
+                        req_tag = 'Rprop'
+
+                    if len(prop_strs) == 1:
+                        prop_str = prop_strs[0][1:-1]
+                        prop_node = RCNode(prop_str.split(':')[0], 'prop')
+                        prop_node.set_onto_info(prop_str.split(':')[2], prop_str.split(':')[1])
+                    else:
+                        assert len(prop_strs) == 2, 'prop_str is wrong'
+                        prop_str = prop_strs[0][1:-1]
+                        req_str = prop_strs[1][1:-1]
+                        prop_node = RCNode(prop_str.split(':')[0], 'prop')
+                        prop_node.set_onto_info(prop_str.split(':')[2], prop_str.split(':')[1])
+                        if req_str == 'True':
+                            req_str = True
+                        req_node = RCNode(req_str, req_tag)
+                        cmp_word = cmp_pattern.findall(line)[0][2]
+                        cmp_node = RCNode(cmp_word, 'cmp')
+                        prop_node.set_req((cmp_node, req_node, None))
+                    if '|--' not in line and '|-' in line:
+                        new_rct.obj_node.add_child(prop_node)
+                        new_rct.curr_node = prop_node
+                    elif '|--' in line:
+                        new_rct.curr_node.add_child(prop_node)
+                        new_rct.curr_node = prop_node
+            new_rct.seq_id = seq_id_
+            new_rct.seq = seq
+            new_rct.set_sparql(sparql)
+            new_rct.set_rule_category(rule_classification(seq, sen_classify_dict, method=1))
+            return new_rct
+        return None
+
+
+'''
+State: use
+Funtion: give a RCtree without entity link, generate a sparql rule.
 '''
 
 
@@ -697,7 +880,6 @@ def sparql_generator(rct):
             if type(req) != type(True):
                 return True
         return False
-
 
     def preorder_classdefine(RCtree, sparql_con):
         if RCtree.curr_node.onto_type is not None:
@@ -734,7 +916,8 @@ def sparql_generator(rct):
 
                 # change wrong node
                 if old_onto_classname in TERM_CHANGE_DICT:
-                    new_onto_classname, new_word, new_onto_dataproperty, new_reqword = TERM_CHANGE_DICT[old_onto_classname]
+                    new_onto_classname, new_word, new_onto_dataproperty, new_reqword = TERM_CHANGE_DICT[
+                        old_onto_classname]
                     RCtree.curr_node.set_onto_info(new_onto_classname, 'class')
                     RCtree.curr_node.set_word(new_word)
                     # add a new node to store dataproperty
@@ -781,9 +964,9 @@ def sparql_generator(rct):
                                 sparql_con += RCtree.curr_node.sparql_pronoun + ' :' + one_childnode.onto_name + ' ' + one_childnode.sparql_pronoun + ' .\n\t'
                                 sparql_con += 'BIND ((' + one_childnode.sparql_pronoun + ' ' + req_cmp + ' \'' + 'true' + '\'^^xsd:boolean) AS ?Pass_' + \
                                               one_childnode.sparql_pronoun.split('_')[
-                                                  1] + ') .\n\t'                                           # 'BIND ((?dataproperty1 >= 'true'^^xsd:boolean) AS ?Pass1) .'
+                                                  1] + ') .\n\t'  # 'BIND ((?dataproperty1 >= 'true'^^xsd:boolean) AS ?Pass1) .'
                                 sparql_con += 'FILTER (?Pass_' + one_childnode.sparql_pronoun.split('_')[
-                                    1] + " = " + flag + "^^xsd:boolean) .\n\t"                             # 'FILTER (?Pass1 = 'true'^^xsd:boolean) .'
+                                    1] + " = " + flag + "^^xsd:boolean) .\n\t"  # 'FILTER (?Pass1 = 'true'^^xsd:boolean) .'
 
                             else:
                                 req_value = re.findall(r"\d+\.?\d*", req_value_rawdata)[0]
@@ -791,9 +974,9 @@ def sparql_generator(rct):
                                 sparql_con += RCtree.curr_node.sparql_pronoun + ' :' + one_childnode.onto_name + ' ' + one_childnode.sparql_pronoun + ' .\n\t'
                                 sparql_con += 'BIND ((' + one_childnode.sparql_pronoun + ' ' + req_cmp + ' \'' + req_value + '\'^^xsd:decimal) AS ?Pass_' + \
                                               one_childnode.sparql_pronoun.split('_')[
-                                                  1] + ') .\n\t'                                           # 'BIND ((?dataproperty1 >= '2.0'^^xsd:decimal) AS ?Pass1) .'
+                                                  1] + ') .\n\t'  # 'BIND ((?dataproperty1 >= '2.0'^^xsd:decimal) AS ?Pass1) .'
                                 sparql_con += 'FILTER (?Pass_' + one_childnode.sparql_pronoun.split('_')[
-                                    1] + " = " + flag + "^^xsd:boolean) .\n\t"                             # 'FILTER (?Pass1 = 'false'^^xsd:boolean) .'
+                                    1] + " = " + flag + "^^xsd:boolean) .\n\t"  # 'FILTER (?Pass1 = 'false'^^xsd:boolean) .'
 
 
                         elif one_childnode.onto_type == 'class':
@@ -808,13 +991,6 @@ def sparql_generator(rct):
                 return preorder_relation(RCtree, sparql_con)
         return sparql_con
 
-    # log tree after augmention
-    def log_rct(rct):
-        print('*' * 30)
-        print('The rct after equivalent class define and dataproperty replacement is:')
-        rct.log_msg()
-        print('*' * 30)
-
     # return the node that meet requirements
     def specify_node(rct, tag, onto_type):
         if rct.curr_node.tag == tag and rct.curr_node.onto_type == onto_type:
@@ -823,6 +999,7 @@ def sparql_generator(rct):
             for one_childnode in rct.curr_node.child_nodes:
                 rct.curr_node = one_childnode
                 return specify_node(rct, tag, onto_type)
+
     '''
     State: use
     function: add prefix and suffix, select the most important element 
@@ -830,12 +1007,13 @@ def sparql_generator(rct):
         1: direct constraint
         2: indirect constraint, now only contains quantifier constraints
     '''
+
     def prefix_suffix(rct, sparql_con):
         sparql_prefix = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX myclass: <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#>\nPREFIX : <http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#>\n'
         sparql_suffix = '}\n'
         if rct.rule_category == 1:
             key_node = rct.obj_node
-            sparql_prefix += 'SELECT DISTINCT '+key_node.sparql_pronoun +' '+ key_node.sparql_pronoun +'_id\nWHERE {\n\t'
+            sparql_prefix += 'SELECT DISTINCT ' + key_node.sparql_pronoun + ' ' + key_node.sparql_pronoun + '_id\nWHERE {\n\t'
         elif rct.rule_category == 2:
             key_node = rct.obj_node
             rct.curr_node = rct.root
@@ -846,10 +1024,10 @@ def sparql_generator(rct):
                 req_value_rawdata = number_node.req[1].word
                 req_value = re.findall(r"\d+\.?\d*", req_value_rawdata)[0]
 
-                sparql_prefix += 'SELECT ' + key_node.sparql_pronoun + ' ' + key_node.sparql_pronoun + '_id ' + '(COUNT(distinct '+ number_node.sparql_pronoun + ') AS '+ number_node.sparql_pronoun +'_num)\n'
+                sparql_prefix += 'SELECT ' + key_node.sparql_pronoun + ' ' + key_node.sparql_pronoun + '_id ' + '(COUNT(distinct ' + number_node.sparql_pronoun + ') AS ' + number_node.sparql_pronoun + '_num)\n'
                 sparql_prefix += 'WHERE {\n\t'
-                sparql_suffix += 'GROUP BY '+ key_node.sparql_pronoun + ' ' + key_node.sparql_pronoun + '_id\n'
-                sparql_suffix += 'HAVING ('+ number_node.sparql_pronoun +'_num ' +req_cmp +' '+ req_value +')\n'
+                sparql_suffix += 'GROUP BY ' + key_node.sparql_pronoun + ' ' + key_node.sparql_pronoun + '_id\n'
+                sparql_suffix += 'HAVING (' + number_node.sparql_pronoun + '_num ' + req_cmp + ' ' + req_value + ')\n'
                 sparql_suffix += 'ORDER BY DESC (' + number_node.sparql_pronoun + '_num)'
             else:
                 sparql_prefix += 'SELECT DISTINCT *\nWHERE {\n\t'
@@ -862,13 +1040,12 @@ def sparql_generator(rct):
     sparql_con = preorder_classdefine(rct, sparql_con=sparql_con)
     rct.curr_node = rct.root
     sparql_con = preorder_relation(rct, sparql_con=sparql_con)
-    # print rct after the augmented
-    log_rct(rct)
-
     # sparql_prefix = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX myclass: <http://www.semanticweb.org/16424/ontologies/2020/10/untitled-ontology-8#>\nPREFIX : <http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#>\n' \
     #                 'SELECT DISTINCT *\nWHERE {\n\t'
     # sparql_full = sparql_prefix + sparql_con + '}\n'
     sparql_full = prefix_suffix(rct, sparql_con)
+    rct.set_sparql(sparql_full)
+    # print rct after the augmented
     return sparql_full
 
 
@@ -1019,6 +1196,18 @@ if __name__ == '__main__':
     '''
         test for sparql generator
     '''
-    rcts = RCNode_entity_link(2, True)
+    # rcts = RCNode_entity_link(2, False)
+    # for rct in rcts:
+    #     sparql_generator(rct)
+    # log_rcts(rcts)
+
+    '''
+       test for logFile
+    '''
+    with open(r'./logs/rulegen.log', 'r') as f1:
+        rulegen_txt = f1.read()
+    newlog = logFile(rulegen_txt)
+    rcts = newlog.get_rcts()
     for rct in rcts:
         print(sparql_generator(rct))
+
