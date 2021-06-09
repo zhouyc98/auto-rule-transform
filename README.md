@@ -2,14 +2,18 @@
 
 Automated rule transformation for automated rule checking.  
 
+This repo contains the dataset, codes, and documents for the paper entitled "Deep natural language processing-based rule transformation for automated regulatory compliance checking" (DOI: http://dx.doi.org/10.13140/RG.2.2.22993.45921).  
+
+![example](src/logs/example.jpg)
+
 
 
 
 ## Dataset Information
 
-In data/xiaofang/[sentences_all.json](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/data/xiaofang/sentences_all.json), it contains all sentences with labels developed in this research.  
+In data/xiaofang/[sentences_all.json](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/data/xiaofang/sentences_all.json), it contains all sentences (in Chinese) with labels developed in this research.  
 
-In src/logs/[rulecheck-eval.log](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/rulecheck-eval.log), it shows the parsing result of these sentences in a text-based format.  
+In src/logs/[rulecheck-eval.log](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/rulecheck-eval.log), it shows the parsing result of these sentences in a text-based format (note: if you are using VSCode, you can install the Log File Highlighter extension and configure it with the [log-file-highlighter.txt](src/logs/log-file-highlighter.txt) to enable our customized syntax highlight).
 
 ## Setup
 
@@ -62,11 +66,15 @@ To generate the [XML check set](https://interoperability.autodesk.com/modelcheck
 python3 ruleparse.py -d text -g
   ```
 
-If you want to perform interactive (semi-automated) rule transformation, run:
+If you want to perform interactive rule transformation, run:
 
   ```
 python3 ruleparse.py -i
 # then, input the id of a sentence (see data/xiaofang/sentence_all.json),  
 # it will read the sentence and show the parsing result immediately
   ```
+
+## License
+This project is free and open source for universities, research institutes, enterprises and individuals for research purposes only, and the commercial purpose is not permitted.  
+本项目面向大学、研究所、企业以及个人用于研究目的免费开放源代码，不得将其用于任何商业目的。
 
