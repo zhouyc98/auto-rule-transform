@@ -109,12 +109,13 @@ class Corpus:
         lines = []
         fns = os.listdir(test_data_dir)
         for fn in fns:
-            if '.txt' not in fn:
+            if not fn.endswith('.txt'):
                 continue
             print(f'Read {fn}')
             ffn = os.path.join(test_data_dir, fn)  # full file name
             with open(ffn, 'r', encoding='utf8') as fp:
                 lines1 = fp.readlines()
+                lines1 = [l for l in lines1 if l.strip()]
                 lines.extend(lines1)
 
         ### Clean
@@ -292,7 +293,7 @@ def get_data_loader(data_dir, batch_size, max_sql=125, enable_save=False, check_
 
 
 def get_test_data_loader(data_dir, batch_size, max_sql=125):
-    """
+    """ read txt files in the test dir.
     example:
     for token_ids, att_mask in test_data_loader:
         print(token_ids.shape, att_mask.shape)
@@ -830,7 +831,7 @@ def _measure_sentence_distribution():
     from collections import Counter
     counts = Counter(idxs)
     print(counts)
-    print(f'Doc count: {len(counts)}')
+    print(f'Doc count: {len(counts) - 1}')
     return seqs, idxs, counts
 
 

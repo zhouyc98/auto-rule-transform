@@ -172,7 +172,7 @@ def log_predictions(inputs, labels, preds, comment='train', is_test=False, corpu
     # =====
 
     log_lines = []
-    p_rand = random.random()
+    # p_rand = random.random()
     n_log = bs  # logged number of seq
     for i in range(n_log):
         seq = inputs[i]
@@ -180,21 +180,22 @@ def log_predictions(inputs, labels, preds, comment='train', is_test=False, corpu
         pred = preds[i]
         label_str, pred_str, seq_str = corpus_.render_seq_labels(seq, label, pred)
 
-        if is_print and p_rand < 0.05 and i < 3:
+        if is_print and i < 5:
             if is_test:
+                print(f'{seq_str}')
                 print(f'{pred_str}\n')
             else:
                 print(f'label: {label_str}')
                 print(f'pred : {pred_str}\n')
 
         if is_log:
-            log_lines.append(f'seq  : {seq_str}  \n')
+            log_lines.append(f'seq  : {seq_str}\n')
 
             if is_test:
-                log_lines.append(f'{pred_str}  \n\n')  # markdown needs 2 space before \n
+                log_lines.append(f'{pred_str}\n\n')
             else:
-                log_lines.append(f'label: {label_str}  \n')
-                log_lines.append(f'pred : {pred_str}  \n\n')
+                log_lines.append(f'label: {label_str}\n')
+                log_lines.append(f'pred : {pred_str}\n\n')
 
     if is_log:
         # date_now = datetime.now().strftime('%m%d')

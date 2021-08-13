@@ -1079,12 +1079,13 @@ class RevitRuleGenerator:
                          ('OST_Stairs', 'Stairs?$', '楼梯$', {'^宽度$': '最小梯段宽度', '^Width$': 'Minimum Run Width'}),
                          ('OST_Windows', 'Windows?$', '窗$|^窗', {}),
                          ('OST_Walls', 'Walls?$', '墙$', {'Type': 'Structural Material'}),  # 结构材质
-                         ('OST_Floors', 'Floors?$', '楼板$', {'Thickness$': 'Default Thickness'})
+                         ('OST_StairsRailing', 'Railings?$', '栏杆$', {'高度': '栏杆扶手高度'}),
+                         ('OST_Floors', 'Floors?$', '楼板$', {'Thickness$': 'Default Thickness', '厚度': '默认的厚度'})
                          )
     Param_Names = {'混凝土$': 'Concrete', '^热阻$': '热阻(R)', '^thermal resistance$': 'Thermal Resistance (R)'}
     Cmp_Condition = {'=': 'Equal', '<': 'LessThan', '>': 'GreaterThan', '≤': 'LessOrEqual', '≥': 'GreaterOrEqual',
                      '≠': 'NotEqual', 'has': 'Contains', 'has no': 'DoesNotContain'}
-    Root = ET.Element('MCSettings', attrib={'AllowRequired': 'False', 'Name': 'Test-Zyc', 'Author': 'Zyc'})
+    Root = ET.Element('MCSettings', attrib={'AllowRequired': 'False', 'Name': 'CheckSet-Zyc', 'Author': 'Zyc'})
     Heading = ET.SubElement(Root, 'Heading', attrib={'HeadingText': 'Test', 'IsChecked': 'True'})
     Section = ET.SubElement(Heading, 'Section', attrib={'SectionName': 'Test', 'IsChecked': 'True'})
 
@@ -1092,16 +1093,17 @@ class RevitRuleGenerator:
         self.rct = rct
         self.obj = self.rct.obj_node
         self.class_name = None
-        self.cparam_names = {}
+        self.param_names = self.Param_Names.copy()
         for cn, w_en, w_cn, pns in self.Class_Param_Names:
             if re.search(w_en, self.obj.word, re.IGNORECASE) or re.search(w_cn, self.obj.word):
                 self.class_name = cn
-                self.cparam_names = pns
+                self.param_names.update(pns)
+                break
         if self.class_name is None:
             raise RuntimeError('Class name not found:', self.obj.word)
 
     def get_category_filter(self, op='And'):
-        """ <Filter ID="74c7e428-7bc8-4467-989d-7bb8fd26a934" Operator="And" Category="Category" Property="OST_Doors"
+        """ <Filter Operator="And" Category="Category" Property="OST_Doors"
             Condition="Included" Value="True" CaseInsensitive="False" Unit="None" UnitClass="None" FieldTitle=""
             UserDefined="False" Validation="None" /> """
 
@@ -1110,10 +1112,7 @@ class RevitRuleGenerator:
         return attrib
 
     def to_param_name(self, pw):
-        for pw1, pn in self.cparam_names.items():
-            if re.search(pw1, pw, re.IGNORECASE):
-                return pn
-        for pw1, pn in self.Param_Names.items():
+        for pw1, pn in self.param_names.items():
             if re.search(pw1, pw, re.IGNORECASE):
                 return pn
 
@@ -1123,7 +1122,7 @@ class RevitRuleGenerator:
         return pw
 
     def get_param_filter(self, node, op='And'):
-        """ <Filter ID="71ffc161-ca68-4c0f-bb0a-36f6d87b32dd" Operator="And" Category="Parameter" Property="标高"
+        """ <Filter Operator="And" Category="Parameter" Property="标高"
             Condition="WildCard" Value="标高3" CaseInsensitive="False" Unit="None" UnitClass="None" FieldTitle=""
             UserDefined="False" Validation="None" /> """
 
@@ -1147,23 +1146,25 @@ class RevitRuleGenerator:
             elif u == 'mm':
                 rv = str(float(rv) / 304.8)
                 unit_class = "Length"
-            else:
-                pass
-                # unit_class
 
         cmp_str = str(cmp)
         if not node.is_app_req():
             cmp_str = reverse_cmp(str(cmp))
+
         cond_str = self.Cmp_Condition[cmp_str]
         if not re.search('[0-9]', rv) and 'Equal' in cond_str:
             cond_str = 'WildCard' if cond_str == 'Equal' else 'WildCardNoMatch'
 
         attrib = {'Operator': op, 'Category': "Parameter", 'Property': pv, 'Condition': cond_str,
                   'Value': rv, 'Unit': "Default", 'UnitClass': unit_class}
+
+        if pv == 'Type':  # patching
+            attrib['Category'] = 'Type'
+            attrib['Property'] = 'Name'
         return attrib
 
     def get_is_elem_filter(self, op='And'):
-        """ <Filter ID="3ba6a2fb-2da7-45f1-bd47-fb6fc6838764" Operator="And" Category="TypeOrInstance"
+        """ <Filter Operator="And" Category="TypeOrInstance"
         Property="Is Element Type" Condition="Equal" Value="False" CaseInsensitive="False" Unit="None"
         UnitClass="None" FieldTitle="" UserDefined="False" Validation="None" /> """
 
@@ -1172,10 +1173,10 @@ class RevitRuleGenerator:
         return attrib
 
     def generate(self, write_xml=False):
-        if not self.rct.obj_node:
+        if not self.obj:
             return
-        if self.rct.root.child_nodes[0] is not self.rct.obj_node:
-            raise NotImplementedError('sobj is not support now')
+        if self.rct.root.child_nodes[0] is not self.obj:
+            print('[Warning] sobj is ignored now') # raise
 
         # if a then b = a -> b = !a or b, fail: !(!a or b) = a and !b
         check1 = ET.SubElement(RevitRuleGenerator.Section, 'Check', {'CheckName': self.rct.seq,
@@ -1189,7 +1190,7 @@ class RevitRuleGenerator:
             ET.SubElement(check1, 'Filter', self.get_param_filter(prop))
 
         if write_xml:
-            ET.ElementTree(RevitRuleGenerator.Root).write('./logs/test.xml', encoding='utf-8', xml_declaration=True)
+            ET.ElementTree(RevitRuleGenerator.Root).write('./logs/checkset.xml', encoding='utf-8', xml_declaration=True)
 
 
 def model_data_loader():
@@ -1601,4 +1602,4 @@ if __name__ == '__main__':
     if not args.no_update_eval:
         update_eval_log()
     if args.gen_rule:
-        ET.ElementTree(RevitRuleGenerator.Root).write('./logs/test.xml', encoding='utf-8', xml_declaration=True)
+        ET.ElementTree(RevitRuleGenerator.Root).write('./logs/checkset.xml', encoding='utf-8', xml_declaration=True)

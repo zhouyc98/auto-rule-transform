@@ -35,7 +35,7 @@ if __name__ == '__main__':
     model: nn.Module
     model = BertZhTokenClassifier_(n_label, p_drop=0.1)
     model.to(device)
-    model.load_state_dict(torch.load('./models/_BertZh0_best.pth'))  # todo cuda, amp
+    model.load_state_dict(torch.load('./models/_BertZh0_best.pth'))
 
     log(f'===== Inference =====')
     start_time = time.time()
