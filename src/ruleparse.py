@@ -368,6 +368,7 @@ class RCTree:
         self.slabel = str(self.full_label)
 
         self.parse_complete = False
+        self.rule_category = ''
         self.error_msg = ''
         self.sparql = ''
         self.log_func = log_func
@@ -378,8 +379,9 @@ class RCTree:
     def set_sparql(self, sparql):
         self.sparql = sparql
 
-    def set_rule_category(self, category):
+    def set_rule_category(self, category, category_name):
         self.rule_category = category
+        self.rule_category_name = category_name
 
     def strip_seq_label(self):
         self.label_iit.sort(key=lambda t: t[0])
@@ -917,6 +919,8 @@ class RCTree:
         self.log_func(f'[{idx}]#{self.seq_id}')
         self.log_func(f'Seq:\t{self.seq}')
         self.log_func(f'Label:\t{self.slabel}')
+        if self.rule_category:
+            self.log_func(f"Category:  {str(self.rule_category)}  |Categoty Name:  {self.rule_category_name}")
 
         if self.error_msg:
             self.log_func(self.error_msg)

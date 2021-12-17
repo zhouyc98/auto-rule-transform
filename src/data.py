@@ -575,13 +575,13 @@ def get_data_by_text(data_dir='../data/xiaofang/', file_name = 'sentences.txt'):
     return seqs, labels
 
 
-def seq_data_loader(dataset_name):
+def seq_data_loader(dataset_name, file_name = 'sentences.txt'):
     if dataset_name == 'json':
         seqs, labels, _ = init_data_by_json(early_return=True)
         return zip(seqs, labels)
 
     elif dataset_name == 'text':
-        seqs, labels = get_data_by_text()
+        seqs, labels = get_data_by_text(file_name=file_name)
         return zip(seqs, labels)
 
 

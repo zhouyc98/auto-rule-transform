@@ -23,6 +23,7 @@ class Mappping_dict():
                 'IfcWindow': 'Window',
                 'IfcDoor': 'Doors',
                 'IfcStair': 'Stairs',
+                'IfcBuildingType': 'BuildingTypes',
                 'IfcMember': '?_Todo',
                 'IfcRailing': '?_Todo',
                 'IfcStairFlight': '?_Todo',
@@ -35,6 +36,9 @@ class Mappping_dict():
                 '容纳人数': 'hasMaxNumberOfHuman',
                 'GlobalId': 'hasGlobalId',
                 '面积': 'hasBuildingArea_m2',
+                'hasBuildingType':'hasBuildingType',
+                'hasFireHazardCategory':'hasFireHazardCategory',
+                'hasFireResistanceGrade':'hasFireResistanceGrade',
             }
         return self.ifc_map_fireonto_dict
 
@@ -91,7 +95,13 @@ class Building_element():
                                 property[1]).lower() + '"^^xsd:boolean' + ' .\n'
                         elif type(property[1]) is float:
                             ttl_content += prefix + self.instance_name + ' ' + prefix + dataproperty_name + ' ' + '"' + str(
-                                property[1]) + '"^^xsd:decimal' + ' .\n'
+                                property[1]) + '"^^xsd:float' + ' .\n'
+                        elif type(property[1]) is int:
+                            ttl_content += prefix + self.instance_name + ' ' + prefix + dataproperty_name + ' ' + '"' + str(
+                                property[1]) + '"^^xsd:int' + ' .\n'
+                        elif type(property[1]) is str:
+                            ttl_content += prefix + self.instance_name + ' ' + prefix + dataproperty_name + ' ' + '"' + \
+                                           property[1] + '"^^xsd:string' + ' .\n'
                     else:
                         continue
         return ttl_content
@@ -102,6 +112,27 @@ class Building_element():
             ttl_content += ':' + self.instance_name + ' :' + obj_property[0] + ' :' + obj_property[
                 1].instance_name + ' .\n'
         return ttl_content
+
+    '''
+    State: Use
+    Funtion: Add necessary info about the building() by user input
+    Input: dict {element_type:xxx, element_id:xxx, info:(**args property)}
+    
+    Limit: Now only deal with BuildingRegion(IfcBuilding)
+        Input: {'element_type':'IfcBuilding', 'element_id':None, 'info':('Plant'[BuildingTypes], 1[hasFireHazardCategory], 2[hasFireResistanceGrade])}
+    '''
+
+    @staticmethod
+    def get_single_element_prop_userinput(proceed_elements, element_info):
+        if element_info['element_type'] == 'IfcBuilding':
+            elements, indexes = Building_element.search_elements_by_type(proceed_elements, element_info['element_type'])
+            assert len(elements) == 1, 'The building need to be check should be only one'
+            BuildingType, FireHazardCategory, FireResistanceGrade = element_info['info']
+            proceed_elements[indexes[0]].add_dataprop('hasBuildingType', BuildingType)
+            proceed_elements[indexes[0]].add_dataprop('hasFireHazardCategory', FireHazardCategory)
+            proceed_elements[indexes[0]].add_dataprop('hasFireResistanceGrade', FireResistanceGrade)
+        else:
+            pass
 
     '''
     State: Use
@@ -165,6 +196,22 @@ class Building_element():
                         continue  # there are more types
         return element
 
+    @staticmethod
+    def search_element_by_GlobalId(proceed_elements, GlobalId):
+        for element in proceed_elements:
+            if element.element_id == GlobalId:
+                return element
+
+    @staticmethod
+    def search_elements_by_type(proceed_elements, element_type):
+        elements = []
+        indexes = []
+        for index, element in enumerate(proceed_elements):
+            if element.element_type == element_type:
+                elements.append(element)
+                indexes.append(index)
+        return elements, indexes
+
     '''
     State: Use
     Function: get the obj_prop between two element from the elements and ifc file
@@ -175,16 +222,11 @@ class Building_element():
 
     @staticmethod
     def get_elements_objprop(proceed_elements, ifc_products):
-        def search_element_by_GlobalId(proceed_elements, GlobalId):
-            for element in proceed_elements:
-                if element.element_id == GlobalId:
-                    return element
-
         for ifc_obj in ifc_products:
             domain_type = ifc_obj.is_a()
             if domain_type == 'IfcBuilding':
                 domain_GlobaId = ifc_obj.GlobalId
-                domain_element = search_element_by_GlobalId(proceed_elements, domain_GlobaId)
+                domain_element = Building_element.search_element_by_GlobalId(proceed_elements, domain_GlobaId)
                 if len(ifc_obj.IsDecomposedBy) > 0:
                     range_objs = ifc_obj.IsDecomposedBy[0].RelatedObjects
                     '''IfcBuilding hasBuildingSpatialElement BuildingStorey'''
@@ -193,20 +235,37 @@ class Building_element():
                         '''
                         The ifcstorey is not the real storey in the world, judge whether it is a real floor through keyword matching method
                         '''
-                        if '地面' in range_name or '楼' in range_name:
+                        if '地面' in range_name or '楼面' in range_name:
                             range_type = range_obj.is_a()
                             range_GlobaId = range_obj.GlobalId
-                            range_element = search_element_by_GlobalId(proceed_elements, range_GlobaId)
+                            range_element = Building_element.search_element_by_GlobalId(proceed_elements, range_GlobaId)
                             # obj_prop_tag = Building_element.get_objprop(domain_type, range_type)
                             # assert obj_prop_tag == 'hasBuildingSpatialElement', 'The obj_prop_tag is not True'
                             obj_prop_tag = 'hasBuildingSpatialElement'
                             domain_element.add_objprop(obj_prop_tag, range_element)
+
+            elif domain_type == 'IfcBuildingStorey':
+                domain_GlobaId = ifc_obj.GlobalId
+                domain_element = Building_element.search_element_by_GlobalId(proceed_elements, domain_GlobaId)
+                if len(ifc_obj.IsDecomposedBy) > 0:
+                    range_objs = ifc_obj.IsDecomposedBy[0].RelatedObjects
+                    '''IfcBuilding hasBuildingSpatialElement BuildingStorey'''
+                    for range_obj in range_objs:
+                        range_name = range_obj.Name
+                        range_type = range_obj.is_a()
+                        range_GlobaId = range_obj.GlobalId
+                        range_element = Building_element.search_element_by_GlobalId(proceed_elements, range_GlobaId)
+                        # obj_prop_tag = Building_element.get_objprop(domain_type, range_type)
+                        # assert obj_prop_tag == 'hasBuildingSpatialElement', 'The obj_prop_tag is not True'
+                        obj_prop_tag = 'hasBuildingSpatialElement'
+                        domain_element.add_objprop(obj_prop_tag, range_element)
+
             elif domain_type == 'IfcSpace':
                 domain_GlobaId = ifc_obj.GlobalId
-                domain_element = search_element_by_GlobalId(proceed_elements, domain_GlobaId)
+                domain_element = Building_element.search_element_by_GlobalId(proceed_elements, domain_GlobaId)
                 for bounding_obj in ifc_obj.BoundedBy:
                     range_GlobaId = bounding_obj.RelatedBuildingElement.GlobalId
-                    range_element = search_element_by_GlobalId(proceed_elements, range_GlobaId)
+                    range_element = Building_element.search_element_by_GlobalId(proceed_elements, range_GlobaId)
                     range_type = bounding_obj.RelatedBuildingElement.is_a()
                     # obj_prop_tag = Building_element.get_objprop(domain_type, range_type)
                     # assert obj_prop_tag == 'hasBuildingElement', 'The obj_prop_tag is not True'
@@ -244,7 +303,8 @@ class Building_element():
             return None
 
 
-def gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV2.ifc', ttl_file='../data/ontology/Plant_instance.ttl'):
+def gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV2.ifc', ttl_file='../data/ontology/Plant_instance.ttl',
+                 userdef_info={'element_type': 'IfcBuilding', 'element_id': None, 'info': ('Plant', 3, 3)}):
     def get_allprop_from_ifc(ifcfile='./data/ifc/Plant_ByhandV3.ifc'):
         ifc_file = ifcopenshell.open(ifcfile)
         products = ifc_file.by_type('IfcProduct')
@@ -268,6 +328,8 @@ def gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV2.ifc', ttl_file='../data/on
 ###  http://www.semanticweb.org/16424/ontologies/2020/10/BuildingDesignFireCodesOntology#column1_test\n\n"""
 
     my_prefix_short = ':'
+    # get user define dataproperty
+    Building_element.get_single_element_prop_userinput(proceed_elements, element_info=userdef_info)
 
     ifc_map_fireonto_dict = Mappping_dict().ifc_map_fireonto()
     for index, element in enumerate(proceed_elements):
@@ -285,5 +347,5 @@ def gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV2.ifc', ttl_file='../data/on
 
 
 if __name__ == "__main__":
-    gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV4.ifc', ttl_file='../data/ontology/Plant_instance.ttl')
+    gen_ttl_file(ifc_file='../data/ifc/Plant_ByhandV5.ifc', ttl_file='../data/ontology/Plant_instanceV2.ttl')
     print('ok')

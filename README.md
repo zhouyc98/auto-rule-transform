@@ -11,6 +11,9 @@ In data/xiaofang/[sentences_all.json](https://github.com/Zhou-Yucheng/auto-rule-
 
 In src/logs/[rulecheck-eval.log](https://github.com/Zhou-Yucheng/auto-rule-transform/blob/main/src/logs/rulecheck-eval.log), it shows the parsing result of these sentences in a text-based format.  
 
+In data/docanno/[FireCode_label_merge.json], it contains the semantic alignment labels developed in the research
+
+In data/rules/[建筑设计防火规范-第三章语料-class.txt], it contains the text classification labels developed in the research
 ## Setup
 
 - Clone or download the repo  
@@ -70,3 +73,37 @@ python3 ruleparse.py -i
 # it will read the sentence and show the parsing result immediately
   ```
 
+## SPARQL generation
+
+This function is used to generate SPARQL codes, which can be reasoned by protege, from the Semantic labeling results (i.e., data/xiaofang/sentences.txt)
+
+The unsupervised learning-based semantic alignment methods (e.g., the word2vec techniques) and rule-based conflict resolution methods are used.
+
+The following steps are required to generate SPARQL automatically.
+
+(1) First you should download the word2vec model from `https://pan.baidu.com/s/1MEz7UJqhP0RdEMNqZCBpaQ password: 49tp`, and release them in src/models/
+
+(2) Then you should put the input text file into data/xiaofang/sentences.txt
+
+(3) Assert the BuildingDesignFireCodesOntology.pkl and BuildingDesignFireCodesOntology.owl are in data/ontology/, which is used for semantic alignment
+
+(4) Assert the classify_keywords.txt is in data/rules, which is used for text classification
+
+(5) Run `python rulegen.py` to generate SPARQL. The generated file is in src/logs/rulegen.log
+
+
+## References
+
+If you used the function. please cite these articles: 
+
+    {
+         author = {Yucheng Zhou, Zhe Zheng, Jiarui Lin and Xinzheng Lu},
+         title = {Integrating NLP and Context-Free Grammar for Complex Rule Interpretation towards Automated Compliance Checking},   
+         href = https://doi.org/10.13140/RG.2.2.22993.45921 
+         year = {2021}
+     }
+    {
+         author = {Zhe Zheng, Yucheng Zhou, Xinzheng Lu and Jiarui Lin},
+         title = {Knowledge-Informed Semantic Alignment and Rule Interpretation for Automated Compliance Checking},
+         year = {2021}
+     }

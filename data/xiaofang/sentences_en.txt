@@ -1,4 +1,0 @@
-The [thickness/prop] of [floors/obj] [shall not be less than/cmp] [30 mm/Rprop]
-The [width/prop] of [stairs/obj] [shall not be less than/cmp] [0.8 m/Rprop]
-[Windows/obj] that having a [width/prop] [greater than/cmp] [800 mm/ARprop] shall have a [height/prop] [no less than/cmp] [600 mm/Rprop]
-[Concrete/ARprop] [walls/obj] that having a [width/prop] [less than/cmp] [200 mm/ARprop] shall have a [thermal resistance/prop] [no less than/cmp] [0.1 m2K/W/Rprop]
