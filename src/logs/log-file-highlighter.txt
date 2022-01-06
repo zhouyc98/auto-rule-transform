@@ -1,4 +1,4 @@
-﻿//copy the following lines to the user settings (json) of vscode to enable the syntax highlight of log files
+//copy the following lines to the user settings (json) of vscode to enable the syntax highlight of log files
 
     "logFileHighlighter.customPatterns": [
         {

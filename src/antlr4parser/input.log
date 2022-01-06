@@ -1,4 +1,4 @@
-﻿[insulation material/prop][using/cmp][B1 level/ARprop]'s[roof/obj], the [protection layer/prop][shall use/cmp][noncombustible material/Rprop], and the [thickness/prop] of the [protection layer/prop][shall not be less than/cmp][10 mm/Rprop]
+[insulation material/prop][using/cmp][B1 level/ARprop]'s[roof/obj], the [protection layer/prop][shall use/cmp][noncombustible material/Rprop], and the [thickness/prop] of the [protection layer/prop][shall not be less than/cmp][10 mm/Rprop]
 [保温材料/prop][采用/cmp][B1级/ARprop][屋面/obj]保温，[保护层/prop][应采用/cmp][不燃材料/Rprop]，[保护层/prop][厚度/prop][不应小于/cmp][10 mm/Rprop]
 
 For[roof/obj][using/cmp][B1 level/ARprop][insulation material/prop], the [protection layer/prop][shall use/cmp][noncombustible material/Rprop], and the [thickness/prop] of the [protection layer/prop][shall not be less than/cmp][10 mm/Rprop]

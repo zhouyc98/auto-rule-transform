@@ -1,4 +1,4 @@
-﻿-Evaluation Tags
+-Evaluation Tags
 ##correct 	RCTree is correct. 
 ##wrong 	RCTree is wrong while the label is correct.
 ##relabel 	label is wrong.
