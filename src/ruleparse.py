@@ -761,16 +761,15 @@ class RCTree:
                     if not pi.req[0]:  # cmp
                         pi.req[0].word = pi1.req[0].word
                     print(f"[DEBUG] match p-r tag for {str(pi1)} in {self.full_label[li1:li + 1]}")
-            elif is_pxp:
-                if pi.word == '其' and pi.child_nodes and is_same_req:
-                    print(f'[DEBUG] match last prop-1 {pi}')
-                    pi.word = pi1.word
-                    # pi1.child_nodes += pi.child_nodes # 2 propx
-                    # props[i] = None
-                elif all(pi.word == cn.word for cn in pi1.child_nodes):
-                    print(f'[DEBUG] match last prop-2 {pi}')
-                    pi1.child_nodes.append(pi)
-                    props[i] = None
+            elif pi1.word and pi.word == '其' and pi.child_nodes:
+                print(f'[DEBUG] match last prop-1 {pi}')
+                pi.word = pi1.word
+                # pi1.child_nodes += pi.child_nodes # 2 propx
+                # props[i] = None
+            elif is_pxp and all(pi.word == cn.word for cn in pi1.child_nodes):
+                print(f'[DEBUG] match last prop-2 {pi}')
+                pi1.child_nodes.append(pi)
+                props[i] = None
 
         for i in range(len(props) - 1, -1, -1):
             if props[i] is None:
