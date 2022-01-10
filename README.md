@@ -22,10 +22,8 @@ In src/logs/[rulecheck-eval.log](https://github.com/Zhou-Yucheng/auto-rule-trans
   git clone https://github.com/Zhou-Yucheng/auto-rule-transform.git
   cd auto-rule-transform
   ```
-- Install the requirements 
-  ```
-  pip install -r requirements.txt
-  ```
+- Install the requirements
+
 
 ## Semantic labeling
 
@@ -51,7 +49,7 @@ python3 train.py --report # it will report the model named _BertZh0_best.pth
 Run ruleparse.py in src/, and then it will read the sentences in data/xiaofang/sentences_all.json and log the result in src/logs/ruleparse.log & src/logs/ruleparse-eval.log
 
   ```
-python3 ruleparse.py
+python3 ruleparse.py -d json
   ```
 
 If you want to change the dataset of parsing to data/xiaofang/sentences.txt, use the -d argument to specify:

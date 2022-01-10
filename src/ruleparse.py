@@ -6,7 +6,6 @@ import argparse
 import nltk
 import re
 import hashlib
-import pyperclip
 import shutil
 import pandas as pd
 import xml.etree.ElementTree as ET
@@ -1263,7 +1262,7 @@ def model_data_loader():
 
 class EvalLogFile:
     SEP = '\n' + '-' * 90 + '\n'
-    EVALs = ('##correct', '##wrong', '##relabel', '##del')
+    EVALs = ('##correct', '##wrong', '##relabel', '##del', '##ignore')
 
     def __init__(self, file_txt):
         self.txt = file_txt
@@ -1530,7 +1529,8 @@ def interactive_rct_parse():
     while True:
         try:
             seq = input('Input a sentence or its id:').strip('# ')
-            if '[' in seq:
+            if '[' in seq and '/' in seq and ']' in seq:
+                seq = re.sub('^[Ll]abel:\s*','',seq)
                 seq, label = slabel_to_seq_label_iit(seq)
             elif len(seq) == 7:
                 seq_id = seq
@@ -1560,14 +1560,11 @@ def interactive_rct_parse():
 
 def get_args():
     parser = argparse.ArgumentParser('ARC Rule Parser')
-    parser.add_argument('-d', '--dataset_name', type=str, default='json', help='dataset name, json or text')
+    parser.add_argument('-d', '--dataset_name', type=str, default='text', help='dataset path or name (json/text)')
     parser.add_argument('-g', '--gen_rule', action='store_true', help='generate rule')
     parser.add_argument('-i', '--interactive', action='store_true', help='interactive rct parse')
     parser.add_argument('-U', '--no_update_eval', action='store_true', help='do not update eval log file')
     args_ = parser.parse_args()
-
-    if args_.dataset_name != 'json':
-        args_.no_update_eval = True
 
     return args_
 
