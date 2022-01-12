@@ -4164,10 +4164,10 @@ Parsing complete
 [408]#6977049
 Seq:	照明灯具及电气设备、线路的高温部位，当靠近非A级装修材料或构件时，应采取隔热、散热等防火保护措施，与窗帘、帷幕、幕布、软包等装修材料的距离不应小于500 mm
 Label:	[照明灯具/sobj]及[电气设备、线路/sobj]的[高温部位/obj]，当[靠近/cmp][非A级装修材料/ARprop]或构件时，[应采取/cmp][隔热、散热等防火保护措施/Rprop]，与窗帘、帷幕、幕布、软包等[装修材料/obj]的[距离/prop][不应小于/cmp][500 mm/Rprop]
-RCTree:	#53178e9
+RCTree:	#43fa36e
 		[照明灯具|电气设备、线路]-[高温部位&1, 装修材料&2]
 		|-?[Type&1] 靠近 [非A级装修材料]
-		|-[Type] 采取 [隔热、散热等防火保护措施]
+		|-[Props] has [隔热、散热等防火保护措施]
 		|-[距离] ≥ [500 mm]
 Parsing complete
 ##correct: default cmp: 靠近
@@ -4224,8 +4224,8 @@ Parsing complete
 [413]#99a7cc3
 Seq:	电视塔等特殊高层建筑的内部装修，装饰织物应采用不低于B1级的材料，其他均应采用A级装修材料
 Label:	[电视塔/obj]等[特殊高层建筑/obj]的[内部装修/prop]，[装饰织物/prop]应采用[不低于/cmp][B1级的材料/Rprop]，[其他/prop]均[应采用/cmp][A级装修材料/Rprop]
-RCTree:	#81c33e1
-		[电视塔, 特殊高层建筑]
+RCTree:	#8e6ddaa
+		[电视塔|特殊高层建筑]
 		|-[内部装修]
 		|--[装饰织物] ≥ [B1级的材料]
 		|-[其他] = [A级装修材料]
@@ -4754,9 +4754,9 @@ Parsing complete
 [466]#823b711
 Seq:	预制钢筋混凝土构件的节点外露部位，应采取防火保护措施，且该节点的耐火极限不应低于相应构件的规定
 Label:	[预制钢筋混凝土构件/sobj]的[节点外露部位/obj]，[应采取/cmp][防火保护措施/Rprop]，且该[节点/prop]的[耐火极限/prop][不应低于/cmp][相应构件的/Robj][规定/Rprop]
-RCTree:	#d221133
+RCTree:	#fc2c9f9
 		[预制钢筋混凝土构件]-[节点外露部位]
-		|-[Type] 采取 [防火保护措施]
+		|-[Props] has [防火保护措施]
 		|-[节点]
 		|--[耐火极限] ≥ [规定]-[相应构件的]
 Parsing complete
@@ -5279,9 +5279,9 @@ Parsing complete
 [516]#751cc05
 Seq:	排烟管道应采取隔热防火措施或与可燃物保持不小于150 mm的距离
 Label:	[排烟管道/obj][应采取/cmp][隔热防火措施/Rprop]或与[可燃物/obj]保持[不小于/cmp][150 mm/Rprop]的[距离/prop]
-RCTree:	#bb0c6eb
+RCTree:	#d95e8fb
 		[排烟管道, 可燃物]
-		|-[Type] 采取 [隔热防火措施]
+		|-[Props] has [隔热防火措施]
 		|+[距离] ≥ [150 mm]
 Parsing complete
 ##correct split, 距离, OR combine

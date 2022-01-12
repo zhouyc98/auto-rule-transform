@@ -22,11 +22,11 @@ CMP_DICT = OrderedDict([('≤', '小于或?等于|不(大于|高于|多于|超�
                         ('≥', '大于或?等于|不(小于|低于|少于)|(not be|no) less than'),
                         ('>', '大于|超过|高于|greater than'),
                         ('<', '小于|低于|less than'),
-                        ('≠', '不等于|避免|不采用|无法采用|非|(not be|no) equals?'),
+                        ('≠', '不等于|避免|(不|无法|严禁)采用|非|除|(not be|no) equals?'),
                         ('=', '等于|为|采?用|按照?|符合|执行|equals?'),
-                        ('has no', '不(有|设置?|具备)|无'),
-                        ('has', '(具|含|留)?有|设(置|有)?|(增|铺|搭)设|安装|具备'),
-                        ('not in', '不在'),
+                        ('has no', '(不|严禁)(有|设置?|具备)|无'),
+                        ('has', '(具|含|留)?有|设(置|有)?|(增|铺|搭)设|安装|具备|采取'),
+                        ('not in', '(不|除|严禁)在'),
                         ('in', '在'),
                         ])
 
@@ -39,6 +39,7 @@ def get_cmp_str(cmp_w):
     for dw in DEONTIC_WORDS:
         cmp_w = cmp_w.replace(dw, '')
     cmp_w = cmp_w.strip()
+    cmp_w = cmp_w.replace('均', '')
 
     # simplify cmp_value, if can
     if cmp_w == '':
@@ -350,7 +351,7 @@ class RCTreeVisitor(RuleCheckTreeVisitor):
 
 
 class RCTree:
-    def __init__(self, seq, label_iit, log_func=print):
+    def __init__(self, seq, label_iit, log_fn=print):
         """
         :param seq:     sentence, list of char: ['a','b','c',...] -> str: 'abc..'
         :param label_iit:   label_tuple, [(i,j,tag),(i,j,tag),...]
@@ -368,7 +369,7 @@ class RCTree:
 
         self.parse_complete = False
         self.error_msg = ''
-        self.log_func = log_func
+        self.log_fn = log_fn
 
     def strip_seq_label(self):
         self.label_iit.sort(key=lambda t: t[0])
@@ -396,13 +397,13 @@ class RCTree:
         # ======================================== Bool merge (union)
         def _is_union(i_, w_):
             union_words1 = {'、', '或'}
-            union_words2 = {'且', '和', '及', '以及'}
+            union_words2 = {'且', '和', '及', '以及', '等'}
             union_words3 = {',', '，'}
             # re.search('(?<!abc)x', 'abcx')
-            if any(x in w_ for x in union_words1) and ('之间' not in w_):
+            if any(w1 in w_ for w1 in union_words1) and ('之间' not in w_):
                 return True
 
-            if any(x == w_ for x in union_words2):
+            if w_ in union_words2:
                 return True
 
             im = len(self.full_label) - 1
@@ -410,11 +411,10 @@ class RCTree:
                 return False
             w_1, t_1 = self.full_label[i_ + 1]
             w1_, t1_ = self.full_label[i_ - 1]
-            w_2, t_2 = self.full_label[i_ + 2] if i_ <= im - 2 else (None, None)
-            w_3, t_3 = self.full_label[i_ + 3] if i_ <= im - 3 else (None, None)
-            w2_, t2_ = self.full_label[i_ - 2] if i_ >= 2 else (None, None)
-            if any(x == w_ for x in union_words3) and (
-                    any(x == w_2 for x in union_words3) or any(x == w2_ for x in union_words3)):
+            w_2, t_2 = self.full_label[i_ + 2] if i_ <= im - 2 else ('', '')
+            w_3, t_3 = self.full_label[i_ + 3] if i_ <= im - 3 else ('', '')
+            w2_, t2_ = self.full_label[i_ - 2] if i_ >= 2 else ('', '')
+            if w_ in union_words3 and (w_2 in union_words3 or w2_ in union_words3):
                 return True
 
             if w_ == '与' and t_1 == t1_ == 'prop' and '距' not in w_2 and '距' not in w_3:
@@ -674,7 +674,7 @@ class RCTree:
                 if p.req:
                     ind = self.slabel_2i.find(_n_str(p.req[1]))
                 assert ind >= 0
-                idx_props.append((not p.has_app_seq(), ind, i, p))
+                idx_props.append((not p.has_app_req(), ind, i, p))
             idx_props.sort()
             node.child_nodes = [p for *_, p in idx_props]
 
@@ -789,18 +789,32 @@ class RCTree:
             words = self.obj_node.word.split(', ')
             anchored = False
             slabel = str(self.full_label)
-            iobjs = [slabel.index(f'[{w}/obj]') for w in words]
-            for prop in props:
-                if prop.is_app_req() and not isinstance(prop.word, list):
-                    wp = prop.word if prop.word is not None else ''
-                    ip = re.search(f'{wp}.*?{prop.req[1].word}/ARprop', slabel).span()[1]
-                    for k, io in enumerate(iobjs):
-                        if ip < io:
-                            prop.anchor = f'&{k}' if ('时，' in slabel[ip:io]) else f'&{k + 1}'
-                            anchored = True
-                            break
+            words_ = [w.replace('|','\|') for w in words]
+            iobjs = [(n+1,m.start()) for n,w_ in enumerate(words_) for m in re.finditer(f"\[{w_}/obj\]", slabel)]
+            iobjs.sort(key=lambda x:x[1])
+            for i in range(len(props)):
+                prop = props[i]
+                if not prop.is_app_req() and prop.child_nodes and prop.child_nodes[0].is_app_req():
+                    prop = prop.child_nodes[0]
+                if prop.is_app_req() and not isinstance(prop.word, list) and '均' not in (prop.req[0].word or ''):
+                    s = re.search(f"{prop.word or ''}.*?{prop.req[1].word}(/ARprop)", slabel)
+                    if not s and prop.word: s = re.search(f"{prop.req[1].word}(/ARprop).*?{prop.word}", slabel)
+                    if s: slabel = slabel[:s.start(1)] + '_' + slabel[s.start(1) + 1:] # avoid duplicated matching
+                    else: continue
+                    ip = s.span()[1]
+                    if ip < iobjs[0][1]:
+                        prop.anchor = f'&{iobjs[0][0]}'
+                        anchored = True
+                    else:
+                        for i in range(1, len(iobjs)):
+                            io = iobjs[i][1]
+                            if ip < io:
+                                n1, n = iobjs[i-1][0], iobjs[i][0]
+                                prop.anchor = f'&{n1}' if '时，' in slabel[ip:io] else f'&{n}'
+                                anchored = True
+                                break
                     if not prop.anchor:
-                        prop.anchor = f'&{len(iobjs)}'
+                        prop.anchor = f'&{len(words)}'
                         anchored = True
             if anchored:
                 for i, w in enumerate(words):
@@ -877,10 +891,11 @@ class RCTree:
 
         if 'obj' in self.full_label.tags:
             i_objs, w_objs = self.full_label.tag_idxs_words('obj')
+            for i in range(len(w_objs)-1,0,-1):
+                if all(w.endswith(w_objs[i]) for w in w_objs[i-1].split('|')): del w_objs[i]
             self.obj_node = RCNode(w_objs, 'obj')
             self.add_curr_child(self.obj_node)
-            if len(i_objs) > 1:
-                self.full_label.remove(i_objs[1:])  # leave one obj
+            if len(i_objs) > 1: self.full_label.remove(i_objs[1:])  # leave one obj
         else:
             self.obj_node = RCNode('*', 'obj')
             self.add_curr_child(self.obj_node)
@@ -897,16 +912,16 @@ class RCTree:
         self.parse_complete = self.full_label.contains_tags(('O', 'obj'), only=True)
 
     def log_msg(self, idx=0):
-        self.log_func('-' * 90)
-        self.log_func(f'[{idx}]#{self.seq_id}')
-        self.log_func(f'Seq:\t{self.seq}')
-        self.log_func(f'Label:\t{self.slabel}')
+        self.log_fn('-' * 90)
+        self.log_fn(f'[{idx}]#{self.seq_id}')
+        self.log_fn(f'Seq:\t{self.seq}')
+        self.log_fn(f'Label:\t{self.slabel}')
 
         if self.error_msg:
-            self.log_func(self.error_msg)
+            self.log_fn(self.error_msg)
 
-        self.log_func(f"RCTree:\t#{self.hashtag()}\n{self}")
-        self.log_func('Parsing complete' if self.parse_complete else f'Parsing incomplete: {self.full_label}')
+        self.log_fn(f"RCTree:\t#{self.hashtag()}\n{self}")
+        self.log_fn('Parsing complete' if self.parse_complete else f'Parsing failed')
 
     def hashtag(self):
         return str_hash(self.__str__(indent='\t\t'))
@@ -970,11 +985,11 @@ class RCNode:
             return self.req[1].tag[0] == 'A'
         return None
 
-    def has_app_seq(self):
+    def has_app_req(self):
         if self.req:
             return self.req[1].tag[0] == 'A'
         elif self.child_nodes:
-            return any(cn.has_app_seq() for cn in self.child_nodes)
+            return any(cn.has_app_req() for cn in self.child_nodes)
         else:
             return False
 
@@ -1024,7 +1039,7 @@ class RCNode:
         t_str = self.__str__(optimize, show_tag, True)
 
         if self.child_nodes:
-            # cns = sorted(self.child_nodes, key=lambda cn: not cn.has_app_seq()) # have been sorted by post_process
+            # cns = sorted(self.child_nodes, key=lambda cn: not cn.has_app_req()) # have been sorted by post_process
             sep_and = f'\n|{indent}'
             sep_or = sep_and[:-1] + '+'
             cn_t_strs = [(sep_or if cn.or_combine else sep_and, cn.tree_str(indent + '-', optimize))
@@ -1277,20 +1292,6 @@ class EvalLogFile:
         return ddict
 
     def msg2dict(self, msg: str):
-        """
-        :param msg:
-            (optional line)!SyntaxError: no viable alternative at input 'xxxx'
-            [70]#6bd06d8
-            Sequence #6bd06d8:	天馈系统的驻波比不应大于2
-            Label	 #82a8e33:	[天馈系统/obj] 的 [驻波比/prop] [不应大于/cmp] [2/Rprop]
-            RCTree	 #f08b2eb
-                [#]->[天馈系统]
-                    check:	[驻波比] ≤ [2]
-            Parsing complete.
-            (optional line)##correct
-        :return:
-        """
-
         # === check & pre-process, move 'SyntaxError' to the second line
         assert ']#' in msg and 'Seq' in msg
         lines = [l for l in msg.split('\n')]
@@ -1302,7 +1303,7 @@ class EvalLogFile:
         # ==========
         lines = [l for l in msg.split('\n') if l.strip()]
         for i in range(len(lines) - 1, -1, -1):
-            if lines[i].startswith('Parsing complete') or lines[i].startswith('Parsing incomplete'):
+            if lines[i].startswith('Parsing'):
                 del lines[i]
             elif lines[i].startswith('!SyntaxError'):
                 del lines[i]
@@ -1390,13 +1391,13 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
 
     idx0s = [d0['idx'] for _, d0 in ef0.ddict.items()]
     # assert len(ef0.ddict) == len(ef1.ddict)  # test
-    for i, (seq_id1, d1) in enumerate(ef1.ddict.items()):
+    for seq_id1, d1 in ef1.ddict.items():
         # get d0, d1 with same seq
         if seq_id1 not in ef0.ddict:
-            d1['idx'] = 9999
+            if d1['idx'] <= max(idx0s):
+                d1['idx'] = 99999
             continue
         d0 = ef0.ddict[seq_id1]
-        # d0 = list(ef0.ddict.values())[i]  # test
 
         d1['idx'] = d0['idx']
         d1['idx'] = idx0s.index(d0['idx']) + 1  # compact index
@@ -1435,9 +1436,9 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     h1 = set(ef1.ddict)
     h_del = h0 - h1
     h_add = h1 - h0
-    print(f'\nLog0 count: {len(h0)}, Log1(current) count: {len(h1)}')
-    print(f'Deleted seqs (n={len(h_del)}): {h_del}')
-    print(f'Added seqs (n={len(h_add)}): {h_add}')
+    print(f'\nEvalLog-v{f0_v}/{f0_v+1} count: {len(h0)}/{len(h1)}')
+    print(f'Deleted seqs (n={len(h_del)})', h_del if h_del else '')
+    print(f'Added seqs (n={len(h_add)})', h_add if h_add else '')
 
     # ==================== Write
     with open(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log', 'w', encoding='utf8') as f:
@@ -1460,10 +1461,11 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     # ==================== Hash check
     with open(f'{log_dir}/ruleparse-eval-v{f0_v}.log', 'r', encoding='utf8') as f:
         sha1_f0 = hashlib.sha1(f.read().encode('utf8')).hexdigest()
-        print(f'\nv{f0_v} sha1 hash:', sha1_f0)
     with open(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log', 'r', encoding='utf8') as f:
         sha1_f1 = hashlib.sha1(f.read().encode('utf8')).hexdigest()
-        print(f'v{f0_v + 1} sha1 hash:', sha1_f1)
+    print(f'[SHA1 sum of EvalLog-v{f0_v}/{f0_v+1} is', f'same (duplicate deleted)]' if sha1_f1 == sha1_f0 else 'different]*')
+    if sha1_f1 == sha1_f0:
+        os.remove(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log')
 
     # ==================== Measure & Print
     print('\n-Stat')
