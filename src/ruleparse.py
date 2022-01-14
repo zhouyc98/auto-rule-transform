@@ -514,13 +514,12 @@ class RCTree:
 
         for i, (wi, ti) in enumerate(self.full_label):
             if ti == 'O':
-                js = [j for j, (wj, tj) in enumerate(self.full_label[i + 1:]) if tj == 'O' and '时' in wj]
+                js = [j for j, (wj, tj) in enumerate(self.full_label[i + 1:]) if tj == 'O' and '时' in wj and wj[0] != '，']
                 if js and (re.search(r'^(应符合|不应.于)下列规定：', wi) or wi.strip(' ,，') in ('在', '当')):
                     j = i + 1 + js[0]
                     has_arprop = any(t == 'ARprop' for w, t in self.full_label[i + 1:j])
                     has_no_obj = all(t != 'obj' for w, t in self.full_label[i + 1:j])
                     if has_arprop and has_no_obj:
-                        j = i + 1 + js[0]
                         _sub_seq_switch(i, j)
                         break
                 if re.search(r'^(应符合|不应.于)下列规定：', wi):
@@ -530,6 +529,14 @@ class RCTree:
                         j = i + len(lwts) - 1  # tag-j is O
                         _sub_seq_switch(i, j)
                         break
+                if re.search(r'下列.*部位', wi):
+                    for j in range(len(self.full_label)-1, i, -1):
+                        wj, tj = self.full_label[j]
+                        if tj == 'O' and wj == '：':
+                            _sub_seq_switch(i + 1, j)
+                            break
+                    break
+
 
         # 2) 当A被B C时 -> 当B把A C时
         for i, lwts in self.regex_parse('X: {<Robj>?<A?Rprop><O><obj><prop>}', return_idx=True):
@@ -586,7 +593,7 @@ class RCTree:
         for w1 in ('作', '作为', '进行', '处'):
             self.full_label.remove_o_word(w1)
 
-        # ========== (c ro r) order
+        # ========== ro order
         # 0.1) ro c r -> c ro r
         for i, lwts in self.regex_parse('X: {<Robj><cmp><A?Rprop>}', return_idx=True):
             _switch_full_label_s(i, i + 1)
@@ -597,17 +604,17 @@ class RCTree:
                 _switch_full_label_s(i + 1, i + 2)
 
         # 0.3) p c ro O -> p c ro p O
-        for i, lwts in self.regex_parse('X: {<prop><cmp><Robj>}', return_idx=True):
+        for i, lwts in self.regex_parse('X: {<prop><cmp><Robj><O>}', return_idx=True):
             if not any(t == 'Rprop' for w, t in self.full_label[i + 2:i + 5]):
                 self.full_label.insert(i + 3, (lwts[0][0], 'Rprop'))
 
-        # ========== C r p
-        # 1.1) C r p (Note: 1.x cannot use self.regex_parse because it may return over-lapping word-tags)
+        # ========== c r p
+        # 1.1) c r p (Note: 1.x not use self.regex_parse to avoid over-lapping word-tags)
         for i, ((w0, t0), (w1, t1), (w2, t2)) in _enum_full_label(3, reverse=True):
             if _is_cmps(w0, t0) and t1.endswith('Rprop') and t2 == 'prop':
                 _switch_full_label_s(i, i + 2)
 
-        # 1.2) C ro r p
+        # 1.2) c ro r p
         for i, ((w0, t0), (w1, t1), (w2, t2), (w3, t3)) in _enum_full_label(4, reverse=True):
             if _is_cmps(w0, t0) and t1.endswith('Robj') and t2.endswith('Rprop') and t3 == 'prop':
                 _switch_full_label_s(i, i + 3)
@@ -627,12 +634,15 @@ class RCTree:
             j = int(lwts.contains_tags('Robj'))  # 0 or 1
             _switch_full_label_s(i + len(lwts) - 3 - j, i + len(lwts) - 2)
 
-        # TODO p1 p2 p3 xxx R -> match p2-R not p1-R
-        #  p1 C R 的 p2 -> p2 p1 C R
-        # ### px p r p
-        # for i, ((w0, t0), (w1, t1), (w2, t2), (w3, t3)) in _enum_full_label(4, reverse=True):
-        #     if t0 == 'prop' and t1 == 'cmp' and t2.endswith('Rprop') and t3 == 'prop':
-        #         _switch_full_label_s(i, i + 3)
+        # ========== c p c?
+        # 3.1) c p IN -> p IN
+        for i, lwts in self.regex_parse('X: {<cmp><prop><O|cmp>}', return_idx=True):
+            if lwts[1][0].replace('直接','') in {'设置', '布置', '安装'} and lwts[2][0] == '在':
+                self.full_label.rename(i, lwts[0][0] + lwts[2][0])
+                _switch_full_label_s(i, i + 1)
+                self.full_label.remove(i + 2)
+
+        # TODO p1 C R 的 p2 -> p2 p1 C R
 
         # ======================================== Match prop
         while self.regex_parse('X: {<prop><cmp><Robj>?<Rprop><O><cmp><Rprop>}', return_idx=True):
@@ -680,7 +690,7 @@ class RCTree:
 
         _sort_child_nodes(self.obj_node)
 
-        # ========== Add bool indicator (OR*)
+        # ========== Add bool indicator (OR-combine/OR-related)
         for i, p in enumerate(self.obj_node.child_nodes):
             if i == 0:
                 continue
@@ -693,7 +703,7 @@ class RCTree:
                 pi = min(i for i in pis if i >= 0)
                 if 0 <= p1i < pi:
                     s = self.slabel_2i[p1i:pi]
-                    s = s[s.find(']') + 1:]
+                    s = s[s.find(']') + 1:].strip('， ')
                     if s and s[0] == '或':
                         p.or_combine = True
                         print(f'[DEBUG] OR combine: {p1}, {p}')
@@ -725,7 +735,7 @@ class RCTree:
             for dw in DEONTIC_WORDS:
                 w_ = w_.replace(dw, '')
             # do not use ('且', '并'): [熔点/prop]_[不小于/cmp]_[1000℃/ARprop]_且_[无/cmp]_[绝热层/ARprop]_的...
-            patterns = {'，并$', '，且$', '，并且$', '，即$', '^或'}
+            patterns = {'，并$', '，且$', '，并且$', '，尚$', '，即$', '，但$', '^或', '^、$'}
             return any(re.search(p, w_) for p in patterns)
 
         for i in range(1, len(props)):  # use ascending order
@@ -744,11 +754,10 @@ class RCTree:
                 req = [(r.word, r.tag) for r in pi.req if r]
                 full_label_1 = self.full_label[li1 + 1:]
                 # li = the first valid index of req
-                if len(req) <= 2:
+                if len(req) <= 2: # no Robj
                     li = full_label_1.index(req)
-                    if li < 0:
-                        li = full_label_1.index(req[::-1])
-                else:
+                    if li < 0: li = full_label_1.index(req[::-1])
+                else: # has Robj
                     lis = [li for li in (full_label_1.index(r_) for r_ in (req, [req[0], req[2], req[1]], req[:2]))
                            if li >= 0]
                     li = lis[0] if lis else -1
@@ -763,7 +772,7 @@ class RCTree:
             elif pi1.word and pi.word == '其' and pi.child_nodes:
                 print(f'[DEBUG] match last prop-1 {pi}')
                 pi.word = pi1.word
-                # pi1.child_nodes += pi.child_nodes # 2 propx
+                # pi1.child_nodes += pi.child_nodes # this will introduce 2 propx
                 # props[i] = None
             elif is_pxp and all(pi.word == cn.word for cn in pi1.child_nodes):
                 print(f'[DEBUG] match last prop-2 {pi}')
