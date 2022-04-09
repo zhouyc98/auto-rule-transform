@@ -1,13 +1,13 @@
 -Evaluation Tags
-##correct 	RCTree is correct. 
-##wrong 	RCTree is wrong while the label is correct.
-##relabel 	label is wrong.
+##correct 	RCTree of parsing result is correct. 
+##wrong 	RCTree of parsing result is incorrect. 
+##relabel 	labeling result is wrong.
 
 -Notes
-Seq means sequence, i.e., sentence
+Seq means sequence (sentence)
 Label format: [word/tag]
 Each result is separated by 90*'-'
-The #xxxxxxx in the first line of each result is the id of the sentence
+The #xxxxxxx in the first line of each result is seq-id
 Type is the default prop
 Simple sentence regex pattern: 'RCTree:.*\n.*\n.*\|-.*\nParsing'
 
@@ -17,9 +17,9 @@ the number of '-' after '|' indicates the hierarchy level of properties
 the '?' after '-' means this line represents applicability
 all 'cmp' elements are simplified to symbols. 
 [xx]	RCTree element
-|-?		Prop & Applicability
-|-		Prop & Requirement
-|+		Prop & App/Req (OR combination)
+|-?	Prop & Applicability
+|-	Prop & Requirement
+|+	Prop & App/Req (OR-combination)
 
 -Stat
 All=611, correct=575(0.9411), wrong=36(0.0589)

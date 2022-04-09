@@ -309,7 +309,51 @@ def get_test_data_loader(data_dir, batch_size, max_sql=125):
 
 
 # ========================================================================================= Process
-def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Data\xiaofang'):
+def process_xiaofang_data(data_dir='/Users/ZhouYucheng/Documents/硕士/Researches/自动合规性审查-NSFC/Data/xiaofang'):
+    def json_to_doc(doc_js):
+        """ keys: content (& name, about, code)
+        keys in content: body (& explain, title, strong, hasChildren, chapter)
+        """
+
+        def process_txt(txt: str):
+            """
+            1) XXX\n\u003csup\u003e2\u003c/sup\u003e -----> XXX\n<sup>2</sup> -----> XXX2
+            2) remove <img> tag
+            3) clean redundant \n
+            """
+            if txt.strip() == '':
+                return ''
+
+            # txt = eval("'" + di + "'") # unnecessary
+            if '<img>' in txt:
+                txt = txt.replace('<img>', '')
+
+            if '<' in txt:
+                txt = re.sub(r'\n<(sub|sup)>(.*)</(sub|sup)>', r'\2', txt)
+                txt = re.sub(r'<(sub|sup)>(.*)</(sub|sup)>', r'\2', txt)
+            txt = txt.replace('m\n2', 'm2')
+
+            if txt.endswith('\n'):
+                txt = txt.strip() + '\n'
+            txt = txt.replace('\n\n\n', '\n\n')
+
+            return txt
+
+        # doc_s = [doc_js['name'], '\n']  # use list instead of str concat, for performance
+        # if 'about' in doc_js:
+        #     doc_s.extend([doc_js['about'], '\n'])
+        doc_s = []
+        if 'content' in doc_js and isinstance(doc_js['content'], list):
+            for content in doc_js['content']:
+                if 'body' in content:
+                    doc_s.append('\n')
+                    doc_s.append(process_txt(content['body']))
+
+        doc = ''.join(doc_s)
+        doc = doc.replace('\n\n\n\n\n\n', '\n\n').replace('\n\n\n\n', '\n\n').replace('\n\n\n', '\n\n')
+
+        return doc
+
     docs = []
     doc_sep = '\n\n#=====\n\n'
 
@@ -327,64 +371,13 @@ def process_xiaofang_data(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自
     docs = np.array(docs)
     np.random.shuffle(docs)
 
-    # n = docs.shape[0]
-    # n_train, n_val = int(n * 0.8), int(n * 0.1)
-    # docs_dict = {'train': docs[:n_train], 'val': docs[n_train:n_train + n_val], 'test': docs[n_train + n_val:]}
-    # for t, docs_1 in docs_dict.items():
     with open(os.path.join(data_dir, 'processed/xiaofang.txt'), 'w', encoding='utf8') as f:
         for doc in docs:
             f.write(doc_sep)
             f.write(doc)
 
 
-def json_to_doc(doc_js):
-    """ keys: {'name', 'about', 'content'} & //{'code'}
-    keys in ['content']: {'explain', 'title', 'body'} & //{'strong', 'hasChildren', 'chapter'}
-    """
-
-    def process_txt(txt: str):
-        """
-        1) XXX\n\u003csup\u003e2\u003c/sup\u003e -----> XXX\n<sup>2</sup> -----> XXX2
-        2) remove <img> tag
-        3) clean redundant \n
-        """
-        if txt.strip() == '':
-            return ''
-
-        # txt = eval("'" + di + "'") # unnecessary
-        if '<img>' in txt:
-            txt = txt.replace('<img>', '')
-
-        if '<' in txt:
-            txt = re.sub(r'\n<(sub|sup)>(.*)</(sub|sup)>', r'\2', txt)
-            txt = re.sub(r'<(sub|sup)>(.*)</(sub|sup)>', r'\2', txt)
-        txt = txt.replace('m\n2', 'm2')
-
-        if txt.endswith('\n'):
-            txt = txt.strip() + '\n'
-        txt = txt.replace('\n\n\n', '\n\n')
-
-        return txt
-
-    doc_s = [doc_js['name'], '\n']  # use list instead of str concat, for performance
-    if 'about' in doc_js:
-        doc_s.extend([doc_js['about'], '\n'])
-
-    if 'content' in doc_js and isinstance(doc_js['content'], list) and len(doc_js['content']) > 0:
-        for i in range(len(doc_js['content'])):
-            di = doc_js['content'][i]
-            for k in ['explain', 'title', 'body']:
-                if k in di:
-                    doc_s.append('\n')
-                    doc_s.append(process_txt(di[k]))
-
-    doc = ''.join(doc_s)
-    doc = doc.replace('\n\n\n\n\n\n', '\n\n').replace('\n\n\n\n', '\n\n').replace('\n\n\n', '\n\n')
-
-    return doc
-
-
-def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Data\xiaofang\processed'):
+def select_xiaofang_sentence(data_dir='/Users/ZhouYucheng/Documents/硕士/Researches/自动合规性审查-NSFC/Data/xiaofang/processed'):
     doc = open(os.path.join(data_dir, 'xiaofang.txt'), 'r', encoding='utf8').read()
     doc = doc.replace('\n#=====\n', '。\n').replace('\n\n', '。\n').replace('\n', ' ')
     sents = re.split('[。？！]', doc)
@@ -392,24 +385,21 @@ def select_xiaofang_doc(data_dir=r'C:\Users\Zhou Yucheng\硕士\Researches\自�
     with open(os.path.join(data_dir, 'sentences.txt'), 'w', encoding='utf8') as f:
         f.writelines(sents)
 
-    cmp_rel = '等于 大于 小于 大于等于 小于等于 大于或等于 小于或等于 不大于 不小于 高于 低于 不超过'.split()
+    cmp_rels = '等于 大于 小于 大于等于 小于等于 大于或等于 小于或等于 不大于 不小于 高于 低于 不超过'.split()
     for i in range(len(sents) - 1, -1, -1):
         if '；' in sents[i]:  # split ';'
-            sents[i] = sents[i].split('；')[0]
-        if not any([cr in sents[i] for cr in cmp_rel]):
+            sents[i] = sents[i].split('；')[0] + '\n'
+        if not any([cr in sents[i] for cr in cmp_rels]):
             del sents[i]
-    for i in range(len(sents) - 1, -1, -1):
-        if sents[i] in sents[:i]:  # 去重
-            del sents[i]
+    sents = list(set(sents)) # 去重
 
     with open(os.path.join(data_dir, 'sentences_sel/sentences_sel_all.txt'), 'w', encoding='utf8') as f:
-        f.write('\n'.join(sents))
-
+        f.writelines(sents)
     n_file = 11
     n_line = int(len(sents) / n_file)
     for i in range(n_file):
         with open(os.path.join(data_dir, 'sentences_sel/sentences_sel_{}.txt'.format(i)), 'w', encoding='utf8') as f:
-            f.write('\n'.join(sents[i * n_line:(i + 1) * n_line]))
+            f.writelines(sents[i * n_line:(i + 1) * n_line])
 
 
 def init_data_by_json(data_dir='../data/xiaofang/', early_return=False, random_state=29):
@@ -816,7 +806,7 @@ def _measure_sentence_distribution():
                 return _get_doc_index(seq1[5:])
 
     doc_sep = '\n\n#=====\n\n'
-    with open(r'C:\Users\Zhou Yucheng\硕士\Researches\自动合规性审查\Data\xiaofang\processed\xiaofang.txt', 'r',
+    with open('/Users/ZhouYucheng/Documents/硕士/Researches/自动合规性审查-NSFC/Data/xiaofang/processed/xiaofang.txt', 'r',
               encoding='utf8') as fp:
         docs = fp.read().split(doc_sep)
     for i, doc in enumerate(docs):
@@ -856,9 +846,11 @@ def _test_random_state():
 
 
 if __name__ == '__main__':
-    # _measure_sentence_distribution()  # 44 docs
+    process_xiaofang_data()
+    select_xiaofang_sentence()
+    # _measure_sentence_distribution()  # 46 docs (611 sentences)
     # _test_random_state()
-    # sys.exit()
+    sys.exit()
 
     init_data_by_json()
     check_result = True
