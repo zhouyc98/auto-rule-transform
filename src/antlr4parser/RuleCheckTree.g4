@@ -1,37 +1,27 @@
 grammar RuleCheckTree;
 
 /* Parser Rules */
-//prs: all p-r pattern: ((())], (((())]], [(()))
-//pr:  complete p-r pattern: ((()()))()
-//RCTree
+// prs: all p-r pattern: ((())], (((())]], [(()))
+// pr:  complete prop-req pattern: ((()()))()
 rctree: prs+;
-
-//all pr pattern
 prs:    pr
     |   PROP+ pr
-    |   pr req
-    |   req
+    |   pr? req
 ;
-
-//prop-req pattern
 pr:     PROP pr+ req
     |   PROP req
 ;
-
-//requirement
-req: CMP? ROBJ? RPROP;
-
+req: CMP? ROBJ? (RPROP|ARPROP);
 
 /* Lexer Rules*/
 //non-greedy
 PROP:   '[' CHAR*? '/prop]';
 CMP:    '[' CHAR*? '/cmp]';
-ROBJ:   '[' CHAR*? '/' 'A'? 'Robj]';
-RPROP:  '[' CHAR*? '/' 'A'? 'Rprop]';
+ROBJ:   '[' CHAR*? '/Robj]';
+RPROP:  '[' CHAR*? '/Rprop]';
+ARPROP: '[' CHAR*? '/ARprop]';
 OBJ:    '[' CHAR*? '/obj]' ->skip;
 OTHER:  '[' CHAR*? '/O]' -> skip;
 OTHERS: CHAR+? -> skip;
-
 CHAR:   ~[[\r\n]; 
-//SEP:    '_'+? -> skip;
 NEWLINE:'\r'?'\n' -> skip;

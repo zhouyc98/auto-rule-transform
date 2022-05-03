@@ -344,8 +344,8 @@ class RCTreeVisitor(RuleCheckTreeVisitor):
 
     def visitReq(self, ctx: RuleCheckTreeParser.ReqContext):
         cmp = self.to_rcnode(ctx.CMP(), 'cmp')
-        rprop = self.to_rcnode(ctx.RPROP())  # AR* or R*
-        robj = self.to_rcnode(ctx.ROBJ()) if (ctx.ROBJ() is not None) else None  # 'Robj'
+        rprop = self.to_rcnode(ctx.RPROP())  if ctx.RPROP() else self.to_rcnode(ctx.ARPROP()) # AR or R
+        robj = self.to_rcnode(ctx.ROBJ()) if ctx.ROBJ() else None
 
         return cmp, rprop, robj
 
