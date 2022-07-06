@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/env python3
 # coding=utf-8
 
 import argparse
@@ -171,37 +171,30 @@ def log_predictions(inputs, labels, preds, comment='train', is_test=False, corpu
         corpus_ = corpus
     # =====
 
-    log_lines = []
-    p_rand = random.random()
-    n_log = bs  # logged number of seq
-    for i in range(n_log):
+    for i in range(bs):
         seq = inputs[i]
         label = labels[i] if labels is not None else None
         pred = preds[i]
         label_str, pred_str, seq_str = corpus_.render_seq_labels(seq, label, pred)
+        label_str = label_str.replace('##','') if label_str else label_str
+        pred_str = pred_str.replace('##','')
+        seq_str = seq_str.replace('##','')
 
-        if is_print and p_rand < 0.05 and i < 3:
-            if is_test:
-                print(f'{pred_str}\n')
-            else:
+        if is_print and i < 5:
+            print(f'seq:   {seq_str}')
+            if not is_test:
                 print(f'label: {label_str}')
-                print(f'pred : {pred_str}\n')
+            print(f'pred:  {pred_str}\n')
 
         if is_log:
-            log_lines.append(f'seq  : {seq_str}  \n')
-
+            with open(f"./logs/predictions/predictions-{comment}.log", 'a+', encoding='utf8') as fp:
+                fp.write(f'seq:   {seq_str}\n')
+                if not is_test:
+                    fp.write(f'label: {label_str}\n')
+                fp.write(f'pred:  {pred_str}\n\n')
             if is_test:
-                log_lines.append(f'{pred_str}  \n\n')  # markdown needs 2 space before \n
-            else:
-                log_lines.append(f'label: {label_str}  \n')
-                log_lines.append(f'pred : {pred_str}  \n\n')
-
-    if is_log:
-        # date_now = datetime.now().strftime('%m%d')
-        with open(f"./logs/predictions/predictions-{comment}.log", 'a+', encoding='utf8') as f_:
-            f_.write(f"-----[{datetime.now().isoformat()}]  \n\n")
-            f_.writelines(log_lines)
-            f_.write('  \n')
+                with open(f"./logs/predictions/predictions-{comment}1.log", 'a+', encoding='utf8') as fp:
+                    fp.write(f'{pred_str}\n')
 
 
 def cross_entropy_loss_non_pad(outputs, labels):

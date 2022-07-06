@@ -1,19 +1,4 @@
------[2021-05-08T18:54:34.949209]  
-
-seq  : 防火墙的耐火极限不低于3##h。  
-[防火墙/obj]的[耐火极限/prop][不低于/cmp][3##h/Rprop]。  
-
-seq  : 柱的耐火极限不低于3##h。  
-[柱/obj]的[耐火极限/prop][不低于/cmp][3##h/Rprop]。    
-
-seq  : 防火分区的柱的耐火极限不低于3##h。  
-[防火分区/obj]的[柱/prop]的[耐火极限/prop][不低于/cmp][1.5##h/Rprop]。 
-
-seq  : 每个防火分区，其安全出口的数量应经计算确定，且不应少于2个。  
-[每个防火分区/obj]，其[安全出口/prop]的数量应经计算确定，且[不应少于/cmp][2个/Rprop]。  
-
-seq  : 生产的火灾危险性类别为丙级，厂房的耐火等级为三级的的厂房层数不超过2层。
-[生产的火灾危险性类别/prop][为/cmp][丙级/ARprop]，[厂房/obj]的[耐火等级/prop][为/cmp][三级/ARprop]的的厂房[层数/prop][不超过/cmp][2层/Rprop]。  
-
-seq  : 生产的火灾危险性类别为丙级，厂房的耐火等级为二级的高层厂房，其每个防火分区的面积不超过2000##m2。  
-[生产的火灾危险性类别/prop][为/cmp][丙级/ARprop]，[厂房/obj]的[耐火等级/prop][为/cmp][二级/ARprop]的[高层厂房/obj]，其每个[防火分区/prop]的[面积/prop][不超过/cmp][2000##m2/Rprop]。  
+In [public buildings/sobj], the [thickness/prop] of [floors/obj] [shall not be less than/cmp] [30 mm/Rprop]
+In [public buildings/sobj], the [width/prop] of [stairs/obj] [shall not be less than/cmp] [0.8 m/Rprop]
+For [windows/obj] that having a [width/prop] [greater than/cmp] [800 mm/ARprop], they shall have a [height/prop] [no less than/cmp] [600 mm/Rprop]
+To meet the thermal insulation requirement, [concrete/ARprop] [walls/obj] that having a [width/prop] [less than/cmp] [200 mm/ARprop] shall have a [thermal resistance/prop] [no less than/cmp] [0.1 m2K/W/Rprop]

@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/env python3
 # coding=utf-8
 
 import sys
@@ -6,7 +6,6 @@ import argparse
 import nltk
 import re
 import hashlib
-import pyperclip
 import shutil
 import pandas as pd
 import xml.etree.ElementTree as ET
@@ -23,11 +22,11 @@ CMP_DICT = OrderedDict([('≤', '小于或?等于|不(大于|高于|多于|超�
                         ('≥', '大于或?等于|不(小于|低于|少于)|(not be|no) less than'),
                         ('>', '大于|超过|高于|greater than'),
                         ('<', '小于|低于|less than'),
-                        ('≠', '不等于|避免|不采用|无法采用|非|(not be|no) equals?'),
+                        ('≠', '不等于|避免|(不|无法|严禁)采用|非|除|(not be|no) equals?'),
                         ('=', '等于|为|采?用|按照?|符合|执行|equals?'),
-                        ('has no', '不(有|设置?|具备)|无'),
-                        ('has', '(具|含|留)?有|设(置|有)?|(增|铺|搭)设|安装|具备'),
-                        ('not in', '不在'),
+                        ('has no', '(不|严禁)(有|设置?|具备)|无'),
+                        ('has', '(具|含|留)?有|设(置|有)?|(增|铺|搭)设|安装|具备|采取'),
+                        ('not in', '(不|除|严禁)在'),
                         ('in', '在'),
                         ])
 
@@ -40,6 +39,7 @@ def get_cmp_str(cmp_w):
     for dw in DEONTIC_WORDS:
         cmp_w = cmp_w.replace(dw, '')
     cmp_w = cmp_w.strip()
+    cmp_w = cmp_w.replace('均', '')
 
     # simplify cmp_value, if can
     if cmp_w == '':
@@ -344,14 +344,14 @@ class RCTreeVisitor(RuleCheckTreeVisitor):
 
     def visitReq(self, ctx: RuleCheckTreeParser.ReqContext):
         cmp = self.to_rcnode(ctx.CMP(), 'cmp')
-        rprop = self.to_rcnode(ctx.RPROP())  # AR* or R*
-        robj = self.to_rcnode(ctx.ROBJ()) if (ctx.ROBJ() is not None) else None  # 'Robj'
+        rprop = self.to_rcnode(ctx.RPROP())  if ctx.RPROP() else self.to_rcnode(ctx.ARPROP()) # AR or R
+        robj = self.to_rcnode(ctx.ROBJ()) if ctx.ROBJ() else None
 
         return cmp, rprop, robj
 
 
 class RCTree:
-    def __init__(self, seq, label_iit, log_func=print):
+    def __init__(self, seq, label_iit, log_fn=print):
         """
         :param seq:     sentence, list of char: ['a','b','c',...] -> str: 'abc..'
         :param label_iit:   label_tuple, [(i,j,tag),(i,j,tag),...]
@@ -371,10 +371,10 @@ class RCTree:
         self.rule_category = ''
         self.error_msg = ''
         self.sparql = ''
-        self.log_func = log_func
+        self.log_fn = log_fn
 
-    def change_log_func(self, log_func):
-        self.log_func = log_func
+    def change_log_fn(self, log_fn):
+        self.log_fn = log_fn
 
     def set_sparql(self, sparql):
         self.sparql = sparql
@@ -413,13 +413,13 @@ class RCTree:
         # ======================================== Bool merge (union)
         def _is_union(i_, w_):
             union_words1 = {'、', '或'}
-            union_words2 = {'且', '和', '及', '以及'}
+            union_words2 = {'且', '和', '及', '以及', '等'}
             union_words3 = {',', '，'}
             # re.search('(?<!abc)x', 'abcx')
-            if any(x in w_ for x in union_words1) and ('之间' not in w_):
+            if any(w1 in w_ for w1 in union_words1) and ('之间' not in w_):
                 return True
 
-            if any(x == w_ for x in union_words2):
+            if w_ in union_words2:
                 return True
 
             im = len(self.full_label) - 1
@@ -427,11 +427,10 @@ class RCTree:
                 return False
             w_1, t_1 = self.full_label[i_ + 1]
             w1_, t1_ = self.full_label[i_ - 1]
-            w_2, t_2 = self.full_label[i_ + 2] if i_ <= im - 2 else (None, None)
-            w_3, t_3 = self.full_label[i_ + 3] if i_ <= im - 3 else (None, None)
-            w2_, t2_ = self.full_label[i_ - 2] if i_ >= 2 else (None, None)
-            if any(x == w_ for x in union_words3) and (
-                    any(x == w_2 for x in union_words3) or any(x == w2_ for x in union_words3)):
+            w_2, t_2 = self.full_label[i_ + 2] if i_ <= im - 2 else ('', '')
+            w_3, t_3 = self.full_label[i_ + 3] if i_ <= im - 3 else ('', '')
+            w2_, t2_ = self.full_label[i_ - 2] if i_ >= 2 else ('', '')
+            if w_ in union_words3 and (w_2 in union_words3 or w2_ in union_words3):
                 return True
 
             if w_ == '与' and t_1 == t1_ == 'prop' and '距' not in w_2 and '距' not in w_3:
@@ -531,13 +530,12 @@ class RCTree:
 
         for i, (wi, ti) in enumerate(self.full_label):
             if ti == 'O':
-                js = [j for j, (wj, tj) in enumerate(self.full_label[i + 1:]) if tj == 'O' and '时' in wj]
+                js = [j for j, (wj, tj) in enumerate(self.full_label[i + 1:]) if tj == 'O' and '时' in wj and wj[0] != '，']
                 if js and (re.search(r'^(应符合|不应.于)下列规定：', wi) or wi.strip(' ,，') in ('在', '当')):
                     j = i + 1 + js[0]
                     has_arprop = any(t == 'ARprop' for w, t in self.full_label[i + 1:j])
                     has_no_obj = all(t != 'obj' for w, t in self.full_label[i + 1:j])
                     if has_arprop and has_no_obj:
-                        j = i + 1 + js[0]
                         _sub_seq_switch(i, j)
                         break
                 if re.search(r'^(应符合|不应.于)下列规定：', wi):
@@ -547,6 +545,14 @@ class RCTree:
                         j = i + len(lwts) - 1  # tag-j is O
                         _sub_seq_switch(i, j)
                         break
+                if re.search(r'下列.*部位', wi):
+                    for j in range(len(self.full_label)-1, i, -1):
+                        wj, tj = self.full_label[j]
+                        if tj == 'O' and wj == '：':
+                            _sub_seq_switch(i + 1, j)
+                            break
+                    break
+
 
         # 2) 当A被B C时 -> 当B把A C时
         for i, lwts in self.regex_parse('X: {<Robj>?<A?Rprop><O><obj><prop>}', return_idx=True):
@@ -603,7 +609,7 @@ class RCTree:
         for w1 in ('作', '作为', '进行', '处'):
             self.full_label.remove_o_word(w1)
 
-        # ========== (c ro r) order
+        # ========== ro order
         # 0.1) ro c r -> c ro r
         for i, lwts in self.regex_parse('X: {<Robj><cmp><A?Rprop>}', return_idx=True):
             _switch_full_label_s(i, i + 1)
@@ -614,17 +620,17 @@ class RCTree:
                 _switch_full_label_s(i + 1, i + 2)
 
         # 0.3) p c ro O -> p c ro p O
-        for i, lwts in self.regex_parse('X: {<prop><cmp><Robj>}', return_idx=True):
+        for i, lwts in self.regex_parse('X: {<prop><cmp><Robj><O>}', return_idx=True):
             if not any(t == 'Rprop' for w, t in self.full_label[i + 2:i + 5]):
                 self.full_label.insert(i + 3, (lwts[0][0], 'Rprop'))
 
-        # ========== C r p
-        # 1.1) C r p (Note: 1.x cannot use self.regex_parse because it may return over-lapping word-tags)
+        # ========== c r p
+        # 1.1) c r p (Note: 1.x not use self.regex_parse to avoid over-lapping word-tags)
         for i, ((w0, t0), (w1, t1), (w2, t2)) in _enum_full_label(3, reverse=True):
             if _is_cmps(w0, t0) and t1.endswith('Rprop') and t2 == 'prop':
                 _switch_full_label_s(i, i + 2)
 
-        # 1.2) C ro r p
+        # 1.2) c ro r p
         for i, ((w0, t0), (w1, t1), (w2, t2), (w3, t3)) in _enum_full_label(4, reverse=True):
             if _is_cmps(w0, t0) and t1.endswith('Robj') and t2.endswith('Rprop') and t3 == 'prop':
                 _switch_full_label_s(i, i + 3)
@@ -644,12 +650,15 @@ class RCTree:
             j = int(lwts.contains_tags('Robj'))  # 0 or 1
             _switch_full_label_s(i + len(lwts) - 3 - j, i + len(lwts) - 2)
 
-        # TODO p1 p2 p3 xxx R -> match p2-R not p1-R
-        #  p1 C R 的 p2 -> p2 p1 C R
-        # ### px p r p
-        # for i, ((w0, t0), (w1, t1), (w2, t2), (w3, t3)) in _enum_full_label(4, reverse=True):
-        #     if t0 == 'prop' and t1 == 'cmp' and t2.endswith('Rprop') and t3 == 'prop':
-        #         _switch_full_label_s(i, i + 3)
+        # ========== c p c?
+        # 3.1) c p IN -> p IN
+        for i, lwts in self.regex_parse('X: {<cmp><prop><O|cmp>}', return_idx=True):
+            if lwts[1][0].replace('直接','') in {'设置', '布置', '安装'} and lwts[2][0] == '在':
+                self.full_label.rename(i, lwts[0][0] + lwts[2][0])
+                _switch_full_label_s(i, i + 1)
+                self.full_label.remove(i + 2)
+
+        # TODO p1 C R 的 p2 -> p2 p1 C R
 
         # ======================================== Match prop
         while self.regex_parse('X: {<prop><cmp><Robj>?<Rprop><O><cmp><Rprop>}', return_idx=True):
@@ -691,13 +700,13 @@ class RCTree:
                 if p.req:
                     ind = self.slabel_2i.find(_n_str(p.req[1]))
                 assert ind >= 0
-                idx_props.append((not p.has_app_seq(), ind, i, p))
+                idx_props.append((not p.has_app_req(), ind, i, p))
             idx_props.sort()
             node.child_nodes = [p for *_, p in idx_props]
 
         _sort_child_nodes(self.obj_node)
 
-        # ========== Add bool indicator (OR*)
+        # ========== Add bool indicator (OR-combine/OR-related)
         for i, p in enumerate(self.obj_node.child_nodes):
             if i == 0:
                 continue
@@ -710,7 +719,7 @@ class RCTree:
                 pi = min(i for i in pis if i >= 0)
                 if 0 <= p1i < pi:
                     s = self.slabel_2i[p1i:pi]
-                    s = s[s.find(']') + 1:]
+                    s = s[s.find(']') + 1:].strip('， ')
                     if s and s[0] == '或':
                         p.or_combine = True
                         print(f'[DEBUG] OR combine: {p1}, {p}')
@@ -742,7 +751,7 @@ class RCTree:
             for dw in DEONTIC_WORDS:
                 w_ = w_.replace(dw, '')
             # do not use ('且', '并'): [熔点/prop]_[不小于/cmp]_[1000℃/ARprop]_且_[无/cmp]_[绝热层/ARprop]_的...
-            patterns = {'，并$', '，且$', '，并且$', '，即$', '^或'}
+            patterns = {'，并$', '，且$', '，并且$', '，尚$', '，即$', '，但$', '^或', '^、$'}
             return any(re.search(p, w_) for p in patterns)
 
         for i in range(1, len(props)):  # use ascending order
@@ -761,11 +770,10 @@ class RCTree:
                 req = [(r.word, r.tag) for r in pi.req if r]
                 full_label_1 = self.full_label[li1 + 1:]
                 # li = the first valid index of req
-                if len(req) <= 2:
+                if len(req) <= 2: # no Robj
                     li = full_label_1.index(req)
-                    if li < 0:
-                        li = full_label_1.index(req[::-1])
-                else:
+                    if li < 0: li = full_label_1.index(req[::-1])
+                else: # has Robj
                     lis = [li for li in (full_label_1.index(r_) for r_ in (req, [req[0], req[2], req[1]], req[:2]))
                            if li >= 0]
                     li = lis[0] if lis else -1
@@ -777,16 +785,15 @@ class RCTree:
                     if not pi.req[0]:  # cmp
                         pi.req[0].word = pi1.req[0].word
                     print(f"[DEBUG] match p-r tag for {str(pi1)} in {self.full_label[li1:li + 1]}")
-            elif is_pxp:
-                if pi.word == '其' and pi.child_nodes and is_same_req:
-                    print(f'[DEBUG] match last prop-1 {pi}')
-                    pi.word = pi1.word
-                    # pi1.child_nodes += pi.child_nodes # 2 propx
-                    # props[i] = None
-                elif all(pi.word == cn.word for cn in pi1.child_nodes):
-                    print(f'[DEBUG] match last prop-2 {pi}')
-                    pi1.child_nodes.append(pi)
-                    props[i] = None
+            elif pi1.word and pi.word == '其' and pi.child_nodes:
+                print(f'[DEBUG] match last prop-1 {pi}')
+                pi.word = pi1.word
+                # pi1.child_nodes += pi.child_nodes # this will introduce 2 propx
+                # props[i] = None
+            elif is_pxp and all(pi.word == cn.word for cn in pi1.child_nodes):
+                print(f'[DEBUG] match last prop-2 {pi}')
+                pi1.child_nodes.append(pi)
+                props[i] = None
 
         for i in range(len(props) - 1, -1, -1):
             if props[i] is None:
@@ -807,18 +814,32 @@ class RCTree:
             words = self.obj_node.word.split(', ')
             anchored = False
             slabel = str(self.full_label)
-            iobjs = [slabel.index(f'[{w}/obj]') for w in words]
-            for prop in props:
-                if prop.is_app_req() and not isinstance(prop.word, list):
-                    wp = prop.word if prop.word is not None else ''
-                    ip = re.search(f'{wp}.*?{prop.req[1].word}/ARprop', slabel).span()[1]
-                    for k, io in enumerate(iobjs):
-                        if ip < io:
-                            prop.anchor = f'&{k}' if ('时，' in slabel[ip:io]) else f'&{k + 1}'
-                            anchored = True
-                            break
+            words_ = [w.replace('|','\|') for w in words]
+            iobjs = [(n+1,m.start()) for n,w_ in enumerate(words_) for m in re.finditer(f"\[{w_}/obj\]", slabel)]
+            iobjs.sort(key=lambda x:x[1])
+            for i in range(len(props)):
+                prop = props[i]
+                if not prop.is_app_req() and prop.child_nodes and prop.child_nodes[0].is_app_req():
+                    prop = prop.child_nodes[0]
+                if prop.is_app_req() and not isinstance(prop.word, list) and '均' not in (prop.req[0].word or ''):
+                    s = re.search(f"{prop.word or ''}.*?{prop.req[1].word}(/ARprop)", slabel)
+                    if not s and prop.word: s = re.search(f"{prop.req[1].word}(/ARprop).*?{prop.word}", slabel)
+                    if s: slabel = slabel[:s.start(1)] + '_' + slabel[s.start(1) + 1:] # avoid duplicated matching
+                    else: continue
+                    ip = s.span()[1]
+                    if ip < iobjs[0][1]:
+                        prop.anchor = f'&{iobjs[0][0]}'
+                        anchored = True
+                    else:
+                        for i in range(1, len(iobjs)):
+                            io = iobjs[i][1]
+                            if ip < io:
+                                n1, n = iobjs[i-1][0], iobjs[i][0]
+                                prop.anchor = f'&{n1}' if '时，' in slabel[ip:io] else f'&{n}'
+                                anchored = True
+                                break
                     if not prop.anchor:
-                        prop.anchor = f'&{len(iobjs)}'
+                        prop.anchor = f'&{len(words)}'
                         anchored = True
             if anchored:
                 for i, w in enumerate(words):
@@ -895,10 +916,11 @@ class RCTree:
 
         if 'obj' in self.full_label.tags:
             i_objs, w_objs = self.full_label.tag_idxs_words('obj')
+            for i in range(len(w_objs)-1,0,-1):
+                if all(w.endswith(w_objs[i]) for w in w_objs[i-1].split('|')): del w_objs[i]
             self.obj_node = RCNode(w_objs, 'obj')
             self.add_curr_child(self.obj_node)
-            if len(i_objs) > 1:
-                self.full_label.remove(i_objs[1:])  # leave one obj
+            if len(i_objs) > 1: self.full_label.remove(i_objs[1:])  # leave one obj
         else:
             self.obj_node = RCNode('*', 'obj')
             self.add_curr_child(self.obj_node)
@@ -915,21 +937,27 @@ class RCTree:
         self.parse_complete = self.full_label.contains_tags(('O', 'obj'), only=True)
 
     def log_msg(self, idx=0):
-        self.log_func('-' * 90)
-        self.log_func(f'[{idx}]#{self.seq_id}')
-        self.log_func(f'Seq:\t{self.seq}')
-        self.log_func(f'Label:\t{self.slabel}')
+        self.log_fn('-' * 90)
+        self.log_fn(f'[{idx}]#{self.seq_id}')
+        self.log_fn(f'Seq:\t{self.seq}')
+        self.log_fn(f'Label:\t{self.slabel}')
         if self.rule_category:
-            self.log_func(f"Category:  {str(self.rule_category)}  |Categoty Name:  {self.rule_category_name}")
+            self.log_fn(f"Category:  {str(self.rule_category)}  | Categoty Name:  {self.rule_category_name}")
 
         if self.error_msg:
-            self.log_func(self.error_msg)
+            self.log_fn(self.error_msg)
 
-        self.log_func(f"RCTree:\t#{self.hashtag()}\n{self}")
-        self.log_func('Parsing complete' if self.parse_complete else f'Parsing incomplete: {self.full_label}')
+        self.log_fn(f"RCTree:\t#{self.hashtag()}\n{self}")
+        self.log_fn('Parsing complete' if self.parse_complete else 'Parsing failed')
         if self.sparql:
-            self.log_func(f"Sparql:\n{self.sparql}")
+            self.log_fn(f"Sparql:\n{self.sparql}")
 
+    def count_node_pronoun(self):
+        if not hasattr(self, 'count_pronoun'):
+            self.count_pronoun = 1
+        else:
+            self.count_pronoun += 1
+        return self.count_pronoun
 
     def hashtag(self):
         return str_hash(self.__str__(indent='\t\t'))
@@ -963,13 +991,6 @@ class RCTree:
         obj_tree = '\n'.join(obj_lines)
 
         return tree + '\n' + obj_tree
-
-    def count_node_pronoun(self):
-        if not hasattr(self, 'count_pronoun'):
-            self.count_pronoun = 1
-        else:
-            self.count_pronoun += 1
-        return self.count_pronoun
 
 
 class RCNode:
@@ -1018,11 +1039,11 @@ class RCNode:
             return self.req[1].tag[0] == 'A'
         return None
 
-    def has_app_seq(self):
+    def has_app_req(self):
         if self.req:
             return self.req[1].tag[0] == 'A'
         elif self.child_nodes:
-            return any(cn.has_app_seq() for cn in self.child_nodes)
+            return any(cn.has_app_req() for cn in self.child_nodes)
         else:
             return False
 
@@ -1072,7 +1093,7 @@ class RCNode:
         t_str = self.__str__(optimize, show_tag, True)
 
         if self.child_nodes:
-            # cns = sorted(self.child_nodes, key=lambda cn: not cn.has_app_seq()) # have been sorted by post_process
+            # cns = sorted(self.child_nodes, key=lambda cn: not cn.has_app_req()) # have been sorted by post_process
             sep_and = f'\n|{indent}'
             sep_or = sep_and[:-1] + '+'
             cn_t_strs = [(sep_or if cn.or_combine else sep_and, cn.tree_str(indent + '-', optimize))
@@ -1126,12 +1147,13 @@ class RevitRuleGenerator:
                          ('OST_Stairs', 'Stairs?$', '楼梯$', {'^宽度$': '最小梯段宽度', '^Width$': 'Minimum Run Width'}),
                          ('OST_Windows', 'Windows?$', '窗$|^窗', {}),
                          ('OST_Walls', 'Walls?$', '墙$', {'Type': 'Structural Material'}),  # 结构材质
-                         ('OST_Floors', 'Floors?$', '楼板$', {'Thickness$': 'Default Thickness'})
+                         ('OST_StairsRailing', 'Railings?$', '栏杆$', {'高度': '栏杆扶手高度'}),
+                         ('OST_Floors', 'Floors?$', '楼板$', {'Thickness$': 'Default Thickness', '厚度': '默认的厚度'})
                          )
     Param_Names = {'混凝土$': 'Concrete', '^热阻$': '热阻(R)', '^thermal resistance$': 'Thermal Resistance (R)'}
     Cmp_Condition = {'=': 'Equal', '<': 'LessThan', '>': 'GreaterThan', '≤': 'LessOrEqual', '≥': 'GreaterOrEqual',
                      '≠': 'NotEqual', 'has': 'Contains', 'has no': 'DoesNotContain'}
-    Root = ET.Element('MCSettings', attrib={'AllowRequired': 'False', 'Name': 'Test-Zyc', 'Author': 'Zyc'})
+    Root = ET.Element('MCSettings', attrib={'AllowRequired': 'False', 'Name': 'CheckSet-Zyc', 'Author': 'Zyc'})
     Heading = ET.SubElement(Root, 'Heading', attrib={'HeadingText': 'Test', 'IsChecked': 'True'})
     Section = ET.SubElement(Heading, 'Section', attrib={'SectionName': 'Test', 'IsChecked': 'True'})
 
@@ -1139,16 +1161,17 @@ class RevitRuleGenerator:
         self.rct = rct
         self.obj = self.rct.obj_node
         self.class_name = None
-        self.cparam_names = {}
+        self.param_names = self.Param_Names.copy()
         for cn, w_en, w_cn, pns in self.Class_Param_Names:
             if re.search(w_en, self.obj.word, re.IGNORECASE) or re.search(w_cn, self.obj.word):
                 self.class_name = cn
-                self.cparam_names = pns
+                self.param_names.update(pns)
+                break
         if self.class_name is None:
             raise RuntimeError('Class name not found:', self.obj.word)
 
     def get_category_filter(self, op='And'):
-        """ <Filter ID="74c7e428-7bc8-4467-989d-7bb8fd26a934" Operator="And" Category="Category" Property="OST_Doors"
+        """ <Filter Operator="And" Category="Category" Property="OST_Doors"
             Condition="Included" Value="True" CaseInsensitive="False" Unit="None" UnitClass="None" FieldTitle=""
             UserDefined="False" Validation="None" /> """
 
@@ -1157,10 +1180,7 @@ class RevitRuleGenerator:
         return attrib
 
     def to_param_name(self, pw):
-        for pw1, pn in self.cparam_names.items():
-            if re.search(pw1, pw, re.IGNORECASE):
-                return pn
-        for pw1, pn in self.Param_Names.items():
+        for pw1, pn in self.param_names.items():
             if re.search(pw1, pw, re.IGNORECASE):
                 return pn
 
@@ -1170,7 +1190,7 @@ class RevitRuleGenerator:
         return pw
 
     def get_param_filter(self, node, op='And'):
-        """ <Filter ID="71ffc161-ca68-4c0f-bb0a-36f6d87b32dd" Operator="And" Category="Parameter" Property="标高"
+        """ <Filter Operator="And" Category="Parameter" Property="标高"
             Condition="WildCard" Value="标高3" CaseInsensitive="False" Unit="None" UnitClass="None" FieldTitle=""
             UserDefined="False" Validation="None" /> """
 
@@ -1194,9 +1214,6 @@ class RevitRuleGenerator:
             elif u == 'mm':
                 rv = str(float(rv) / 304.8)
                 unit_class = "Length"
-            else:
-                pass
-                # unit_class
 
         cmp_str = str(cmp)
         if not node.is_app_req():
@@ -1207,10 +1224,14 @@ class RevitRuleGenerator:
 
         attrib = {'Operator': op, 'Category': "Parameter", 'Property': pv, 'Condition': cond_str,
                   'Value': rv, 'Unit': "Default", 'UnitClass': unit_class}
+
+        if pv == 'Type':  # patching
+            attrib['Category'] = 'Type'
+            attrib['Property'] = 'Name'
         return attrib
 
     def get_is_elem_filter(self, op='And'):
-        """ <Filter ID="3ba6a2fb-2da7-45f1-bd47-fb6fc6838764" Operator="And" Category="TypeOrInstance"
+        """ <Filter Operator="And" Category="TypeOrInstance"
         Property="Is Element Type" Condition="Equal" Value="False" CaseInsensitive="False" Unit="None"
         UnitClass="None" FieldTitle="" UserDefined="False" Validation="None" /> """
 
@@ -1219,10 +1240,10 @@ class RevitRuleGenerator:
         return attrib
 
     def generate(self, write_xml=False):
-        if not self.rct.obj_node:
+        if not self.obj:
             return
-        if self.rct.root.child_nodes[0] is not self.rct.obj_node:
-            raise NotImplementedError('sobj is not support now')
+        if self.rct.root.child_nodes[0] is not self.obj:
+            print('[Warning] sobj is ignored now') # raise
 
         # if a then b = a -> b = !a or b, fail: !(!a or b) = a and !b
         check1 = ET.SubElement(RevitRuleGenerator.Section, 'Check', {'CheckName': self.rct.seq,
@@ -1236,7 +1257,7 @@ class RevitRuleGenerator:
             ET.SubElement(check1, 'Filter', self.get_param_filter(prop))
 
         if write_xml:
-            ET.ElementTree(RevitRuleGenerator.Root).write('./logs/test.xml', encoding='utf-8', xml_declaration=True)
+            ET.ElementTree(RevitRuleGenerator.Root).write('./logs/checkset.xml', encoding='utf-8', xml_declaration=True)
 
 
 def model_data_loader():
@@ -1310,7 +1331,7 @@ def model_data_loader():
 
 class EvalLogFile:
     SEP = '\n' + '-' * 90 + '\n'
-    EVALs = ('##correct', '##wrong', '##relabel', '##del')
+    EVALs = ('##correct', '##wrong', '##relabel', '##del', '##ignore')
 
     def __init__(self, file_txt):
         self.txt = file_txt
@@ -1325,20 +1346,6 @@ class EvalLogFile:
         return ddict
 
     def msg2dict(self, msg: str):
-        """
-        :param msg:
-            (optional line)!SyntaxError: no viable alternative at input 'xxxx'
-            [70]#6bd06d8
-            Sequence #6bd06d8:	天馈系统的驻波比不应大于2
-            Label	 #82a8e33:	[天馈系统/obj] 的 [驻波比/prop] [不应大于/cmp] [2/Rprop]
-            RCTree	 #f08b2eb
-                [#]->[天馈系统]
-                    check:	[驻波比] ≤ [2]
-            Parsing complete.
-            (optional line)##correct
-        :return:
-        """
-
         # === check & pre-process, move 'SyntaxError' to the second line
         assert ']#' in msg and 'Seq' in msg
         lines = [l for l in msg.split('\n')]
@@ -1350,7 +1357,7 @@ class EvalLogFile:
         # ==========
         lines = [l for l in msg.split('\n') if l.strip()]
         for i in range(len(lines) - 1, -1, -1):
-            if lines[i].startswith('Parsing complete') or lines[i].startswith('Parsing incomplete'):
+            if lines[i].startswith('Parsing'):
                 del lines[i]
             elif lines[i].startswith('!SyntaxError'):
                 del lines[i]
@@ -1438,13 +1445,13 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
 
     idx0s = [d0['idx'] for _, d0 in ef0.ddict.items()]
     # assert len(ef0.ddict) == len(ef1.ddict)  # test
-    for i, (seq_id1, d1) in enumerate(ef1.ddict.items()):
+    for seq_id1, d1 in ef1.ddict.items():
         # get d0, d1 with same seq
         if seq_id1 not in ef0.ddict:
-            d1['idx'] = 9999
+            if d1['idx'] <= max(idx0s):
+                d1['idx'] = 99999
             continue
         d0 = ef0.ddict[seq_id1]
-        # d0 = list(ef0.ddict.values())[i]  # test
 
         d1['idx'] = d0['idx']
         d1['idx'] = idx0s.index(d0['idx']) + 1  # compact index
@@ -1483,9 +1490,9 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     h1 = set(ef1.ddict)
     h_del = h0 - h1
     h_add = h1 - h0
-    print(f'\nLog0 count: {len(h0)}, Log1(current) count: {len(h1)}')
-    print(f'Deleted seqs (n={len(h_del)}): {h_del}')
-    print(f'Added seqs (n={len(h_add)}): {h_add}')
+    print(f'\nEvalLog-v{f0_v}/{f0_v+1} count: {len(h0)}/{len(h1)}')
+    print(f'Deleted seqs (n={len(h_del)})', h_del if h_del else '')
+    print(f'Added seqs (n={len(h_add)})', h_add if h_add else '')
 
     # ==================== Write
     with open(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log', 'w', encoding='utf8') as f:
@@ -1508,10 +1515,11 @@ def update_eval_log(log_dir='./logs', ignore_rct_hash=False):
     # ==================== Hash check
     with open(f'{log_dir}/ruleparse-eval-v{f0_v}.log', 'r', encoding='utf8') as f:
         sha1_f0 = hashlib.sha1(f.read().encode('utf8')).hexdigest()
-        print(f'\nv{f0_v} sha1 hash:', sha1_f0)
     with open(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log', 'r', encoding='utf8') as f:
         sha1_f1 = hashlib.sha1(f.read().encode('utf8')).hexdigest()
-        print(f'v{f0_v + 1} sha1 hash:', sha1_f1)
+    print(f'[SHA1 sum of EvalLog-v{f0_v}/{f0_v+1} is', f'same (duplicate deleted)]' if sha1_f1 == sha1_f0 else 'different]*')
+    if sha1_f1 == sha1_f0:
+        os.remove(f'{log_dir}/ruleparse-eval-v{f0_v + 1}.log')
 
     # ==================== Measure & Print
     print('\n-Stat')
@@ -1577,7 +1585,8 @@ def interactive_rct_parse():
     while True:
         try:
             seq = input('Input a sentence or its id:').strip('# ')
-            if '[' in seq:
+            if '[' in seq and '/' in seq and ']' in seq:
+                seq = re.sub('^[Ll]abel:\s*','',seq)
                 seq, label = slabel_to_seq_label_iit(seq)
             elif len(seq) == 7:
                 seq_id = seq
@@ -1607,14 +1616,11 @@ def interactive_rct_parse():
 
 def get_args():
     parser = argparse.ArgumentParser('ARC Rule Parser')
-    parser.add_argument('-d', '--dataset_name', type=str, default='json', help='dataset name, json or text')
+    parser.add_argument('-d', '--dataset_name', type=str, default='text', help='dataset path or name (json/text)')
     parser.add_argument('-g', '--gen_rule', action='store_true', help='generate rule')
     parser.add_argument('-i', '--interactive', action='store_true', help='interactive rct parse')
     parser.add_argument('-U', '--no_update_eval', action='store_true', help='do not update eval log file')
     args_ = parser.parse_args()
-
-    if args_.dataset_name != 'json':
-        args_.no_update_eval = True
 
     return args_
 
@@ -1648,4 +1654,4 @@ if __name__ == '__main__':
     if not args.no_update_eval:
         update_eval_log()
     if args.gen_rule:
-        ET.ElementTree(RevitRuleGenerator.Root).write('./logs/test.xml', encoding='utf-8', xml_declaration=True)
+        ET.ElementTree(RevitRuleGenerator.Root).write('./logs/checkset.xml', encoding='utf-8', xml_declaration=True)

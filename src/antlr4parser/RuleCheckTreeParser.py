@@ -1,4 +1,4 @@
-# Generated from .\RuleCheckTree.g4 by ANTLR 4.8
+# Generated from RuleCheckTree.g4 by ANTLR 4.9.3
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -11,24 +11,24 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\f")
         buf.write("\61\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\3\2\6\2\f\n\2\r\2")
-        buf.write("\16\2\r\3\3\3\3\6\3\22\n\3\r\3\16\3\23\3\3\3\3\3\3\3\3")
-        buf.write("\3\3\5\3\33\n\3\3\4\3\4\6\4\37\n\4\r\4\16\4 \3\4\3\4\3")
-        buf.write("\4\3\4\5\4\'\n\4\3\5\5\5*\n\5\3\5\5\5-\n\5\3\5\3\5\3\5")
-        buf.write("\2\2\6\2\4\6\b\2\2\2\65\2\13\3\2\2\2\4\32\3\2\2\2\6&\3")
-        buf.write("\2\2\2\b)\3\2\2\2\n\f\5\4\3\2\13\n\3\2\2\2\f\r\3\2\2\2")
-        buf.write("\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\33\5\6\4\2")
-        buf.write("\20\22\7\3\2\2\21\20\3\2\2\2\22\23\3\2\2\2\23\21\3\2\2")
-        buf.write("\2\23\24\3\2\2\2\24\25\3\2\2\2\25\33\5\6\4\2\26\27\5\6")
-        buf.write("\4\2\27\30\5\b\5\2\30\33\3\2\2\2\31\33\5\b\5\2\32\17\3")
-        buf.write("\2\2\2\32\21\3\2\2\2\32\26\3\2\2\2\32\31\3\2\2\2\33\5")
-        buf.write("\3\2\2\2\34\36\7\3\2\2\35\37\5\6\4\2\36\35\3\2\2\2\37")
-        buf.write(" \3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\"\3\2\2\2\"#\5\b\5\2")
-        buf.write("#\'\3\2\2\2$%\7\3\2\2%\'\5\b\5\2&\34\3\2\2\2&$\3\2\2\2")
-        buf.write("\'\7\3\2\2\2(*\7\4\2\2)(\3\2\2\2)*\3\2\2\2*,\3\2\2\2+")
-        buf.write("-\7\5\2\2,+\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\6\2\2/\t\3")
-        buf.write("\2\2\2\t\r\23\32 &),")
+        buf.write("\16\2\r\3\3\3\3\6\3\22\n\3\r\3\16\3\23\3\3\3\3\5\3\30")
+        buf.write("\n\3\3\3\5\3\33\n\3\3\4\3\4\6\4\37\n\4\r\4\16\4 \3\4\3")
+        buf.write("\4\3\4\3\4\5\4\'\n\4\3\5\5\5*\n\5\3\5\5\5-\n\5\3\5\3\5")
+        buf.write("\3\5\2\2\6\2\4\6\b\2\3\3\2\6\7\2\65\2\13\3\2\2\2\4\32")
+        buf.write("\3\2\2\2\6&\3\2\2\2\b)\3\2\2\2\n\f\5\4\3\2\13\n\3\2\2")
+        buf.write("\2\f\r\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2")
+        buf.write("\17\33\5\6\4\2\20\22\7\3\2\2\21\20\3\2\2\2\22\23\3\2\2")
+        buf.write("\2\23\21\3\2\2\2\23\24\3\2\2\2\24\25\3\2\2\2\25\33\5\6")
+        buf.write("\4\2\26\30\5\6\4\2\27\26\3\2\2\2\27\30\3\2\2\2\30\31\3")
+        buf.write("\2\2\2\31\33\5\b\5\2\32\17\3\2\2\2\32\21\3\2\2\2\32\27")
+        buf.write("\3\2\2\2\33\5\3\2\2\2\34\36\7\3\2\2\35\37\5\6\4\2\36\35")
+        buf.write("\3\2\2\2\37 \3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\"\3\2\2\2")
+        buf.write("\"#\5\b\5\2#\'\3\2\2\2$%\7\3\2\2%\'\5\b\5\2&\34\3\2\2")
+        buf.write("\2&$\3\2\2\2\'\7\3\2\2\2(*\7\4\2\2)(\3\2\2\2)*\3\2\2\2")
+        buf.write("*,\3\2\2\2+-\7\5\2\2,+\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\t")
+        buf.write("\2\2\2/\t\3\2\2\2\n\r\23\27\32 &),")
         return buf.getvalue()
 
 
@@ -44,8 +44,8 @@ class RuleCheckTreeParser ( Parser ):
 
     literalNames = [  ]
 
-    symbolicNames = [ "<INVALID>", "PROP", "CMP", "ROBJ", "RPROP", "OBJ", 
-                      "OTHER", "OTHERS", "CHAR", "NEWLINE" ]
+    symbolicNames = [ "<INVALID>", "PROP", "CMP", "ROBJ", "RPROP", "ARPROP", 
+                      "OBJ", "OTHER", "OTHERS", "CHAR", "NEWLINE" ]
 
     RULE_rctree = 0
     RULE_prs = 1
@@ -59,15 +59,16 @@ class RuleCheckTreeParser ( Parser ):
     CMP=2
     ROBJ=3
     RPROP=4
-    OBJ=5
-    OTHER=6
-    OTHERS=7
-    CHAR=8
-    NEWLINE=9
+    ARPROP=5
+    OBJ=6
+    OTHER=7
+    OTHERS=8
+    CHAR=9
+    NEWLINE=10
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.8")
+        self.checkVersion("4.9.3")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
@@ -75,6 +76,7 @@ class RuleCheckTreeParser ( Parser ):
 
 
     class RctreeContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -123,7 +125,7 @@ class RuleCheckTreeParser ( Parser ):
                 self.state = 11 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << RuleCheckTreeParser.PROP) | (1 << RuleCheckTreeParser.CMP) | (1 << RuleCheckTreeParser.ROBJ) | (1 << RuleCheckTreeParser.RPROP))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << RuleCheckTreeParser.PROP) | (1 << RuleCheckTreeParser.CMP) | (1 << RuleCheckTreeParser.ROBJ) | (1 << RuleCheckTreeParser.RPROP) | (1 << RuleCheckTreeParser.ARPROP))) != 0)):
                     break
 
         except RecognitionException as re:
@@ -136,6 +138,7 @@ class RuleCheckTreeParser ( Parser ):
 
 
     class PrsContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -179,10 +182,11 @@ class RuleCheckTreeParser ( Parser ):
 
         localctx = RuleCheckTreeParser.PrsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_prs)
+        self._la = 0 # Token type
         try:
             self.state = 24
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 13
@@ -211,14 +215,14 @@ class RuleCheckTreeParser ( Parser ):
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 20
-                self.pr()
                 self.state = 21
-                self.req()
-                pass
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                if _la==RuleCheckTreeParser.PROP:
+                    self.state = 20
+                    self.pr()
 
-            elif la_ == 4:
-                self.enterOuterAlt(localctx, 4)
+
                 self.state = 23
                 self.req()
                 pass
@@ -234,6 +238,7 @@ class RuleCheckTreeParser ( Parser ):
 
 
     class PrContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -281,7 +286,7 @@ class RuleCheckTreeParser ( Parser ):
         try:
             self.state = 36
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 26
@@ -321,6 +326,7 @@ class RuleCheckTreeParser ( Parser ):
 
 
     class ReqContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -328,6 +334,9 @@ class RuleCheckTreeParser ( Parser ):
 
         def RPROP(self):
             return self.getToken(RuleCheckTreeParser.RPROP, 0)
+
+        def ARPROP(self):
+            return self.getToken(RuleCheckTreeParser.ARPROP, 0)
 
         def CMP(self):
             return self.getToken(RuleCheckTreeParser.CMP, 0)
@@ -379,7 +388,12 @@ class RuleCheckTreeParser ( Parser ):
 
 
             self.state = 44
-            self.match(RuleCheckTreeParser.RPROP)
+            _la = self._input.LA(1)
+            if not(_la==RuleCheckTreeParser.RPROP or _la==RuleCheckTreeParser.ARPROP):
+                self._errHandler.recoverInline(self)
+            else:
+                self._errHandler.reportMatch(self)
+                self.consume()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

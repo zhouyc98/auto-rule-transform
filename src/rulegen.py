@@ -1113,7 +1113,7 @@ def log_rcts(rcts):
     def log_rct(rct, n_parse):
         print('*' * 90)
         print('The rct after equivalent class define and dataproperty replacement is:')
-        rct.change_log_func(log)
+        rct.change_log_fn(log)
         rct.log_msg(n_parse)
         log('-' * 90)
         log('Code(Sparql) gen complete.')
@@ -1580,7 +1580,7 @@ def automated_code_generator(link_method=0, islog = False, file_name = 'sentence
         for rct in rcts:
             entity_link(rct)
             n_parse += 1
-            rct.change_log_func(log_func=log)
+            rct.change_log_fn(log_fn=log)
             rct.log_msg(n_parse)
         log('-' * 90)  # 这个log是必要的，因为在解析log文件时默认以90个'-'作为rctree信息之间的分隔符，最后一个rct log完后要补一个
         log('Rule entity link complete.')
@@ -1780,7 +1780,7 @@ if __name__ == '__main__':
     '''
         test for sparql generator
         also used for sparql generation
-        it reads the C:\\Users\\16424\\PycharmProjects\\NLP\\auto-rule-transform\\data\\xiaofang\\sentence.txt
+        it reads the C:\\Users\\16424\\PycharmProjects\\NLP\\auto-rule-transform\\data\\xiaofang\\sentences.txt
     '''
     rcts = RCNode_entity_link(2, False)
     for rct in rcts:
