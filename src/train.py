@@ -417,6 +417,7 @@ def get_args():
     parser.add_argument('-l', '--lr', type=float, default=3e-5, help='learning rate')
     parser.add_argument('-s', '--step', type=int, default=0, help='lr schedule step, set 0 to disable')
     parser.add_argument('-c', '--cuda', type=str, default=_cuda, help='cuda visible device id')
+    parser.add_argument('-m', '--model', type=str, default='./models/bert', help='cuda visible device id')
     parser.add_argument('-v', '--verbose', type=int, default=2, help='verbose level, >0 means True')
     parser.add_argument('-r', '--resume', action='store_true', help='resume training')
     parser.add_argument('--sql', type=int, default=125, help='sequence length')
@@ -447,7 +448,7 @@ if __name__ == '__main__':
     train_data_loader, val_data_loader, corpus = get_data_loader('../data/xiaofang', batch_size, sql)
 
     model: nn.Module
-    model = BertZhTokenClassifier_(n_label, p_drop=0.1)  # bert_name=args.bert_name
+    model = BertZhTokenClassifier_(n_label, p_drop=0.1, bert_name=args.model)  # bert_name=args.bert_name
     model.to(device)
     if args.resume:
         load_last_best(model)

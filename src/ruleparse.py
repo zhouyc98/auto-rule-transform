@@ -368,8 +368,20 @@ class RCTree:
         self.slabel = str(self.full_label)
 
         self.parse_complete = False
+        self.rule_category = ''
         self.error_msg = ''
+        self.sparql = ''
         self.log_fn = log_fn
+
+    def change_log_fn(self, log_fn):
+        self.log_fn = log_fn
+
+    def set_sparql(self, sparql):
+        self.sparql = sparql
+
+    def set_rule_category(self, category, category_name):
+        self.rule_category = category
+        self.rule_category_name = category_name
 
     def strip_seq_label(self):
         self.label_iit.sort(key=lambda t: t[0])
@@ -391,6 +403,10 @@ class RCTree:
 
     def add_curr_child(self, node):
         self.curr_node.add_child(node)
+        self.curr_node = node
+
+    def add_parent_node(self, node):
+        node.add_child(self.curr_node)
         self.curr_node = node
 
     def pre_process1(self):
@@ -925,12 +941,23 @@ class RCTree:
         self.log_fn(f'[{idx}]#{self.seq_id}')
         self.log_fn(f'Seq:\t{self.seq}')
         self.log_fn(f'Label:\t{self.slabel}')
+        if self.rule_category:
+            self.log_fn(f"Category:  {str(self.rule_category)}  | Categoty Name:  {self.rule_category_name}")
 
         if self.error_msg:
             self.log_fn(self.error_msg)
 
         self.log_fn(f"RCTree:\t#{self.hashtag()}\n{self}")
-        self.log_fn('Parsing complete' if self.parse_complete else f'Parsing failed')
+        self.log_fn('Parsing complete' if self.parse_complete else 'Parsing failed')
+        if self.sparql:
+            self.log_fn(f"Sparql:\n{self.sparql}")
+
+    def count_node_pronoun(self):
+        if not hasattr(self, 'count_pronoun'):
+            self.count_pronoun = 1
+        else:
+            self.count_pronoun += 1
+        return self.count_pronoun
 
     def hashtag(self):
         return str_hash(self.__str__(indent='\t\t'))
@@ -988,6 +1015,24 @@ class RCNode:
 
         self.anchor = ''  # anchor to a specific obj, when there are multiple objs
         self.or_combine = False  # bool condition, default (False) is AND
+
+    def set_word(self, word):
+        self.word = word
+
+    def set_onto_info(self, onto_name, onto_type):
+        self.onto_name = onto_name # class or dataproperty
+        self.onto_type = onto_type
+
+    def has_child(self):
+        return len(self.child_nodes) > 0
+
+    def add_sparql_pronoun(self, count: int):
+        if self.onto_type == 'class':
+            self.sparql_pronoun = '?class_'+ self.onto_name + '_' + str(count)
+        elif self.onto_type == 'dataproperty':
+            self.sparql_pronoun = '?dataproperty_' + self.onto_name + '_' + str(count)
+        else:
+            print('The Node has no ontoclass')
 
     def is_app_req(self):
         if self.req:
@@ -1074,8 +1119,9 @@ class RCNode:
             # TODO default_cmp_value 高于: 位置 大于, etc
 
         t = f'/{self.tag}' if show_tag else ''
-        o = f':{self.onto_name}' if self.onto_name else ''
-        str_ = f'[{word}{self.anchor}{o}{t}]'
+        ot = f':{self.onto_type}' if self.onto_type else ''
+        on = f':{self.onto_name}' if self.onto_name else ''
+        str_ = f'[{word}{self.anchor}{ot}{on}{t}]'
 
         if show_req:
             if self.req:
@@ -1172,7 +1218,6 @@ class RevitRuleGenerator:
         cmp_str = str(cmp)
         if not node.is_app_req():
             cmp_str = reverse_cmp(str(cmp))
-
         cond_str = self.Cmp_Condition[cmp_str]
         if not re.search('[0-9]', rv) and 'Equal' in cond_str:
             cond_str = 'WildCard' if cond_str == 'Equal' else 'WildCardNoMatch'

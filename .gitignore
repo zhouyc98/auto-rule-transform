@@ -3,7 +3,15 @@
 
 data/msra/
 data/xiaofang/test
+data/xiaofang/test-实体链接论文
+data/xiaofang/test-条文分类论文
+data/xiaofang/sentence
 data/rules
+data/docanno/20210927
+data/ontology/BuildingDesignFireCodesOntology-0414.owl
+data/ontology/BuildingDesignFireCodesOntology-simple.pkl
+data/ontology/BuildingDesignFireCodesOntology-simple.owl
+data/ifc
 bak*/
 csv/
 predictions/
@@ -30,7 +38,7 @@ run*.*
 *.pt
 *.pth
 *.lnk
-
+*.ttl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

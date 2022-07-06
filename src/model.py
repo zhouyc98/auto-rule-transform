@@ -8,7 +8,7 @@ from transformers import BertModel
 
 
 class BertZhTokenClassifier_(nn.Module):
-    def __init__(self, n_labels, p_drop=0.1, bert_name='bert-base-chinese'):
+    def __init__(self, n_labels, p_drop=0.1, bert_name='./models/bert-base-chinese'):
         super().__init__()
         self.n_labels = n_labels
 
