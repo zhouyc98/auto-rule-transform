@@ -2,7 +2,10 @@
 
 Automated rule transformation for automated rule checking.  
 
-This repo contains the dataset, codes, and documents for the paper entitled "Integrating NLP and Context-Free Grammar for Complex Rule Interpretation towards Automated Compliance Checking" (DOI: http://dx.doi.org/10.13140/RG.2.2.22993.45921).  
+This repo contains the dataset, codes, and documents for the following paper:  
+
+* Y.-C. Zhou, Z. Zheng, J.-R. Lin, X.-Z. Lu, Integrating NLP and context-free grammar for complex rule interpretation towards automated compliance checking, Computers in Industry. 142 (2022) 103746. https://doi.org/10.1016/j.compind.2022.103746.
+* Z. Zheng, Y.-C. Zhou, X.-Z. Lu, J.-R. Lin, Knowledge-Informed Semantic Alignment and Rule Interpretation for Automated Compliance Checking. (Under review)
 
 ![example](src/logs/example.jpg)
 
@@ -20,11 +23,12 @@ The data/rules/[建筑设计防火规范-第三章语料-class.txt] contains the
 
 
 
+
 ## Semantic Labeling
 
-This repo uses [Pytorch](https://pytorch.org/) for training deep learning models. You can follow the official [get-started](https://pytorch.org/get-started/locally/) to install it.
+This repo uses [Pytorch](https://pytorch.org/) for training deep learning models. Please ensure Pytorch's version >= 1.6 because we use [torch.cuda.amp](https://pytorch.org/docs/stable/amp.html) introduced in v1.6 for FP16 acceleration in CUDA device. To use FP32 in CPU device, specify arg `--fp16 0` in train.py.
 
-Note: if you want to use FP16 acceleration to train the model, please ensure your Pytorch version >= 1.6 because we use [torch.cuda.amp](https://pytorch.org/docs/stable/amp.html) introduced in Pytorch 1.6. Otherwise, you may would like to comment the `from torch.cuda.amp import autocast, GradScaler` and remove relevant statements in train.py.
+This repo uses BERT model provided by [transformers (v2.11)](https://pypi.org/project/transformers/2.11.0/)  package. By default, the model training uses [bert-base-chinese](https://huggingface.co/bert-base-chinese/tree/main), please download pytorch_model.bin and other json & txt files [here](https://huggingface.co/bert-base-chinese/tree/main) and place them in src/models/bert-base-chinese/.
 
 Run train.py in src/ for model training, which will store trained models in src/models/:
 
@@ -35,11 +39,13 @@ For more information about usages, run `python3 train.py -h`
 
 To report performance of the model _BertZh0_best.pth, run `python3 train.py --report`
 
-Run inference.py for semantic labeling , which will read all txt files in data/xiaofang/test and store the labeling result in src/logs/predictions:
+Run inference.py for semantic labeling , which will use model _BertZh0_best.pth and read all txt files in data/xiaofang/test and store the labeling result in src/logs/predictions:
 
   ```
 python3 inference.py
   ```
+
+
 
 ## Syntactic Parsing
 
@@ -69,6 +75,8 @@ python3 ruleparse.py -i
 # it will read the sentence and show the parsing result immediately
   ```
 
+
+
 ## Rule Generation (SPARQL)
 
 This function is used to generate SPARQL codes, which can be reasoned by protege, from the semantic labeling results (i.e., data/xiaofang/sentences.txt)
@@ -86,22 +94,29 @@ The following steps are required to generate SPARQL automatically.
 4. Run `python rulegen.py` to generate SPARQL. The generated file is in src/logs/rulegen.log
 
 
-## References
 
-If you use this repo, please cite these articles: 
+## Citation
+
 ```
-    {
-         author = {Yucheng Zhou, Zhe Zheng, Jiarui Lin and Xinzheng Lu},
-         title = {Integrating NLP and Context-Free Grammar for Complex Rule Interpretation towards Automated Compliance Checking},   
-         href = https://doi.org/10.13140/RG.2.2.22993.45921 
-         year = {2021}
-     }
-    {
-         author = {Zhe Zheng, Yucheng Zhou, Xinzheng Lu and Jiarui Lin},
-         title = {Knowledge-Informed Semantic Alignment and Rule Interpretation for Automated Compliance Checking},
-         year = {2021}
-     }
+@article{zhou2022a,
+	author = {Yu-Cheng Zhou and Zhe Zheng and Jia-Rui Lin and Xin-Zheng Lu},
+	title = {Integrating {NLP} and context-free grammar for complex rule interpretation towards automated compliance checking},
+	year = {2022},
+	volume = {142},
+	issn = {0166-3615},
+	pages = {103746},
+	doi = {https://doi.org/10.1016/j.compind.2022.103746},
+	journal = {Computers in Industry},
+}
+
+@article{zheng2022,
+	author = {Zhe Zheng and Yu-Cheng Zhou and Xin-Zheng Lu and Jia-Rui Lin},
+	title = {Knowledge-Informed Semantic Alignment and Rule Interpretation for Automated Compliance Checking},
+	year = {2022}
+}
 ```
+
+
 
 ## License
 

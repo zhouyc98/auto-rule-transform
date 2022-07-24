@@ -410,14 +410,14 @@ def get_args():
 
     # === default args
     _bs = 4 if 'Windows' in platform.platform() else 32
-    _cuda = '1' if socket.gethostname() == 'dell-PowerEdge-T640' else '0'
+    _cuda = '' if 'macOS' in platform.platform() else '1' if socket.gethostname() == 'dell-PowerEdge-T640' else '0'
 
     parser.add_argument('-e', '--epochs', type=int, default=15, help='number of training epochs')
     parser.add_argument('-b', '--batch_size', type=int, default=_bs, help='batch size')
     parser.add_argument('-l', '--lr', type=float, default=3e-5, help='learning rate')
     parser.add_argument('-s', '--step', type=int, default=0, help='lr schedule step, set 0 to disable')
-    parser.add_argument('-c', '--cuda', type=str, default=_cuda, help='cuda visible device id')
-    parser.add_argument('-m', '--model', type=str, default='./models/bert', help='cuda visible device id')
+    parser.add_argument('-c', '--cuda', type=str, default=_cuda, help='cuda visible device id, empty for using CPU')
+    parser.add_argument('-m', '--model', type=str, default='./models/bert-base-chinese', help='model name')
     parser.add_argument('-v', '--verbose', type=int, default=2, help='verbose level, >0 means True')
     parser.add_argument('-r', '--resume', action='store_true', help='resume training')
     parser.add_argument('--sql', type=int, default=125, help='sequence length')
@@ -435,7 +435,7 @@ if __name__ == '__main__':
     start_time = time.time()
     args = get_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.cuda
-    device = torch.device(f'cuda')
+    device = torch.device('cuda' if args.cuda else 'cpu')
     n_epoch = args.epochs
     batch_size = args.batch_size
     sql = args.sql

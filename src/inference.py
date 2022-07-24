@@ -21,8 +21,7 @@ def test():
 
 if __name__ == '__main__':
     args = get_args()
-    # device = torch.device('cpu' if 'Windows' in platform.platform() else 'cuda:0')
-    device = torch.device('cuda:0')
+    device = torch.device('cpu' if ('Windows' in platform.platform() or 'macOS' in platform.platform()) else 'cuda')
     batch_size = args.batch_size
     sql = args.sql
     n_label = 15
