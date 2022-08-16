@@ -5,7 +5,7 @@ Automated rule transformation for automated rule checking.
 This repo contains the dataset, codes, and documents for the following paper:  
 
 * Y.-C. Zhou, Z. Zheng, J.-R. Lin, X.-Z. Lu, Integrating NLP and context-free grammar for complex rule interpretation towards automated compliance checking, Computers in Industry. 142 (2022) 103746. https://doi.org/10.1016/j.compind.2022.103746.
-* Z. Zheng, Y.-C. Zhou, X.-Z. Lu, J.-R. Lin, Knowledge-Informed Semantic Alignment and Rule Interpretation for Automated Compliance Checking. (Under review)
+* Z. Zheng, Y.-C. Zhou, X.-Z. Lu, J.-R. Lin, Knowledge-informed semantic alignment and rule interpretation for automated compliance checking, Automation in Construction. 142 (2022) 104524. https://doi.org/10.1016/j.autcon.2022.104524.
 
 ![example](src/logs/example.jpg)
 
@@ -101,18 +101,21 @@ The following steps are required to generate SPARQL automatically.
 @article{zhou2022a,
 	author = {Yu-Cheng Zhou and Zhe Zheng and Jia-Rui Lin and Xin-Zheng Lu},
 	title = {Integrating {NLP} and context-free grammar for complex rule interpretation towards automated compliance checking},
-	year = {2022},
-	volume = {142},
-	issn = {0166-3615},
-	pages = {103746},
-	doi = {https://doi.org/10.1016/j.compind.2022.103746},
 	journal = {Computers in Industry},
+	volume = {142},
+	pages = {103746},
+	year = {2022},
+	doi = {https://doi.org/10.1016/j.compind.2022.103746},
 }
 
-@article{zheng2022,
+@article{zheng2022a,
 	author = {Zhe Zheng and Yu-Cheng Zhou and Xin-Zheng Lu and Jia-Rui Lin},
-	title = {Knowledge-Informed Semantic Alignment and Rule Interpretation for Automated Compliance Checking},
-	year = {2022}
+	title = {Knowledge-informed semantic alignment and rule interpretation for automated compliance checking},
+	journal = {Automation in Construction},
+	volume = {142},
+	pages = {104524},
+	year = {2022},
+	doi = {https://doi.org/10.1016/j.autcon.2022.104524},
 }
 ```
 
